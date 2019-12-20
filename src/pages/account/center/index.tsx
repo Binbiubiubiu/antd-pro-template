@@ -66,21 +66,21 @@ interface CenterState {
 )
 class Center extends PureComponent<CenterProps, CenterState> {
   // static getDerivedStateFromProps(
-  //   props: accountAndcenterProps,
-  //   state: accountAndcenterState,
+  // props: accountAndcenterProps,
+  // state: accountAndcenterState,
   // ) {
-  //   const { match, location } = props;
-  //   const { tabKey } = state;
-  //   const path = match && match.path;
+  // const { match, location } = props;
+  // const { tabKey } = state;
+  // const path = match && match.path;
 
-  //   const urlTabKey = location.pathname.replace(`${path}/`, '');
-  //   if (urlTabKey && urlTabKey !== '/' && tabKey !== urlTabKey) {
-  //     return {
-  //       tabKey: urlTabKey,
-  //     };
-  //   }
+  // const urlTabKey = location.pathname.replace(`${path}/`, '');
+  // if (urlTabKey && urlTabKey !== '/' && tabKey !== urlTabKey) {
+  // return {
+  // tabKey: urlTabKey,
+  // };
+  // }
 
-  //   return null;
+  // return null;
   // }
 
   state: CenterState = {

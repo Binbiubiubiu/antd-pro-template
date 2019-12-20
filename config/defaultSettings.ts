@@ -59,5 +59,5 @@ export default {
   title: '社区管理系统',
   pwa: false,
   iconfontUrl: '',
-  disableMobile: true
+  disableMobile: true,
 } as DefaultSettings;

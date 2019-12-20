@@ -5,12 +5,12 @@ import { Redirect } from 'umi';
 import { ConnectState, ConnectProps } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
 import PageLoading from '@/components/PageLoading';
-import {getToken} from "@/utils/authority";
+import { getToken } from '@/utils/authority';
 
 interface SecurityLayoutProps extends ConnectProps {
   loading?: boolean;
   currentUser?: CurrentUser;
-  token?:string;
+  token?: string;
 }
 
 interface SecurityLayoutState {
@@ -28,28 +28,32 @@ class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayout
     });
     // const { dispatch } = this.props;
     // if (dispatch) {
-    //   dispatch({
-    //     type: 'user/fetchCurrent',
-    //   });
+    // dispatch({
+    // type: 'user/fetchCurrent',
+    // });
     // }
   }
 
   render() {
     const { isReady } = this.state;
-    const { children, loading, currentUser ,token} = this.props;
+    const {
+      children,
+      loading,
+      // currentUser, token
+    } = this.props;
     // You can replace it to your authentication rule (such as check token exists)
     // 你可以把它替换成你自己的登录认证规则（比如判断 token 是否存在）
     const isLogin = !!getToken();
     // const queryString = stringify({
-    //   redirect: window.location.href,
+    // redirect: window.location.href,
     // });
 
     if ((!isLogin && loading) || !isReady) {
       return <PageLoading />;
     }
     if (!isLogin) {
-      return <Redirect to={`/user/login`}></Redirect>;
-      // return <Redirect to={`/user/login?${queryString}`}></Redirect>;
+      return <Redirect to="/user/login"></Redirect>;
+      // return <Redirect to={`/user/index?${queryString}`}></Redirect>;
     }
     return children;
   }

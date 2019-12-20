@@ -17,7 +17,8 @@ const actions = (
   </div>
 );
 
-const RegisterResult: React.FC<RouteChildrenProps> = ({ location }) => (
+const RegisterResult: React.FC<RouteChildrenProps> = () => (
+  // ({ location }) => (
   <Result
     className={styles.registerResult}
     status="success"

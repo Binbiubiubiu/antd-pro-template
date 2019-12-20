@@ -1,4 +1,7 @@
-import { Avatar, Icon, Menu,
+import {
+  Avatar,
+  Icon,
+  Menu,
   // Spin
 } from 'antd';
 import { ClickParam } from 'antd/es/menu';
@@ -75,20 +78,20 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
       </HeaderDropdown>
     );
     // return currentUser && currentUser.name ? (
-    //   <HeaderDropdown overlay={menuHeaderDropdown}>
-    //     <span className={`${styles.action} ${styles.account}`}>
-    //       <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-    //       <span className={styles.name}>{currentUser.name}</span>
-    //     </span>
-    //   </HeaderDropdown>
+    // <HeaderDropdown overlay={menuHeaderDropdown}>
+    // <span className={`${styles.action} ${styles.account}`}>
+    // <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
+    // <span className={styles.name}>{currentUser.name}</span>
+    // </span>
+    // </HeaderDropdown>
     // ) : (
-    //   <Spin
-    //     size="small"
-    //     style={{
-    //       marginLeft: 8,
-    //       marginRight: 8,
-    //     }}
-    //   />
+    // <Spin
+    // size="small"
+    // style={{
+    // marginLeft: 8,
+    // marginRight: 8,
+    // }}
+    // />
     // );
   }
 }

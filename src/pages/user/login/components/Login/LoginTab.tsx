@@ -23,7 +23,7 @@ class LoginTab extends Component<LoginTabProps> {
 
   constructor(props: LoginTabProps) {
     super(props);
-    this.uniqueId = generateId('login-tab-');
+    this.uniqueId = generateId('index-tab-');
   }
 
   componentDidMount() {

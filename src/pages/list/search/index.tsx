@@ -35,8 +35,8 @@ class Search extends Component<SearchProps> {
     }
   };
 
-  handleFormSubmit = (value: string) => {
-    console.log(value);
+  handleFormSubmit = () => {
+    // console.log(value);
   };
 
   getTabKey = () => {

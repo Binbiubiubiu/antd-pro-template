@@ -24,31 +24,31 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
 
   return (
     <div className={className}>
-      {/*<HeaderSearch*/}
-      {/*  className={`${styles.action} ${styles.search}`}*/}
-      {/*  placeholder="站内搜索"*/}
-      {/*  defaultValue="umi ui"*/}
-      {/*  dataSource={['搜索提示一', '搜索提示二', '搜索提示三']}*/}
-      {/*  onSearch={value => {*/}
-      {/*    console.log('input', value);*/}
-      {/*  }}*/}
-      {/*  onPressEnter={value => {*/}
-      {/*    console.log('enter', value);*/}
-      {/*  }}*/}
-      {/*/>*/}
-      {/*<Tooltip title="使用文档">*/}
-      {/*  <a*/}
-      {/*    target="_blank"*/}
-      {/*    href="https://pro.ant.design/docs/getting-started"*/}
-      {/*    rel="noopener noreferrer"*/}
-      {/*    className={styles.action}*/}
-      {/*  >*/}
-      {/*    <Icon type="question-circle-o" />*/}
-      {/*  </a>*/}
-      {/*</Tooltip>*/}
-      {/*<NoticeIconView />*/}
+      {/* <HeaderSearch */}
+      {/* className={`${styles.action} ${styles.search}`} */}
+      {/* placeholder="站内搜索" */}
+      {/* defaultValue="umi ui" */}
+      {/* dataSource={['搜索提示一', '搜索提示二', '搜索提示三']} */}
+      {/* onSearch={value => { */}
+      {/* console.log('input', value); */}
+      {/* }} */}
+      {/* onPressEnter={value => { */}
+      {/* console.log('enter', value); */}
+      {/* }} */}
+      {/* /> */}
+      {/* <Tooltip title="使用文档"> */}
+      {/* <a */}
+      {/* target="_blank" */}
+      {/* href="https://pro.ant.design/docs/getting-started" */}
+      {/* rel="noopener noreferrer" */}
+      {/* className={styles.action} */}
+      {/* > */}
+      {/* <Icon type="question-circle-o" /> */}
+      {/* </a> */}
+      {/* </Tooltip> */}
+      {/* <NoticeIconView /> */}
       <Avatar />
-      {/*<SelectLang className={styles.action} />*/}
+      {/* <SelectLang className={styles.action} /> */}
     </div>
   );
 };

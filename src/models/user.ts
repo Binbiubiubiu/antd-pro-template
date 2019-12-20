@@ -2,7 +2,10 @@ import { Effect } from 'dva';
 import { Reducer } from 'redux';
 
 import { queryCurrent, query as queryUsers } from '@/services/user';
-import {setAuthority, setToken} from "@/utils/authority";
+import {
+  // setAuthority,
+  setToken,
+} from '@/utils/authority';
 
 export interface CurrentUser {
   avatar?: string;
@@ -20,7 +23,7 @@ export interface CurrentUser {
 
 export interface UserModelState {
   currentUser?: CurrentUser;
-  token?: string,
+  token?: string;
 }
 
 export interface UserModelType {
@@ -32,7 +35,7 @@ export interface UserModelType {
   };
   reducers: {
     saveCurrentUser: Reducer<UserModelState>;
-    saveToken:Reducer<UserModelState>;
+    saveToken: Reducer<UserModelState>;
     changeNotifyCount: Reducer<UserModelState>;
   };
 }

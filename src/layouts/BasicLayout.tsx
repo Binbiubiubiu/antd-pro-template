@@ -10,28 +10,29 @@ import ProLayout, {
   DefaultFooter,
   // SettingDrawer,
 } from '@ant-design/pro-layout';
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'umi/link';
-import {Dispatch} from 'redux';
-import {connect} from 'dva';
+import { Dispatch } from 'redux';
+import { connect } from 'dva';
 // import {Result, Button} from 'antd';
-import Authorized from '@/utils/Authorized';
+// import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
-import {ConnectState} from '@/models/connect';
+import { ConnectState } from '@/models/connect';
 // import {getAuthorityFromRouter} from '@/utils/utils';
 import logo from '../assets/logo.svg';
+import { getSysUserAuthList } from '@/services/menu';
 
 // const noMatch = (
-//   <Result
-//     status="403"
-//     title="403"
-//     subTitle="抱歉，你无权访问该页面。"
-//     extra={
-//       <Button type="primary">
-//         <Link to="/user/login">前往登录页</Link>
-//       </Button>
-//     }
-//   />
+// <Result
+// status="403"
+// title="403"
+// subTitle="抱歉，你无权访问该页面。"
+// extra={
+// <Button type="primary">
+// <Link to="/user/index">前往登录页</Link>
+// </Button>
+// }
+// />
 // );
 
 export interface BasicLayoutProps extends ProLayoutProps {
@@ -54,40 +55,39 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
  * use Authorized check all menu item
  */
 
-const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
-  menuList.map(item => {
-    const localItem = {...item, children: item.children ? menuDataRender(item.children) : []};
-    return Authorized.check(item.authority, localItem, null) as MenuDataItem;
-  });
+// const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
+//   menuList.map(item => {
+//     const localItem = { ...item, children: item.children ? menuDataRender(item.children) : [] };
+//     return Authorized.check(item.authority, localItem, null) as MenuDataItem;
+//   });
 
-const defaultFooterDom = (
-  <DefaultFooter copyright="2020 浙江微天下信息科技股份有限公司出品" links={false}/>
+export const defaultFooterDom = (
+  <DefaultFooter copyright="2020 浙江微天下信息科技股份有限公司出品" links={false} />
 );
 
-const footerRender: BasicLayoutProps['footerRender'] = () => {
-  return defaultFooterDom;
-};
+const footerRender: BasicLayoutProps['footerRender'] = () => defaultFooterDom;
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const {
     dispatch,
     children,
     settings,
-    location = {
-      pathname: '/',
-    },
+    // location = {
+    // pathname: '/',
+    // },
   } = props;
   /**
    * constructor
    */
 
-  // useEffect(() => {
-  //   if (dispatch) {
-  //     dispatch({
-  //       type: 'user/fetchCurrent',
-  //     });
-  //   }
-  // }, []);
+  const [menuData, setMenuData] = useState([]);
+
+  useEffect(() => {
+    getSysUserAuthList().then(res => {
+      const { data = [] } = res;
+      setMenuData(data);
+    });
+  }, []);
   /**
    * init variables
    */
@@ -102,7 +102,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   }; // get children authority
 
   // const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
-  //   authority: undefined,
+  // authority: undefined,
   // };
   return (
     <>
@@ -138,29 +138,30 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           );
         }}
         footerRender={footerRender}
-        menuDataRender={menuDataRender}
-        rightContentRender={() => <RightContent/>}
+        menuDataRender={() => menuData}
+        // menuDataRender={menuDataRender}
+        rightContentRender={() => <RightContent />}
         {...props}
         {...settings}
       >
-        {/*<Authorized authority={authorized!.authority} noMatch={noMatch}>*/}
-          {children}
-        {/*</Authorized>*/}
+        {/* <Authorized authority={authorized!.authority} noMatch={noMatch}> */}
+        {children}
+        {/* </Authorized> */}
       </ProLayout>
-    {/*  <SettingDrawer*/}
-    {/*    settings={settings}*/}
-    {/*    onSettingChange={config =>*/}
-    {/*      dispatch({*/}
-    {/*        type: 'settings/changeSetting',*/}
-    {/*        payload: config,*/}
-    {/*      })*/}
-    {/*    }*/}
-    {/*  />*/}
+      {/* <SettingDrawer */}
+      {/* settings={settings} */}
+      {/* onSettingChange={config => */}
+      {/* dispatch({ */}
+      {/* type: 'settings/changeSetting', */}
+      {/* payload: config, */}
+      {/* }) */}
+      {/* } */}
+      {/* /> */}
     </>
   );
 };
 
-export default connect(({global, settings}: ConnectState) => ({
+export default connect(({ global, settings }: ConnectState) => ({
   collapsed: global.collapsed,
   settings,
 }))(BasicLayout);

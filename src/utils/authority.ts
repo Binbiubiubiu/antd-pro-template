@@ -19,7 +19,7 @@ export function getAuthority(str?: string): string | string[] {
   // preview.pro.ant.design only do not use in your production.
   // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
   // if (!authority && ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site') {
-  //   return ['admin'];
+  // return ['admin'];
   // }
   return authority;
 }
@@ -31,11 +31,10 @@ export function setAuthority(authority: string | string[]): void {
   reloadAuthorized();
 }
 
-
 export function getToken(): string | null {
   return localStorage.getItem('wtx-token');
 }
 
-export function setToken(token: string ): void {
+export function setToken(token: string): void {
   localStorage.setItem('wtx-token', token);
 }
