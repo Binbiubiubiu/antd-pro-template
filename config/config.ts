@@ -114,7 +114,7 @@ export default {
           routes: [
             {
               path: '/',
-              redirect: '/safe', // authority: ['admin', 'user'],
+              redirect: '/community/suggest', // authority: ['admin', 'user'],
             },
             // {
             //   path: '/dashboard',
@@ -122,10 +122,10 @@ export default {
             //   icon: 'dashboard',
             //   routes: [
             //     {
-            //       name: 'analysis',
+            //       name: 'alarm',
             //       icon: 'smile',
-            //       path: '/dashboard/analysis',
-            //       component: './dashboard/analysis',
+            //       path: '/dashboard/alarm',
+            //       component: './dashboard/alarm',
             //     },
             //     {
             //       name: 'monitor',
@@ -147,10 +147,10 @@ export default {
             //   name: 'form',
             //   routes: [
             //     {
-            //       name: 'basic-form',
+            //       name: 'basic-data-form',
             //       icon: 'smile',
-            //       path: '/form/basic-form',
-            //       component: './form/basic-form',
+            //       path: '/form/basic-data-form',
+            //       component: './form/basic-data-form',
             //     },
             //     {
             //       name: 'step-form',
@@ -207,10 +207,10 @@ export default {
             //       component: './list/table-list',
             //     },
             //     {
-            //       name: 'basic-list',
+            //       name: 'basic-data-list',
             //       icon: 'smile',
-            //       path: '/list/basic-list',
-            //       component: './list/basic-list',
+            //       path: '/list/basic-data-list',
+            //       component: './list/basic-data-list',
             //     },
             //     {
             //       name: 'card-list',
@@ -232,10 +232,10 @@ export default {
             //   icon: 'profile',
             //   routes: [
             //     {
-            //       name: 'basic',
+            //       name: 'basic-data',
             //       icon: 'smile',
-            //       path: '/profile/basic',
-            //       component: './profile/basic',
+            //       path: '/profile/basic-data',
+            //       component: './profile/basic-data',
             //     },
             //     {
             //       name: 'advanced',
@@ -271,14 +271,44 @@ export default {
               routes: [
                 {
                   name: '投诉建议',
-                  path: '/community/suggestion',
-                  component: './community/suggestion',
+                  path: '/community/suggest',
+                  component: './community/suggest',
                 },
-                // {
-                //   name: '小区管理',
-                //   path: '/community/community-management',
-                //   component: './community/community-management',
-                // },
+                {
+                  name: '小区管理',
+                  path: '/community/village',
+                  component: './community/village',
+                },
+                {
+                  name: '基础档案',
+                  path: '/community/basic-data',
+                  component: './community/basic-data',
+                },
+                {
+                  name: '访客管理',
+                  path: '/community/visitor',
+                  component: './community/visitor',
+                },
+                {
+                  name: '公告管理',
+                  path: '/community/notice',
+                  component: './community/notice',
+                },
+                {
+                  name: '报修管理',
+                  path: '/community/repair',
+                  component: './community/repair',
+                },
+                {
+                  name: '投票管理',
+                  path: '/community/poll',
+                  component: './community/poll',
+                },
+                {
+                  name: '业委会管理',
+                  path: '/community/industry',
+                  component: './community/industry',
+                },
                 {
                   component: './exception/404',
                 },
@@ -290,6 +320,21 @@ export default {
               path: '/safe',
               routes: [
                 {
+                  name: '视频管理',
+                  path: '/safe/video',
+                  component: './safe/video',
+                },
+                {
+                  name: '出入记录',
+                  path: '/safe/in-and-out',
+                  component: './safe/in-and-out',
+                },
+                {
+                  name: '人脸识别',
+                  path: '/safe/face',
+                  component: './safe/face',
+                },
+                {
                   component: './exception/404',
                 },
               ],
@@ -299,6 +344,11 @@ export default {
               icon: 'fire',
               path: '/fire',
               routes: [
+                {
+                  name: '报警统计',
+                  path: '/fire/alarm',
+                  component: './fire/alarm',
+                },
                 {
                   component: './exception/404',
                 },

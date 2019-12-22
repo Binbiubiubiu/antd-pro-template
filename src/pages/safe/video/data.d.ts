@@ -1,0 +1,34 @@
+interface VideoModal {
+  avatar: string;
+  name: string;
+  id: string;
+}
+
+interface VideoCardListItem extends VideoModal {
+  id: string;
+  owner: string;
+  title: string;
+  avatar: string;
+  cover: string;
+  status: 'normal' | 'exception' | 'active' | 'success';
+  percent: number;
+  logo: string;
+  href: string;
+  body?: any;
+  updatedAt: number;
+  createdAt: number;
+  subDescription: string;
+  description: string;
+  activeUser: number;
+  newUser: number;
+  star: number;
+  like: number;
+  message: number;
+  content: string;
+  members: VideoModal[];
+}
+
+interface VideoCardListParams {
+  houseName: string;
+  person: string;
+}

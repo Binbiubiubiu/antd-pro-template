@@ -6,8 +6,8 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { ColumnProps } from 'antd/es/table';
 import { queryLog } from './service';
 import { LogTableItem } from '@/pages/system/log/data';
-import GlobalPaginaitonSetting from '@/components/GloabalPaginaiton';
 import LogSearch from '@/pages/system/log/components/LogSearch';
+import { defaultPaginationSetting } from '@/easy-components/EasyTable';
 
 interface LogTableListProps extends FormComponentProps {}
 
@@ -88,7 +88,7 @@ const LogTableList: React.FC<LogTableListProps> = () => {
             current: pageIndex,
             pageSize,
             total,
-            ...GlobalPaginaitonSetting,
+            ...defaultPaginationSetting,
           }}
           onChange={({ current }) => {
             setPageIndex(current!);

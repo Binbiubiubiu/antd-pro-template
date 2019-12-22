@@ -8,6 +8,7 @@ import { deleteRole } from '@/pages/system/user/services/role.service';
 import { queryUser } from '@/pages/system/user/services/user.service';
 import RoleList from './components/RoleList';
 import UserSearch from '@/pages/system/user/components/UserSearch';
+import { defaultPaginationSetting } from '@/easy-components/EasyTable';
 
 interface TableListProps extends FormComponentProps<UserTableItem> {}
 
@@ -155,6 +156,7 @@ const UserTable: React.FC<TableListProps> = () => {
                 columns={columns}
                 dataSource={tableData}
                 pagination={{
+                  ...defaultPaginationSetting,
                   current: pageIndex,
                   pageSize,
                   total,

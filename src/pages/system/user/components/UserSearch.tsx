@@ -1,8 +1,7 @@
 import React, { FC, FormEvent, useEffect, useState } from 'react';
 import { Button, Form, Input, Select } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
-import { queryHouse, HouseModal } from '@/pages/system/user/services/house.service';
-import { UserTableParams } from '@/pages/system/user/services/user.service';
+import { queryHouse } from '@/pages/system/user/services/house.service';
 
 const FormItem = Form.Item;
 const { Option } = Select;

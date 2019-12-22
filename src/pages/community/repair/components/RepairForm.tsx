@@ -1,60 +1,33 @@
-import { Button, Col, Form, Input, Modal, Row, Typography } from 'antd';
+import { Col, Form, Input, Modal, Row, Typography } from 'antd';
 import React, { Component } from 'react';
 
 import { FormComponentProps } from 'antd/es/form';
 
-export interface FormValueType extends Partial<SuggestionTableForm> {}
-
-export interface SuggestFormProps extends FormComponentProps {
-  onCancel: (flag?: boolean, formVals?: FormValueType) => void;
-  onSubmit: (values: FormValueType) => void;
-  updateModalVisible: boolean;
-  values: Partial<SuggestionTableForm>;
-}
 const FormItem = Form.Item;
 const { Paragraph, Text } = Typography;
 const { TextArea } = Input;
 
-export interface SuggestFormState {
+export interface FormValueType extends Partial<RepairTableForm> {}
+
+export interface RepairFormProps extends FormComponentProps {
+  onCancel: () => void;
+  onSubmit: (formVals: FormValueType) => void;
+  modalVisible: boolean;
   formVals: FormValueType;
 }
 
-class SuggestForm extends Component<SuggestFormProps, SuggestFormState> {
+export interface RepairFormState {}
+
+class RepairForm extends Component<RepairFormProps, RepairFormState> {
   static defaultProps = {
-    handleUpdate: () => {},
-    handleUpdateModalVisible: () => {},
-    values: {},
+    onSubmit: () => {},
+    formVals: {},
   };
 
-  constructor(props: SuggestFormProps) {
-    super(props);
-
-    this.state = {
-      formVals: {},
-    };
-  }
-
-  handleNext = () => {
-    const { form, onSubmit: handleUpdate } = this.props;
-    const { formVals: oldValue } = this.state;
-    form.validateFields((err, fieldsValue) => {
-      if (err) return;
-      const formVals = { ...oldValue, ...fieldsValue };
-      this.setState(
-        {
-          formVals,
-        },
-        () => {
-          handleUpdate(formVals);
-        },
-      );
-    });
-  };
-
-  renderContent = (currentStep: number, formVals: FormValueType) => {
+  renderContent = (formVals: FormValueType) => {
     const { form } = this.props;
     return [
-      <Typography>
+      <Typography key="suggestForm">
         <Paragraph>
           <Text strong>牛依·15990285367（美哉美城15幢1单元502)</Text>{' '}
           <Text type="secondary" style={{ float: 'right' }}>
@@ -100,21 +73,16 @@ class SuggestForm extends Component<SuggestFormProps, SuggestFormState> {
     ];
   };
 
-  renderFooter = (currentStep: number) => {
-    const { onCancel: handleUpdateModalVisible, values } = this.props;
-    return [
-      <Button key="cancel" onClick={() => handleUpdateModalVisible(false, values)}>
-        取消
-      </Button>,
-      <Button key="forward" type="primary" onClick={() => this.handleNext(currentStep)}>
-        回复
-      </Button>,
-    ];
+  handleSubmit = () => {
+    const { form, onSubmit } = this.props;
+    form.validateFields((err, fieldsValue) => {
+      if (err) return;
+      onSubmit(fieldsValue);
+    });
   };
 
   render() {
-    const { updateModalVisible, onCancel: handleUpdateModalVisible, values } = this.props;
-    const { currentStep, formVals } = this.state;
+    const { formVals, modalVisible, onCancel } = this.props;
 
     return (
       <Modal
@@ -122,15 +90,15 @@ class SuggestForm extends Component<SuggestFormProps, SuggestFormState> {
         bodyStyle={{ padding: '32px 40px 48px' }}
         destroyOnClose
         title="投诉反馈"
-        visible={updateModalVisible}
-        footer={this.renderFooter(currentStep)}
-        onCancel={() => handleUpdateModalVisible(false, values)}
-        afterClose={() => handleUpdateModalVisible()}
+        visible={modalVisible}
+        onCancel={() => onCancel()}
+        onOk={() => this.handleSubmit()}
+        okText="回复"
       >
-        {this.renderContent(currentStep, formVals)}
+        {this.renderContent(formVals)}
       </Modal>
     );
   }
 }
 
-export default Form.create<SuggestFormProps>()(SuggestForm);
+export default Form.create<RepairFormProps>()(RepairForm);
