@@ -1,43 +1,55 @@
-import { Card, Form, Table } from 'antd';
-import React, { useEffect, useState } from 'react';
-
+import { Button, Col, Form, Input } from 'antd';
+import React from 'react';
 import { FormComponentProps } from 'antd/es/form';
+import { WrappedFormUtils } from 'antd/es/form/Form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { ColumnProps } from 'antd/es/table';
+
 import { queryLog } from './service';
-import { LogTableItem } from '@/pages/system/log/data';
-import LogSearch from '@/pages/system/log/components/LogSearch';
-import { defaultPaginationSetting } from '@/easy-components/EasyTable';
+import EasyTable from '@/easy-components/EasyTable';
+import EasySearchForm from '@/easy-components/EasySearchForm';
+import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 
 interface LogTableListProps extends FormComponentProps {}
 
 const LogTableList: React.FC<LogTableListProps> = () => {
-  const [userData, setUserData] = useState<LogTableItem[]>([]);
-  const [pageIndex, setPageIndex] = useState<number>(1);
-  const [pageSize /* setPageSize */] = useState<number>(10);
-  const [total, setTotal] = useState<number>(0);
+  const { tableData, current, pageSize, total, setCurrent, setSearchForm } = usePagableFetch<
+    LogTableItem
+  >({
+    request: ({ searchForm, pageIndex, pageSize: size }) =>
+      queryLog({ ...searchForm, pageIndex, pageSize: size }),
+    onSuccess: ({ res, setTableData, setTotal }) => {
+      setTableData(res.data.records);
+      setTotal(res.data.total);
+    },
+    onError: () => {},
+  });
 
-  const [searchText, setSearchText] = useState<string>('');
-
-  const refreshUserTable = () => {
-    queryLog({
-      pageIndex,
-      pageSize,
-      param: searchText,
-    }).then(res => {
-      const { records, total: totalNum } = res.data;
-      setUserData(records);
-      setTotal(totalNum);
-    });
-  };
-
-  useEffect(() => {
-    refreshUserTable();
-  }, []);
-
-  useEffect(() => {
-    refreshUserTable();
-  }, [pageIndex, searchText]);
+  const renderSearchForm = (form: WrappedFormUtils<UserTableParams>) => [
+    <Col key="param" {...GolobalSearchFormLayout}>
+      <Form.Item key="param" label="搜索">
+        {form.getFieldDecorator('param', {
+          rules: [],
+        })(<Input placeholder="操作人/操作接口/操作说明" type="text" />)}
+      </Form.Item>
+    </Col>,
+    <Col key="options" {...GolobalSearchFormLayout}>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          查询
+        </Button>
+        <Button
+          onClick={() => {
+            form.resetFields();
+          }}
+          style={{ marginLeft: 8 }}
+        >
+          重置
+        </Button>
+      </Form.Item>
+    </Col>,
+  ];
 
   const columns: ColumnProps<LogTableItem>[] = [
     {
@@ -71,30 +83,28 @@ const LogTableList: React.FC<LogTableListProps> = () => {
 
   return (
     <PageHeaderWrapper>
-      <Card bordered={false} style={{ marginBottom: 24 }}>
-        <LogSearch
-          onSubmit={fieldsValue => {
-            setSearchText(fieldsValue.param);
-            setPageIndex(1);
-          }}
-        />
-      </Card>
-      <Card bordered={false}>
-        <Table
-          rowKey="id"
-          columns={columns}
-          dataSource={userData}
-          pagination={{
-            current: pageIndex,
-            pageSize,
-            total,
-            ...defaultPaginationSetting,
-          }}
-          onChange={({ current }) => {
-            setPageIndex(current!);
-          }}
-        />
-      </Card>
+      <EasySearchForm
+        onSubmit={form => {
+          setSearchForm(form);
+          setCurrent(1);
+        }}
+        renderSearchFormItem={renderSearchForm}
+        wrappedWithCard
+      />
+      <EasyTable<LogTableItem>
+        rowKey="id"
+        columns={columns}
+        dataSource={tableData}
+        pagination={{
+          current,
+          pageSize,
+          total,
+          onChange(index) {
+            setCurrent(index);
+          },
+        }}
+        wrappedWithCard
+      />
     </PageHeaderWrapper>
   );
 };

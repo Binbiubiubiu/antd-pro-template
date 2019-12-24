@@ -44,7 +44,7 @@ export function usePagableFetch<T = any, S = any>(props: PagableFetchProps<T, S>
 
   useEffect(() => {
     refreshTable();
-  }, [current, pageSize]);
+  }, [current, pageSize, JSON.stringify(searchForm)]);
 
   return {
     tableData,

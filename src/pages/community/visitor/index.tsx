@@ -1,5 +1,5 @@
 import { Button, Col, Form, Input, Select } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
 import { ColumnProps } from 'antd/es/table';
@@ -7,19 +7,16 @@ import { FormComponentProps } from 'antd/es/form';
 
 import EasyTable from '@/easy-components/EasyTable';
 import EasySearchForm from '@/easy-components/EasySearchForm';
-import VisitorForm from './components/VisitorForm';
 import { queryVisitor } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 
 const { Option } = Select;
 
-interface SuggestTableProps extends FormComponentProps {}
+interface VisitorTableProps extends FormComponentProps {}
 
-const VisitorTable: React.FC<SuggestTableProps> = () => {
-  const [modalVisible, handleModalVisible] = useState<boolean>(false);
-  const [stepFormValues, setStepFormValues] = useState<Partial<SuggestTableForm>>({});
-
-  const columns: ColumnProps<SuggestTableItem>[] = [
+const VisitorTable: React.FC<VisitorTableProps> = () => {
+  const columns: ColumnProps<VisitorTableItem>[] = [
     {
       title: '序号',
       dataIndex: 'index',
@@ -28,54 +25,42 @@ const VisitorTable: React.FC<SuggestTableProps> = () => {
       },
     },
     {
-      title: '小区名称',
+      title: '小区',
       dataIndex: 'houseName',
     },
     {
-      title: '内容',
+      title: '访客姓名',
       dataIndex: 'content',
     },
     {
-      title: '类型',
+      title: '身份证',
       dataIndex: 'type',
     },
     {
-      title: '状态',
+      title: '手机号',
       dataIndex: 'state',
     },
     {
-      title: '反馈人',
+      title: '被访者',
       dataIndex: 'createMan',
     },
     {
-      title: '反馈时间',
+      title: '访问地址',
+      dataIndex: 'createTime2',
+    },
+    {
+      title: '来访事由',
       dataIndex: 'createTime',
     },
     {
-      title: '操作',
-      dataIndex: 'option',
-      render: (_, record) => (
-        <a
-          onClick={() => {
-            handleModalVisible(true);
-            setStepFormValues(record);
-          }}
-        >
-          详情
-        </a>
-      ),
+      title: '抓拍',
+      dataIndex: 'createTime3',
     },
   ];
 
-  const searchFormItemLayout = {
-    md: 12,
-    xl: 8,
-    xxl: 6,
-  };
-
-  const renderSearchForm = (form: WrappedFormUtils<SuggestTableParams>) => [
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="houseId" label="所属小区">
+  const renderSearchForm = (form: WrappedFormUtils<VisitorTableSearch>) => [
+    <Col key="houseId" {...GolobalSearchFormLayout}>
+      <Form.Item label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
         })(
@@ -86,15 +71,15 @@ const VisitorTable: React.FC<SuggestTableProps> = () => {
         )}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="content" label="访客信息">
+    <Col key="content" {...GolobalSearchFormLayout}>
+      <Form.Item label="访客信息">
         {form.getFieldDecorator('content', {
           rules: [],
         })(<Input placeholder="姓名/手机号" />)}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="options">
+    <Col key="options" {...GolobalSearchFormLayout}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           查询
         </Button>
@@ -111,7 +96,7 @@ const VisitorTable: React.FC<SuggestTableProps> = () => {
   ];
 
   const { tableData, current, pageSize, total, setCurrent, setSearchForm } = usePagableFetch<
-    SuggestTableItem
+    VisitorTableItem
   >({
     request: ({ searchForm, pageIndex, pageSize: size }) =>
       queryVisitor({ ...searchForm, pageIndex, pageSize: size }),
@@ -132,7 +117,7 @@ const VisitorTable: React.FC<SuggestTableProps> = () => {
         renderSearchFormItem={renderSearchForm}
         wrappedWithCard
       />
-      <EasyTable<SuggestTableItem>
+      <EasyTable<VisitorTableItem>
         rowKey="id"
         dataSource={tableData}
         pagination={{
@@ -145,18 +130,6 @@ const VisitorTable: React.FC<SuggestTableProps> = () => {
           setCurrent(index || 1);
         }}
         wrappedWithCard
-      />
-      <VisitorForm
-        onSubmit={async () => {
-          handleModalVisible(false);
-          setStepFormValues({});
-        }}
-        onCancel={() => {
-          handleModalVisible(false);
-          setStepFormValues({});
-        }}
-        modalVisible={modalVisible}
-        formVals={stepFormValues}
       />
     </PageHeaderWrapper>
   );

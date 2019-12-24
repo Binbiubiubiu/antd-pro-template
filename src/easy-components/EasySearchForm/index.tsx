@@ -6,7 +6,7 @@ import styles from './style.less';
 
 export interface EasySearchFormProps<T> extends FormComponentProps<T> {
   onSubmit: (form: T) => void;
-  renderSearchFormItem: (form: WrappedFormUtils<T>) => React.ReactNodeArray;
+  renderSearchFormItem: (form: WrappedFormUtils<T>) => React.ReactElement[];
   wrappedWithCard?: boolean;
 }
 

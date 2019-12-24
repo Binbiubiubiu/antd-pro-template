@@ -15,37 +15,31 @@ export async function queryUser(data: Pageable<UserTableParams>) {
  * 删除用户
  * @param data
  */
-export async function removeUser(data: { key: number[] }) {
-  return request('/rule', {
+export async function removeUser(data: { id: number }) {
+  return request('/sys/user/deleteSysUser', {
     method: 'POST',
-    data: {
-      ...data,
-    },
+    data,
   });
 }
 
 /**
- * 新增用户
+ * 新增或修改用户
  * @param data
  */
-export async function addUser(data: UserTableForm) {
-  return request('/api/rule', {
+export async function saveOrUpdateUser(data: UserTableForm) {
+  return request('/sys/user/saveOrUpdateUser', {
     method: 'POST',
-    data: {
-      ...data,
-    },
+    data,
   });
 }
 
 /**
- * 修改用户
+ * 检查用户名是否重复
  * @param data
  */
-export async function updateUser(data: UserTableForm) {
-  return request('/api/rule', {
+export async function checkUserName(data: { userName: string }) {
+  return request('/sys/user/checkUserName', {
     method: 'POST',
-    data: {
-      ...data,
-    },
+    data,
   });
 }

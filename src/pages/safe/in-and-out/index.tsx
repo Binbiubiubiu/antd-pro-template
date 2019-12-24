@@ -119,6 +119,9 @@ const InAndOutCardList: FC<InAndOutCardListProps> = () => {
             current,
             pageSize,
             total,
+            onChange(index) {
+              setCurrent(index);
+            },
           }}
           dataSource={tableData}
           renderItem={item => (

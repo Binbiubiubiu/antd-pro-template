@@ -3,7 +3,7 @@ import { List, Pagination } from 'antd';
 import { GridContent } from '@ant-design/pro-layout';
 import { ListProps } from 'antd/es/list';
 import { PaginationProps } from 'antd/lib/pagination/Pagination';
-import defaultPaginationSetting from '../GlobalPaginationSetting';
+import { GolobalPaginationSetting } from '../GlobalSetting';
 
 import styles from './style.less';
 
@@ -17,7 +17,7 @@ function EasyCardList<T = any>(props: EasyCardListProps<T>) {
   const renderResult = (
     <GridContent className={styles['easy-card-list']}>
       <List<T> grid={{ gutter: 24, xl: 4, lg: 2, md: 2, sm: 2, xs: 1 }} {...rest} />
-      <Pagination {...Object.assign({}, defaultPaginationSetting, pagination)} />
+      <Pagination {...Object.assign({}, GolobalPaginationSetting, pagination)} />
     </GridContent>
   );
 

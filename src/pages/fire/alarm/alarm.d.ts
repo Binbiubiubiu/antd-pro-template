@@ -1,14 +1,12 @@
 interface AlarmModal {
   id: number;
   houseName: string;
-  state: string;
-  type: string;
-  equipName: string;
-  address: string;
-  alarmTime: string;
+  confirmStatus: string;
+  deviceTypeName: string;
+  deviceName: string;
+  position: string;
+  productTime: string;
   confirmTime: string;
 }
 
-interface ALarmTableItem extends AlarmModal {}
-
-interface AlarmTableParams extends Pageable<{}> {}
+interface AlarmTableItem extends AlarmModal {}

@@ -1,20 +1,18 @@
 interface RepairModal {
   id: number;
   houseName: string;
-  content: string;
+  name: string;
   type: string;
   state: string;
-  createMan: string;
+  expactTime: string;
   createTime: string;
 }
 
 interface RepairTableItem extends RepairModal {}
 
-interface RepairTableForm extends RepairModal {
-  desc: string;
-}
+interface RepairTableForm extends RepairModal {}
 
-interface RepairTableParams {
+interface RepairTableSearch {
   houseName: string;
   type: string;
   createTime: string;

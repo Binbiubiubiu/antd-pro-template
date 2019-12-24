@@ -1,25 +1,24 @@
-import { Button, Col, Form, Input, Select } from 'antd';
-import React, { useState } from 'react';
+import { Button, Card, Col, Form, Input, Row, Select } from 'antd';
+import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
+import router from 'umi/router';
+import Link from 'umi/link';
 
 import EasyTable from '@/easy-components/EasyTable';
 import EasySearchForm from '@/easy-components/EasySearchForm';
-import RepairForm from './components/PollForm';
 import { queryPoll } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 
 const { Option } = Select;
 
 interface PollTableProps extends FormComponentProps {}
 
 const PollTable: React.FC<PollTableProps> = () => {
-  const [modalVisible, handleModalVisible] = useState<boolean>(false);
-  const [stepFormValues, setStepFormValues] = useState<Partial<SuggestTableForm>>({});
-
-  const columns: ColumnProps<SuggestTableItem>[] = [
+  const columns: ColumnProps<PollTableItem>[] = [
     {
       title: '序号',
       dataIndex: 'index',
@@ -28,54 +27,33 @@ const PollTable: React.FC<PollTableProps> = () => {
       },
     },
     {
-      title: '小区名称',
-      dataIndex: 'houseName',
+      title: '投票标题',
+      dataIndex: 'title',
     },
     {
-      title: '内容',
-      dataIndex: 'content',
+      title: '接受对象',
+      dataIndex: 'people',
     },
     {
-      title: '类型',
-      dataIndex: 'type',
+      title: '投票人数',
+      dataIndex: 'number',
     },
     {
-      title: '状态',
-      dataIndex: 'state',
-    },
-    {
-      title: '反馈人',
-      dataIndex: 'createMan',
-    },
-    {
-      title: '反馈时间',
-      dataIndex: 'createTime',
+      title: '结束时间',
+      dataIndex: 'finishTime',
     },
     {
       title: '操作',
       dataIndex: 'option',
-      render: (_, record) => (
-        <a
-          onClick={() => {
-            handleModalVisible(true);
-            setStepFormValues(record);
-          }}
-        >
-          详情
-        </a>
-      ),
+      width: 150,
+      fixed: 'right',
+      render: (_, record) => <Link to="/community/poll/info">详情</Link>,
     },
   ];
 
-  const searchFormItemLayout = {
-    md: 12,
-    xl: 8,
-    xxl: 6,
-  };
-
-  const renderSearchForm = (form: WrappedFormUtils<SuggestTableParams>) => [
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="houseId" label="所属小区">
+  const renderSearchForm = (form: WrappedFormUtils<PollTableSearch>) => [
+    <Col key="houseId" {...GolobalSearchFormLayout}>
+      <Form.Item label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
         })(
@@ -86,15 +64,15 @@ const PollTable: React.FC<PollTableProps> = () => {
         )}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="content" label="投票标题">
+    <Col key="content" {...GolobalSearchFormLayout}>
+      <Form.Item label="投票标题">
         {form.getFieldDecorator('content', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="options">
+    <Col key="options" {...GolobalSearchFormLayout}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           查询
         </Button>
@@ -111,7 +89,7 @@ const PollTable: React.FC<PollTableProps> = () => {
   ];
 
   const { tableData, current, pageSize, total, setCurrent, setSearchForm } = usePagableFetch<
-    SuggestTableItem
+    PollTableItem
   >({
     request: ({ searchForm, pageIndex, pageSize: size }) =>
       queryPoll({ ...searchForm, pageIndex, pageSize: size }),
@@ -132,32 +110,34 @@ const PollTable: React.FC<PollTableProps> = () => {
         renderSearchFormItem={renderSearchForm}
         wrappedWithCard
       />
-      <EasyTable<SuggestTableItem>
-        rowKey="id"
-        dataSource={tableData}
-        pagination={{
-          current,
-          pageSize,
-          total,
-        }}
-        columns={columns}
-        onChange={({ current: index }) => {
-          setCurrent(index || 1);
-        }}
-        wrappedWithCard
-      />
-      <RepairForm
-        onSubmit={async () => {
-          handleModalVisible(false);
-          setStepFormValues({});
-        }}
-        onCancel={() => {
-          handleModalVisible(false);
-          setStepFormValues({});
-        }}
-        modalVisible={modalVisible}
-        formVals={stepFormValues}
-      />
+      <Card bordered={false}>
+        <Row style={{ marginBottom: 16 }}>
+          <Col>
+            <Button
+              icon="plus"
+              type="primary"
+              onClick={() => {
+                router.push('/community/poll/form');
+              }}
+            >
+              发起投票
+            </Button>
+          </Col>
+        </Row>
+        <EasyTable<PollTableItem>
+          rowKey="id"
+          dataSource={tableData}
+          pagination={{
+            current,
+            pageSize,
+            total,
+          }}
+          columns={columns}
+          onChange={({ current: index }) => {
+            setCurrent(index || 1);
+          }}
+        />
+      </Card>
     </PageHeaderWrapper>
   );
 };

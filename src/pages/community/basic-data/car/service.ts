@@ -1,8 +1,7 @@
 // import request from '@/utils/request';
 import { getFakeList } from './_mock';
 
-export async function queryVillage() {
-  // (data: Pageable<VillageTableParams>) {
+export async function queryBasicDataPerson(data: Pageable<CarTableSearch>) {
   return Promise.resolve(getFakeList());
 
   // return request('/api/rule', {

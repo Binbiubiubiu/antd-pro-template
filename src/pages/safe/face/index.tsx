@@ -106,6 +106,9 @@ const FaceCardList: FC<FaceCardListProps> = () => {
             current,
             pageSize,
             total,
+            onChange(index) {
+              setCurrent(index);
+            },
           }}
           dataSource={tableData}
           renderItem={item => (

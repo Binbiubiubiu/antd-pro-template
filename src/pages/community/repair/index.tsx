@@ -10,6 +10,7 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import RepairForm from './components/RepairForm';
 import { queryRepair } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 
 const { Option } = Select;
 
@@ -17,9 +18,9 @@ interface RepairTableProps extends FormComponentProps {}
 
 const RepairTable: React.FC<RepairTableProps> = () => {
   const [modalVisible, handleModalVisible] = useState<boolean>(false);
-  const [stepFormValues, setStepFormValues] = useState<Partial<SuggestTableForm>>({});
+  const [stepFormValues, setStepFormValues] = useState<Partial<RepairTableForm>>({});
 
-  const columns: ColumnProps<SuggestTableItem>[] = [
+  const columns: ColumnProps<RepairTableItem>[] = [
     {
       title: '序号',
       dataIndex: 'index',
@@ -28,12 +29,12 @@ const RepairTable: React.FC<RepairTableProps> = () => {
       },
     },
     {
-      title: '小区名称',
+      title: '小区',
       dataIndex: 'houseName',
     },
     {
-      title: '内容',
-      dataIndex: 'content',
+      title: '姓名',
+      dataIndex: 'name',
     },
     {
       title: '类型',
@@ -44,21 +45,21 @@ const RepairTable: React.FC<RepairTableProps> = () => {
       dataIndex: 'state',
     },
     {
-      title: '反馈人',
-      dataIndex: 'createMan',
+      title: '期望维修时间',
+      dataIndex: 'expectTime',
     },
     {
-      title: '反馈时间',
+      title: '创建时间',
       dataIndex: 'createTime',
     },
     {
       title: '操作',
       dataIndex: 'option',
+      width: 150,
       render: (_, record) => (
         <a
           onClick={() => {
             handleModalVisible(true);
-            setStepFormValues(record);
           }}
         >
           详情
@@ -67,14 +68,8 @@ const RepairTable: React.FC<RepairTableProps> = () => {
     },
   ];
 
-  const searchFormItemLayout = {
-    md: 12,
-    xl: 8,
-    xxl: 5,
-  };
-
   const renderSearchForm = (form: WrappedFormUtils<SuggestTableParams>) => [
-    <Col {...searchFormItemLayout}>
+    <Col key="houseId" {...GolobalSearchFormLayout}>
       <Form.Item key="houseId" label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
@@ -86,8 +81,20 @@ const RepairTable: React.FC<RepairTableProps> = () => {
         )}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="type" label="状态">
+    <Col key="state" {...GolobalSearchFormLayout}>
+      <Form.Item label="状态">
+        {form.getFieldDecorator('state', {
+          rules: [],
+        })(
+          <Select placeholder="请选择">
+            <Option value="1">利一家园</Option>
+            <Option value="2">望京</Option>
+          </Select>,
+        )}
+      </Form.Item>
+    </Col>,
+    <Col key="type" {...GolobalSearchFormLayout}>
+      <Form.Item label="类别">
         {form.getFieldDecorator('type', {
           rules: [],
         })(
@@ -98,27 +105,15 @@ const RepairTable: React.FC<RepairTableProps> = () => {
         )}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="type" label="类别">
-        {form.getFieldDecorator('type', {
-          rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Option value="1">利一家园</Option>
-            <Option value="2">望京</Option>
-          </Select>,
-        )}
-      </Form.Item>
-    </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="content" label="反馈信息">
+    <Col key="content" {...GolobalSearchFormLayout}>
+      <Form.Item label="反馈信息">
         {form.getFieldDecorator('content', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout} xxl={4}>
-      <Form.Item key="options">
+    <Col key="options" {...GolobalSearchFormLayout} xxl={4}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           查询
         </Button>
@@ -135,7 +130,7 @@ const RepairTable: React.FC<RepairTableProps> = () => {
   ];
 
   const { tableData, current, pageSize, total, setCurrent, setSearchForm } = usePagableFetch<
-    SuggestTableItem
+    RepairTableItem
   >({
     request: ({ searchForm, pageIndex, pageSize: size }) =>
       queryRepair({ ...searchForm, pageIndex, pageSize: size }),
@@ -156,7 +151,7 @@ const RepairTable: React.FC<RepairTableProps> = () => {
         renderSearchFormItem={renderSearchForm}
         wrappedWithCard
       />
-      <EasyTable<SuggestTableItem>
+      <EasyTable<RepairTableItem>
         rowKey="id"
         dataSource={tableData}
         pagination={{
@@ -171,7 +166,7 @@ const RepairTable: React.FC<RepairTableProps> = () => {
         wrappedWithCard
       />
       <RepairForm
-        onSubmit={async () => {
+        onSubmit={() => {
           handleModalVisible(false);
           setStepFormValues({});
         }}

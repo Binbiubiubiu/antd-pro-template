@@ -54,6 +54,8 @@ const SuggestTable: React.FC<SuggestTableProps> = () => {
     {
       title: '操作',
       dataIndex: 'option',
+      width: 150,
+      fixed: 'right',
       render: (_, record) => (
         <a
           onClick={() => {
@@ -74,8 +76,8 @@ const SuggestTable: React.FC<SuggestTableProps> = () => {
   };
 
   const renderSearchForm = (form: WrappedFormUtils<SuggestTableParams>) => [
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="houseId" label="所属小区">
+    <Col key="houseId" {...searchFormItemLayout}>
+      <Form.Item label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
         })(
@@ -86,8 +88,8 @@ const SuggestTable: React.FC<SuggestTableProps> = () => {
         )}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="type" label="类型">
+    <Col key="type" {...searchFormItemLayout}>
+      <Form.Item label="类型">
         {form.getFieldDecorator('type', {
           rules: [],
         })(
@@ -98,22 +100,22 @@ const SuggestTable: React.FC<SuggestTableProps> = () => {
         )}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="createTime" label="反馈时间">
+    <Col key="createTime" {...searchFormItemLayout}>
+      <Form.Item label="反馈时间">
         {form.getFieldDecorator('createTime', {
           rules: [],
         })(<DatePicker placeholder="请选择" style={{ width: '100%' }} showTime />)}
       </Form.Item>
     </Col>,
-    <Col md={12} xl={12}>
-      <Form.Item key="content" label="反馈信息">
+    <Col key="content" md={12} xl={12}>
+      <Form.Item label="反馈信息">
         {form.getFieldDecorator('content', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
-      <Form.Item key="options">
+    <Col key="options" {...searchFormItemLayout}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           查询
         </Button>

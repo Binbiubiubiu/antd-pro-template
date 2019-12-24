@@ -42,3 +42,30 @@ type FormValidateCallBack = (
   source?: any,
   options?: any,
 ) => any;
+
+declare module 'wangeditor' {
+  class E {
+    customConfig: {
+      uploadFileName: string;
+      uploadImgServer: string;
+      onchange: (content: string) => void;
+      menus: string[];
+      uploadImgHooks: {
+        customInsert: (
+          insertImg: (url: string) => void,
+          result: { url: string },
+          editor: this,
+        ) => void;
+      };
+      uploadImgShowBase64: boolean;
+    };
+
+    create: () => void;
+
+    txt: {
+      html: (content: string) => void;
+    };
+  }
+
+  export default E;
+}

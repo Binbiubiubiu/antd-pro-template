@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Card, Table } from 'antd';
 import { TableProps } from 'antd/es/table';
-import defaultPaginationSetting from '../GlobalPaginationSetting';
+import { GolobalPaginationSetting } from '../GlobalSetting';
 
 import styles from './style.less';
 
@@ -17,9 +17,10 @@ function EasyTable<T = any>(props: EasyTableProps<T>) {
     <Table<T>
       className={classNames(styles['easy-table'], className)}
       pagination={{
-        ...defaultPaginationSetting,
+        ...GolobalPaginationSetting,
         ...pagination,
       }}
+      scroll={{ x: true }}
       {...rest}
     />
   );

@@ -10,11 +10,7 @@ interface VisitorModal {
 
 interface VisitorTableItem extends VisitorModal {}
 
-interface VisitorTableForm extends VisitorModal {
-  desc: string;
-}
-
-interface VisitorTableParams {
+interface VisitorTableSearch {
   houseName: string;
   type: string;
   createTime: string;

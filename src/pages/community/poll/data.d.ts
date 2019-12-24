@@ -14,7 +14,7 @@ interface PollTableForm extends PollModal {
   desc: string;
 }
 
-interface PollTableParams {
+interface PollTableSearch {
   houseName: string;
   type: string;
   createTime: string;

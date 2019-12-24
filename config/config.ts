@@ -66,6 +66,7 @@ const plugins: IPlugin[] = [
 
 export default {
   plugins,
+  extraBabelIncludes: [/node_modules[\\/][\\@]uform[\\/]antd[\\/]esm/],
   // history: 'hash',
   hash: true,
   targets: {
@@ -295,6 +296,11 @@ export default {
                   component: './community/notice',
                 },
                 {
+                  name: '新增公告',
+                  path: '/community/notice/form',
+                  component: './community/notice/NoticeForm',
+                },
+                {
                   name: '报修管理',
                   path: '/community/repair',
                   component: './community/repair',
@@ -303,6 +309,16 @@ export default {
                   name: '投票管理',
                   path: '/community/poll',
                   component: './community/poll',
+                },
+                {
+                  name: '发起投票',
+                  path: '/community/poll/form',
+                  component: './community/poll/PollForm',
+                },
+                {
+                  name: '投票详情',
+                  path: '/community/poll/info',
+                  component: './community/poll/PollInfo',
                 },
                 {
                   name: '业委会管理',
@@ -348,6 +364,11 @@ export default {
                   name: '报警统计',
                   path: '/fire/alarm',
                   component: './fire/alarm',
+                },
+                {
+                  name: '巡更统计',
+                  path: '/fire/patrol',
+                  component: './fire/patrol',
                 },
                 {
                   component: './exception/404',
@@ -444,7 +465,8 @@ export default {
   // chainWebpack: webpackPlugin,
   proxy: {
     '/csp': {
-      target: `http://192.168.1.109:8080`,
+      target: `http://192.168.1.142:8080`, // 高阔ip
+      // target: `http://192.168.1.109:8080`,
       // target: `http://120.26.92.123:21081/`,
       changeOrigin: true, // pathRewrite: { '^/isc': '/isc' },
     },

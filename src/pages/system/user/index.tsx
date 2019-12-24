@@ -1,14 +1,16 @@
-import { Button, Form, message, Row, Col, Card, Modal, Table } from 'antd';
+import { Button, Form, message, Row, Col, Card, Modal, Select, Input, Divider } from 'antd';
 import { ColumnProps } from 'antd/es/table';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper, GridContent } from '@ant-design/pro-layout';
-import CreateForm from './components/UserForm';
-import { deleteRole } from '@/pages/system/user/services/role.service';
-import { queryUser } from '@/pages/system/user/services/user.service';
+import { WrappedFormUtils } from 'antd/es/form/Form';
+import UserForm from './components/UserForm';
+import { queryUser, removeUser } from '@/pages/system/user/services/user.service';
 import RoleList from './components/RoleList';
-import UserSearch from '@/pages/system/user/components/UserSearch';
-import { defaultPaginationSetting } from '@/easy-components/EasyTable';
+import { usePagableFetch } from '@/hooks/usePagableFetch';
+import EasyTable from '@/easy-components/EasyTable';
+import EasySearchForm from '@/easy-components/EasySearchForm';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 
 interface TableListProps extends FormComponentProps<UserTableItem> {}
 
@@ -25,7 +27,7 @@ const handleRemove = (selectedRows: UserTableItem, cb?: () => void) => {
     cancelText: '取消',
     onOk: async () => {
       try {
-        await deleteRole(selectedRows);
+        await removeUser(selectedRows);
         if (cb) {
           cb.call(null);
         }
@@ -42,29 +44,60 @@ const UserTable: React.FC<TableListProps> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
 
-  const [tableData, setTableData] = useState<UserTableItem[]>([]);
-  const [pageIndex /* setPageIndex */] = useState<number>(1);
-  const [pageSize /* setPageSize */] = useState<number>(10);
-  const [total, setTotal] = useState<number>(0);
+  const {
+    tableData,
+    current,
+    pageSize,
+    total,
+    setCurrent,
+    setSearchForm,
+    refreshTable,
+  } = usePagableFetch<UserTableItem>({
+    request: ({ searchForm, pageIndex, pageSize: size }) =>
+      queryUser({ ...searchForm, pageIndex, pageSize: size }),
+    onSuccess: ({ res, setTableData, setTotal }) => {
+      setTableData(res.data.records);
+      setTotal(res.data.total);
+    },
+    onError: () => {},
+  });
 
-  const refreshUserTable = () => {
-    queryUser({
-      pageIndex,
-      pageSize,
-    }).then(res => {
-      const { records, total: totalNum } = res.data;
-      setTableData(records);
-      setTotal(totalNum);
-    });
-  };
-
-  useEffect(() => {
-    refreshUserTable();
-  }, []);
-
-  useEffect(() => {
-    refreshUserTable();
-  }, [pageIndex]);
+  const renderSearchForm = (form: WrappedFormUtils<UserTableParams>) => [
+    <Col key="param" {...GolobalSearchFormLayout}>
+      <Form.Item label="角色/姓名">
+        {form.getFieldDecorator('param', {
+          initialValue: '',
+          rules: [],
+        })(<Input placeholder="请输入" type="sort" />)}
+      </Form.Item>
+    </Col>,
+    <Col key="houseId" {...GolobalSearchFormLayout}>
+      <Form.Item label="小区">
+        {form.getFieldDecorator('houseId', {
+          rules: [],
+        })(
+          <Select placeholder="请选择">
+            <Select.Option value="male">male</Select.Option>
+          </Select>,
+        )}
+      </Form.Item>
+    </Col>,
+    <Col key="options" {...GolobalSearchFormLayout}>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          查询
+        </Button>
+        <Button
+          onClick={() => {
+            form.resetFields();
+          }}
+          style={{ marginLeft: 8 }}
+        >
+          重置
+        </Button>
+      </Form.Item>
+    </Col>,
+  ];
 
   const columns: ColumnProps<UserTableItem>[] = [
     {
@@ -92,7 +125,7 @@ const UserTable: React.FC<TableListProps> = () => {
     },
     {
       title: '创建时间',
-      dataIndex: 'createTime',
+      dataIndex: 'newCreateTime',
     },
     {
       title: '创始人',
@@ -101,25 +134,26 @@ const UserTable: React.FC<TableListProps> = () => {
     {
       title: '操作',
       dataIndex: 'option',
+      width: 150,
+      fixed: 'right',
       render: (_, record) => (
         <>
-          <Button
-            type="link"
+          <a
             onClick={() => {
               handleModalVisible(true);
               setStepFormValues(record);
             }}
           >
             修改
-          </Button>
-          <Button
+          </a>
+          <Divider type="vertical" />
+          <a
             onClick={() => {
-              handleRemove(record);
+              handleRemove(record, () => refreshTable());
             }}
-            type="link"
           >
             删除
-          </Button>
+          </a>
         </>
       ),
     },
@@ -129,13 +163,18 @@ const UserTable: React.FC<TableListProps> = () => {
     <PageHeaderWrapper>
       <GridContent>
         <Row gutter={24}>
-          <Col lg={6}>
+          <Col lg={24} xl={7}>
             <RoleList />
           </Col>
-          <Col lg={18}>
-            <Card bordered={false} style={{ marginBottom: 24 }}>
-              <UserSearch onSubmit={() => {}} />
-            </Card>
+          <Col lg={24} xl={17}>
+            <EasySearchForm
+              onSubmit={form => {
+                setSearchForm(form);
+                setCurrent(1);
+              }}
+              renderSearchFormItem={renderSearchForm}
+              wrappedWithCard
+            />
             <Card bordered={false}>
               <Row style={{ marginBottom: 16 }}>
                 <Col>
@@ -151,24 +190,23 @@ const UserTable: React.FC<TableListProps> = () => {
                   </Button>
                 </Col>
               </Row>
-              <Table
+              <EasyTable<UserTableItem>
                 rowKey="id"
                 columns={columns}
                 dataSource={tableData}
                 pagination={{
-                  ...defaultPaginationSetting,
-                  current: pageIndex,
-                  pageSize,
+                  current,
                   total,
+                  pageSize,
+                  onChange: index => {
+                    setCurrent(index);
+                  },
                 }}
               />
-              <CreateForm
-                onSubmit={async () => {
-                  const success = false; // await handleAdd(value);
-
-                  if (success) {
-                    handleModalVisible(false);
-                  }
+              <UserForm
+                onSubmit={async fieldsValue => {
+                  refreshTable();
+                  handleModalVisible(false);
                 }}
                 onCancel={() => handleModalVisible(false)}
                 formValue={stepFormValues}

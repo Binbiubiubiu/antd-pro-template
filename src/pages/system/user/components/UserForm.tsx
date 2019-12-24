@@ -1,10 +1,15 @@
-import { Form, Input, Modal, Transfer } from 'antd';
+import { Form, Input, message, Modal, Transfer } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
 import React, { useEffect, useMemo, useState } from 'react';
 import { TransferItem } from 'antd/es/transfer';
-import { queryRole, getUserRoleList } from '@/pages/system/user/services/role.service';
+import {
+  queryRole,
+  getUserRoleList,
+  saveOrUpdateRole,
+} from '@/pages/system/user/services/role.service';
 import { isPhone } from '@/utils/utils';
+import { checkUserName, saveOrUpdateUser } from '@/pages/system/user/services/user.service';
 
 const FormItem = Form.Item;
 
@@ -13,12 +18,12 @@ type TransferRoleType = TransferItem & RoleListItem;
 interface UserFormProps extends FormComponentProps {
   modalVisible: boolean;
   formValue: UserTableForm;
-  onSubmit: (fieldsValue: { desc: string }) => void;
+  onSubmit: (fieldsValue: UserTableForm) => void;
   onCancel: () => void;
 }
 
 const UserForm: React.FC<UserFormProps> = props => {
-  const { modalVisible, form, formValue, onSubmit: handleAdd, onCancel } = props;
+  const { modalVisible, form, formValue, onSubmit, onCancel } = props;
 
   const [targetKeys, setTargetKeys] = useState<string[]>([]);
   const [roleData, setRoleData] = useState<TransferRoleType[]>([]);
@@ -38,13 +43,13 @@ const UserForm: React.FC<UserFormProps> = props => {
       setTargetKeys([]);
     }
 
-    if (isUpdate) {
-      queryRole().then(res => {
-        const { data } = res;
-        setRoleData(data);
+    queryRole().then(res => {
+      const { data } = res;
+      setRoleData(data);
+      if (isUpdate) {
         getSelectedRoles();
-      });
-    }
+      }
+    });
   }, [modalVisible]);
 
   const handleChange = (
@@ -56,9 +61,16 @@ const UserForm: React.FC<UserFormProps> = props => {
   };
 
   const okHandle = () => {
-    form.validateFields((err, fieldsValue) => {
+    form.validateFields(async (err, fieldsValue) => {
       if (err) return;
-      handleAdd(fieldsValue);
+      const { confirmPassWord, ...rest } = fieldsValue;
+      try {
+        await saveOrUpdateUser(rest);
+        message.success('操作成功');
+      } catch (e) {
+        message.error('操作失败');
+      }
+      onSubmit(rest);
     });
   };
 
@@ -91,13 +103,28 @@ const UserForm: React.FC<UserFormProps> = props => {
     <FormItem key="userName" label="账号" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
       {form.getFieldDecorator('userName', {
         initialValue: formValue.userName,
-        rules: [{ required: true, message: '请输入账号！' }],
+        validateFirst: true,
+        validateTrigger: 'onBlur',
+        rules: [
+          { required: true, message: '请输入账号！' },
+          {
+            validator: (rule, value, callback) => {
+              checkUserName({ userName: value }).then(res => {
+                const { code, message: msg } = res;
+                if (code === 200 && msg === '1') {
+                  callback();
+                } else {
+                  callback('账号重复，请重填');
+                }
+              });
+            },
+          },
+        ],
       })(<Input placeholder="请输入" />)}
     </FormItem>,
     <FormItem key="passWord" label="密码" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
       {form.getFieldDecorator('passWord', {
-        initialValue: formValue.passWord,
-        rules: [{ required: true, message: '请输入密码！' }],
+        rules: [{ required: !isUpdate, message: '请输入密码！' }],
       })(<Input placeholder="请输入" type="password" />)}
     </FormItem>,
     <FormItem
@@ -107,10 +134,9 @@ const UserForm: React.FC<UserFormProps> = props => {
       wrapperCol={{ span: 15 }}
     >
       {form.getFieldDecorator('confirmPassWord', {
-        initialValue: formValue.confirmPassWord,
         validateFirst: true,
         rules: [
-          { required: true, message: '请输入确认密码！' },
+          { required: !isUpdate, message: '请输入确认密码！' },
           {
             validator: (rule, value, callback) => {
               if (value === '') {

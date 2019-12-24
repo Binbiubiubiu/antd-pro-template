@@ -14,7 +14,7 @@ interface NoticeTableForm extends VisitorModal {
   desc: string;
 }
 
-interface NoticeTableParams {
+interface NoticeTableSearch {
   houseName: string;
   type: string;
   createTime: string;

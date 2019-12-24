@@ -14,7 +14,7 @@ interface IndustryTableForm extends IndustryModal {
   desc: string;
 }
 
-interface IndustryTableParams {
+interface IndustryTableSearch {
   houseName: string;
   type: string;
   createTime: string;

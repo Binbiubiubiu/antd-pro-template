@@ -119,6 +119,9 @@ const VideoCardList: FC<VideoCardListProps> = () => {
             current,
             pageSize,
             total,
+            onChange(index) {
+              setCurrent(index);
+            },
           }}
           dataSource={tableData}
           renderItem={item => (

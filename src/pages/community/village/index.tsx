@@ -1,24 +1,21 @@
+import React from 'react';
 import { Button, Col, Form, Input, Select } from 'antd';
-import React, { useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
 
 import EasyTable from '@/easy-components/EasyTable';
-import VillageForm from './components/VillageForm';
 import { queryVillage } from './service';
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 
 const { Option } = Select;
 
 interface VillageTableProps extends FormComponentProps {}
 
 const VillageTable: React.FC<VillageTableProps> = () => {
-  const [modalVisible, handleModalVisible] = useState<boolean>(false);
-  const [stepFormValues, setStepFormValues] = useState<Partial<VillageTableForm>>({});
-
   const columns: ColumnProps<VillageTableItem>[] = [
     {
       title: '序号',
@@ -28,53 +25,37 @@ const VillageTable: React.FC<VillageTableProps> = () => {
       },
     },
     {
-      title: '小区名称',
+      title: '名称',
       dataIndex: 'houseName',
     },
     {
       title: '地址',
-      dataIndex: 'content',
+      dataIndex: 'address',
     },
     {
       title: '物业电话',
-      dataIndex: 'type',
+      dataIndex: 'housePhone',
     },
     {
-      title: '反馈人',
-      dataIndex: 'state',
+      title: '负责人',
+      dataIndex: 'manager',
     },
     {
       title: '联系方式',
-      dataIndex: 'createMan',
+      dataIndex: 'phone',
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
     },
     {
-      title: '操作',
-      dataIndex: 'option',
-      render: (_, record) => (
-        <a
-          onClick={() => {
-            handleModalVisible(true);
-            setStepFormValues(record);
-          }}
-        >
-          详情
-        </a>
-      ),
+      title: '创建人',
+      dataIndex: 'creator',
     },
   ];
 
-  const searchFormItemLayout = {
-    md: 12,
-    xl: 8,
-    xxl: 6,
-  };
-
-  const renderSearchForm = (form: WrappedFormUtils<VillageTableParams>) => [
-    <Col {...searchFormItemLayout}>
+  const renderSearchForm = (form: WrappedFormUtils<VillageTableSearch>) => [
+    <Col {...GolobalSearchFormLayout}>
       <Form.Item key="houseId" label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
@@ -86,14 +67,14 @@ const VillageTable: React.FC<VillageTableProps> = () => {
         )}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
+    <Col {...GolobalSearchFormLayout}>
       <Form.Item key="person" label="人员信息">
         {form.getFieldDecorator('person', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
-    <Col {...searchFormItemLayout}>
+    <Col {...GolobalSearchFormLayout}>
       <Form.Item key="options">
         <Button type="primary" htmlType="submit">
           查询
@@ -145,18 +126,6 @@ const VillageTable: React.FC<VillageTableProps> = () => {
           setCurrent(index || 1);
         }}
         wrappedWithCard
-      />
-      <VillageForm
-        onSubmit={async () => {
-          handleModalVisible(false);
-          setStepFormValues({});
-        }}
-        onCancel={() => {
-          handleModalVisible(false);
-          setStepFormValues({});
-        }}
-        modalVisible={modalVisible}
-        formVals={stepFormValues}
       />
     </PageHeaderWrapper>
   );

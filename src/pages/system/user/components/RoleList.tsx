@@ -11,12 +11,12 @@ import RoleForm from '@/pages/system/user/components/RoleForm';
 const handleRemove = (selectedRows: RoleListForm, cb?: () => void) => {
   Modal.confirm({
     title: '提示',
-    content: '是否确认删除该角色',
+    content: `是否确认删除该角色:${selectedRows.name}`,
     okText: '确认',
     cancelText: '取消',
     onOk: async () => {
       try {
-        await deleteRole(selectedRows);
+        await deleteRole({ id: selectedRows.moduleId });
         if (cb) {
           cb.call(null);
         }
@@ -64,6 +64,7 @@ const RoleList: FC<RoleListProps> = () => {
           </Button>
         }
         bordered={false}
+        style={{ marginBottom: 24 }}
       >
         <List
           dataSource={roleData}
@@ -82,9 +83,7 @@ const RoleList: FC<RoleListProps> = () => {
                   icon="delete"
                   type="link"
                   onClick={() => {
-                    handleRemove({ id: item.moduleId }, () => {
-                      refreshRoleList();
-                    });
+                    handleRemove(item, () => refreshRoleList());
                   }}
                 ></Button>,
               ]}

@@ -141,6 +141,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         menuDataRender={() => menuData}
         // menuDataRender={menuDataRender}
         rightContentRender={() => <RightContent />}
+        fixedHeader
         {...props}
         {...settings}
       >
