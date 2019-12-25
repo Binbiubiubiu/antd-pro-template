@@ -69,3 +69,5 @@ declare module 'wangeditor' {
 
   export default E;
 }
+
+declare module 'video.js';

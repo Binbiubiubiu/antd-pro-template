@@ -1,4 +1,4 @@
-import { Button, Form, message, Row, Col, Card, Modal, Select, Input, Divider } from 'antd';
+import { Button, Form, message, Row, Col, Card, Modal, Input, Divider } from 'antd';
 import { ColumnProps } from 'antd/es/table';
 import React, { useState } from 'react';
 import { FormComponentProps } from 'antd/es/form';
@@ -11,6 +11,7 @@ import { usePagableFetch } from '@/hooks/usePagableFetch';
 import EasyTable from '@/easy-components/EasyTable';
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 interface TableListProps extends FormComponentProps<UserTableItem> {}
 
@@ -42,7 +43,7 @@ const handleRemove = (selectedRows: UserTableItem, cb?: () => void) => {
 
 const UserTable: React.FC<TableListProps> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [stepFormValues, setStepFormValues] = useState({});
+  const [stepFormValues, setStepFormValues] = useState<UserTableForm>({} as UserTableForm);
 
   const {
     tableData,
@@ -75,11 +76,7 @@ const UserTable: React.FC<TableListProps> = () => {
       <Form.Item label="小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Select.Option value="male">male</Select.Option>
-          </Select>,
-        )}
+        })(<EasyHouseSelect placeholder="请选择"></EasyHouseSelect>)}
       </Form.Item>
     </Col>,
     <Col key="options" {...GolobalSearchFormLayout}>
@@ -183,7 +180,7 @@ const UserTable: React.FC<TableListProps> = () => {
                     type="primary"
                     onClick={() => {
                       handleModalVisible(true);
-                      setStepFormValues({});
+                      setStepFormValues({} as UserTableForm);
                     }}
                   >
                     新建

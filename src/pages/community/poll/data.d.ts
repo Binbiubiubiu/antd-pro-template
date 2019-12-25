@@ -20,3 +20,9 @@ interface PollTableSearch {
   createTime: string;
   content: string;
 }
+
+interface PollInfoTableItem {
+  option: string;
+  num: number;
+  rate: number;
+}

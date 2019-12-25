@@ -2,78 +2,59 @@ import React, { FC, useState } from 'react';
 import moment from 'moment';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import { Button, Card, Col, Form, Input, List, Select, Typography } from 'antd';
+import { Button, Card, Col, Form, Input, List, DatePicker, Icon, Tag } from 'antd';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
 import { queryVideos } from '@/pages/safe/video/service';
 import styles from '@/pages/safe/video/style.less';
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyCardList from '@/easy-components/EasyCardList';
+import EasyHouseSelect from '@/easy-components/EasySelect/EasyHouseSelect';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import { EasySceneSelect } from '@/easy-components/EasySelect';
+import VideoPlayerModal from '@/pages/safe/video/components/VideoPlayerModal';
 
-const { Paragraph } = Typography;
-const { Option } = Select;
+const { RangePicker } = DatePicker;
 
 interface VideoCardListProps {}
 
 const VideoCardList: FC<VideoCardListProps> = () => {
-  const [tabKey, setTabKey] = useState<string>('person');
-
-  const tabList = [
-    {
-      key: 'person',
-      tab: '人行记录',
-    },
-    {
-      key: 'car',
-      tab: '车行记录',
-    },
-  ];
-
-  const searchFormItemLayout = {
-    md: 12,
-    xl: 8,
-    xxl: 6,
-  };
-
-  const renderSearchForm = (form: WrappedFormUtils<VillageTableParams>) => [
-    <Col key="houseId" {...searchFormItemLayout}>
-      <Form.Item key="houseId" label="所属小区">
-        {form.getFieldDecorator('houseId', {
+  const renderSearchForm = (form: WrappedFormUtils<VideoCardListParams>) => [
+    <Col key="houseKey" {...GolobalSearchFormLayout}>
+      <Form.Item label="所属小区">
+        {form.getFieldDecorator('houseKey', {
           rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Option value="1">利一家园</Option>
-            <Option value="2">望京</Option>
-          </Select>,
-        )}
+        })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="person" {...searchFormItemLayout}>
-      <Form.Item key="person" label="安装时间">
-        {form.getFieldDecorator('person', {
+    <Col key="codeChild" {...GolobalSearchFormLayout}>
+      <Form.Item label="场景选择">
+        {form.getFieldDecorator('codeChild', {
+          rules: [],
+        })(<EasySceneSelect placeholder="请选择" />)}
+      </Form.Item>
+    </Col>,
+    <Col key="deviceName" {...GolobalSearchFormLayout}>
+      <Form.Item label="设备信息">
+        {form.getFieldDecorator('deviceName', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
-    <Col key="scene" {...searchFormItemLayout}>
-      <Form.Item key="scene" label="场景选择">
-        {form.getFieldDecorator('scene', {
+    <Col key="timeRange" {...{ md: 18, xl: 12, xxl: 12 }}>
+      <Form.Item label="安装时间">
+        {form.getFieldDecorator('timeRange', {
           rules: [],
         })(
-          <Select placeholder="请选择">
-            <Option value="1">利一家园</Option>
-            <Option value="2">望京</Option>
-          </Select>,
+          <RangePicker
+            allowClear={false}
+            showTime={{ format: 'HH:mm:ss' }}
+            format="YYYY-MM-DD HH:mm:ss"
+            style={{ width: '100%' }}
+          />,
         )}
       </Form.Item>
     </Col>,
-    <Col key="type" {...searchFormItemLayout}>
-      <Form.Item key="type" label="设备信息">
-        {form.getFieldDecorator('type', {
-          rules: [],
-        })(<Input placeholder="请输入" />)}
-      </Form.Item>
-    </Col>,
-    <Col key="options" {...searchFormItemLayout}>
+    <Col key="options" {...GolobalSearchFormLayout}>
       <Form.Item key="options">
         <Button type="primary" htmlType="submit">
           搜索
@@ -90,20 +71,78 @@ const VideoCardList: FC<VideoCardListProps> = () => {
     </Col>,
   ];
 
-  const { tableData, current, pageSize, total, setCurrent, setSearchForm } = usePagableFetch<
-    VideoCardListItem
-  >({
-    request: ({ searchForm, pageIndex, pageSize: size }) =>
-      queryVideos({ ...searchForm, pageIndex, pageSize: size }),
+  const {
+    loading,
+    tableData,
+    current,
+    pageSize,
+    total,
+    setCurrent,
+    setSearchForm,
+  } = usePagableFetch<VideoCardListItem>({
+    initPageSize: 8,
+    request: ({ searchForm, pageIndex, pageSize: size }) => {
+      const { timeRange, ...rest } = searchForm;
+
+      const start = timeRange ? moment(timeRange[0]).format('YYYY-MM-DD HH:mm:ss') : undefined;
+      const end = timeRange ? moment(timeRange[1]).format('YYYY-MM-DD HH:mm:ss') : undefined;
+      return queryVideos({ start, end, pageIndex, pageSize: size, ...rest });
+    },
     onSuccess: ({ res, setTableData, setTotal }) => {
-      setTableData(res);
-      setTotal(res.length);
+      setTableData(res.data.records);
+      setTotal(res.data.total);
     },
     onError: () => {},
   });
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [playingVideo, setPlayingVideo] = useState<VideoCardListItem>({} as VideoCardListItem);
+
+  const renderCardItem = (item: VideoCardListItem) => {
+    const onlineTag =
+      item.isOnline === 0 ? <Tag color="#87d068">在线</Tag> : <Tag color="gray">离线</Tag>;
+
+    return (
+      <List.Item
+        key={item.deviceCode}
+        onClick={() => {
+          setPlayingVideo(item);
+          setModalVisible(true);
+        }}
+      >
+        <Card
+          className={styles.card}
+          hoverable
+          cover={
+            <div className={styles['video-preview']}>
+              <Icon type="play-square" style={{ color: '#fff' }} />
+            </div>
+          }
+        >
+          <Card.Meta
+            title={
+              <div className={styles['card-title']}>
+                <a>{item.deviceName}</a>
+                {onlineTag}
+              </div>
+            }
+            description={
+              <>
+                所属小区：{item.houseName}
+                <br />
+                安装时间：{item.dateString}
+                <br />
+                场景：{item.codeChildName}
+                <br />
+              </>
+            }
+          />
+        </Card>
+      </List.Item>
+    );
+  };
 
   return (
-    <PageHeaderWrapper tabList={tabList} tabActiveKey={tabKey} onTabChange={key => setTabKey(key)}>
+    <PageHeaderWrapper>
       <div className={styles.coverCardList}>
         <EasySearchForm
           onSubmit={form => {
@@ -115,6 +154,7 @@ const VideoCardList: FC<VideoCardListProps> = () => {
         />
         <EasyCardList<VideoCardListItem>
           rowKey="id"
+          loading={loading}
           pagination={{
             current,
             pageSize,
@@ -124,29 +164,16 @@ const VideoCardList: FC<VideoCardListProps> = () => {
             },
           }}
           dataSource={tableData}
-          renderItem={item => (
-            <List.Item>
-              <Card
-                className={styles.card}
-                hoverable
-                cover={<img alt={item.title} src={item.cover} />}
-              >
-                <Card.Meta
-                  title={<a>{item.title}</a>}
-                  description={
-                    <Paragraph className={styles.item} ellipsis={{ rows: 2 }}>
-                      {item.subDescription}
-                    </Paragraph>
-                  }
-                />
-                <div className={styles.cardItemContent}>
-                  <span>{moment(item.updatedAt).fromNow()}</span>
-                </div>
-              </Card>
-            </List.Item>
-          )}
+          renderItem={renderCardItem}
         />
       </div>
+      <VideoPlayerModal
+        modalVisible={modalVisible}
+        video={playingVideo}
+        onCancel={() => {
+          setModalVisible(false);
+        }}
+      />
     </PageHeaderWrapper>
   );
 };

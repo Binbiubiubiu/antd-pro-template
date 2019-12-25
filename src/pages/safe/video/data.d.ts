@@ -1,34 +1,24 @@
 interface VideoModal {
-  avatar: string;
-  name: string;
-  id: string;
+  id: number;
+  houseKey: string;
+  houseName: string;
+  indexCodeId: string;
+  deviceCode: string;
+  deviceName: string;
+  code: string;
+  isOnline: number; // 0:在线  1:离线
+  deviceTime: string;
+  createTime: string;
+  dateString: string;
+  codeChildName: string;
 }
 
-interface VideoCardListItem extends VideoModal {
-  id: string;
-  owner: string;
-  title: string;
-  avatar: string;
-  cover: string;
-  status: 'normal' | 'exception' | 'active' | 'success';
-  percent: number;
-  logo: string;
-  href: string;
-  body?: any;
-  updatedAt: number;
-  createdAt: number;
-  subDescription: string;
-  description: string;
-  activeUser: number;
-  newUser: number;
-  star: number;
-  like: number;
-  message: number;
-  content: string;
-  members: VideoModal[];
-}
+interface VideoCardListItem extends VideoModal {}
 
 interface VideoCardListParams {
-  houseName: string;
-  person: string;
+  houseKey: string;
+  start: string;
+  end: string;
+  deviceName: string;
+  codeChild: number;
 }

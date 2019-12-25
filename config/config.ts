@@ -115,7 +115,7 @@ export default {
           routes: [
             {
               path: '/',
-              redirect: '/community/suggest', // authority: ['admin', 'user'],
+              redirect: '/community/village', // authority: ['admin', 'user'],
             },
             // {
             //   path: '/dashboard',
@@ -271,9 +271,8 @@ export default {
               path: '/community',
               routes: [
                 {
-                  name: '投诉建议',
-                  path: '/community/suggest',
-                  component: './community/suggest',
+                  path: '/community',
+                  redirect: '/community/village',
                 },
                 {
                   name: '小区管理',
@@ -321,6 +320,11 @@ export default {
                   component: './community/poll/PollInfo',
                 },
                 {
+                  name: '投诉建议',
+                  path: '/community/suggest',
+                  component: './community/suggest',
+                },
+                {
                   name: '业委会管理',
                   path: '/community/industry',
                   component: './community/industry',
@@ -335,6 +339,10 @@ export default {
               icon: 'alert',
               path: '/safe',
               routes: [
+                {
+                  path: '/safe',
+                  redirect: '/safe/in-and-out',
+                },
                 {
                   name: '视频管理',
                   path: '/safe/video',
@@ -360,6 +368,10 @@ export default {
               icon: 'fire',
               path: '/fire',
               routes: [
+                {
+                  path: '/fire',
+                  redirect: '/fire/alarm',
+                },
                 {
                   name: '报警统计',
                   path: '/fire/alarm',
@@ -465,8 +477,8 @@ export default {
   // chainWebpack: webpackPlugin,
   proxy: {
     '/csp': {
-      target: `http://192.168.1.142:8080`, // 高阔ip
-      // target: `http://192.168.1.109:8080`,
+      // target: `http://192.168.1.142:8080`, // 高阔ip
+      target: `http://192.168.1.109:8080`,
       // target: `http://120.26.92.123:21081/`,
       changeOrigin: true, // pathRewrite: { '^/isc': '/isc' },
     },

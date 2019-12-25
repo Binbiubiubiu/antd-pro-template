@@ -3,13 +3,10 @@ import { Form, Input, message, Modal, Transfer } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import React, { useEffect, useMemo, useState } from 'react';
 import { TransferItem } from 'antd/es/transfer';
-import {
-  queryRole,
-  getUserRoleList,
-  saveOrUpdateRole,
-} from '@/pages/system/user/services/role.service';
+import { queryRole, getUserRoleList } from '@/pages/system/user/services/role.service';
 import { isPhone } from '@/utils/utils';
 import { checkUserName, saveOrUpdateUser } from '@/pages/system/user/services/user.service';
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 const FormItem = Form.Item;
 
@@ -52,20 +49,21 @@ const UserForm: React.FC<UserFormProps> = props => {
     });
   }, [modalVisible]);
 
-  const handleChange = (
-    nextTargetKeys: React.SetStateAction<string[]>,
-    // direction: any,
-    // moveKeys: any,
-  ) => {
-    setTargetKeys(nextTargetKeys);
-  };
+  // const handleChange = (
+  //   nextTargetKeys: React.SetStateAction<string[]>,
+  //   // direction: any,
+  //   // moveKeys: any,
+  // ) => {
+  //   setTargetKeys(nextTargetKeys);
+  // };
 
   const okHandle = () => {
     form.validateFields(async (err, fieldsValue) => {
       if (err) return;
-      const { confirmPassWord, ...rest } = fieldsValue;
+      const { confirmPassWord, houseId, ...rest } = fieldsValue;
+      const hId = houseId && houseId.length ? houseId.join(',') : houseId;
       try {
-        await saveOrUpdateUser(rest);
+        await saveOrUpdateUser({ id: formValue.id, houseId: hId, ...rest });
         message.success('操作成功');
       } catch (e) {
         message.error('操作失败');
@@ -100,6 +98,13 @@ const UserForm: React.FC<UserFormProps> = props => {
         ],
       })(<Input placeholder="请输入" type="phone" />)}
     </FormItem>,
+    <FormItem key="houseId" label="小区" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
+      {form.getFieldDecorator('houseId', {
+        initialValue:
+          formValue.houseId && formValue.houseId.trim() !== '' ? formValue.houseId.split(',') : [],
+        rules: [{ required: true, message: '请选择小区！' }],
+      })(<EasyHouseSelect mode="multiple" placeholder="请选择" style={{ width: '100%' }} />)}
+    </FormItem>,
     <FormItem key="userName" label="账号" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
       {form.getFieldDecorator('userName', {
         initialValue: formValue.userName,
@@ -109,6 +114,7 @@ const UserForm: React.FC<UserFormProps> = props => {
           { required: true, message: '请输入账号！' },
           {
             validator: (rule, value, callback) => {
+              if (isUpdate) callback();
               checkUserName({ userName: value }).then(res => {
                 const { code, message: msg } = res;
                 if (code === 200 && msg === '1') {
@@ -153,14 +159,15 @@ const UserForm: React.FC<UserFormProps> = props => {
     </FormItem>,
     <FormItem key="roleList" label="角色" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
       {form.getFieldDecorator('roleList', {
-        initialValue: formValue.roleList,
+        initialValue: targetKeys,
+        valuePropName: 'targetKeys',
         rules: [{ required: true, message: '请选择角色！' }],
       })(
         <Transfer
           dataSource={roleData}
           titles={['所有角色', '已选角色']}
-          targetKeys={targetKeys}
-          onChange={handleChange}
+          // targetKeys={targetKeys}
+          // onChange={handleChange}
           rowKey={item => item.moduleId}
           render={item => item.name}
         />,

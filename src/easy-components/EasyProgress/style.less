@@ -1,0 +1,23 @@
+.easy-progress {
+  display: flex;
+  align-items: center;
+
+  svg {
+    flex: 1;
+  }
+
+  .active {
+    animation: progress-active 1s ease-in-out;
+  }
+
+  i {
+    width: 3em;
+    text-align: right;
+  }
+}
+
+@keyframes progress-active {
+  0% {
+    width: 0;
+  }
+}

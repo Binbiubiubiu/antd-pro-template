@@ -4,10 +4,11 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
 import { Button, Card, Col, Form, Input, List, Select, Typography } from 'antd';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
-import { queryVideos } from '@/pages/safe/video/service';
+import { queryVideos } from './service';
 import styles from '@/pages/safe/video/style.less';
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyCardList from '@/easy-components/EasyCardList';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 
 const { Paragraph } = Typography;
 const { Option } = Select;
@@ -15,14 +16,8 @@ const { Option } = Select;
 interface FaceCardListProps {}
 
 const FaceCardList: FC<FaceCardListProps> = () => {
-  const searchFormItemLayout = {
-    md: 12,
-    xl: 8,
-    xxl: 6,
-  };
-
-  const renderSearchForm = (form: WrappedFormUtils<VillageTableParams>) => [
-    <Col key="houseId" {...searchFormItemLayout}>
+  const renderSearchForm = (form: WrappedFormUtils<VideoCardListParams>) => [
+    <Col key="houseId" {...GolobalSearchFormLayout}>
       <Form.Item key="houseId" label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
@@ -34,14 +29,14 @@ const FaceCardList: FC<FaceCardListProps> = () => {
         )}
       </Form.Item>
     </Col>,
-    <Col key="person" {...searchFormItemLayout}>
+    <Col key="person" {...GolobalSearchFormLayout}>
       <Form.Item key="person" label="安装时间">
         {form.getFieldDecorator('person', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
-    <Col key="scene" {...searchFormItemLayout}>
+    <Col key="scene" {...GolobalSearchFormLayout}>
       <Form.Item key="scene" label="场景选择">
         {form.getFieldDecorator('scene', {
           rules: [],
@@ -53,14 +48,14 @@ const FaceCardList: FC<FaceCardListProps> = () => {
         )}
       </Form.Item>
     </Col>,
-    <Col key="type" {...searchFormItemLayout}>
+    <Col key="type" {...GolobalSearchFormLayout}>
       <Form.Item key="type" label="设备信息">
         {form.getFieldDecorator('type', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
-    <Col key="options" {...searchFormItemLayout}>
+    <Col key="options" {...GolobalSearchFormLayout}>
       <Form.Item key="options">
         <Button type="primary" htmlType="submit">
           搜索
@@ -80,6 +75,7 @@ const FaceCardList: FC<FaceCardListProps> = () => {
   const { tableData, current, pageSize, total, setCurrent, setSearchForm } = usePagableFetch<
     VideoCardListItem
   >({
+    initPageSize: 8,
     request: ({ searchForm, pageIndex, pageSize: size }) =>
       queryVideos({ ...searchForm, pageIndex, pageSize: size }),
     onSuccess: ({ res, setTableData, setTotal }) => {

@@ -1,45 +1,56 @@
-@import '../../../../node_modules/antd/es/style/themes/default.less';
+@import '~antd/es/style/themes/default.less';
 @import '~@/utils/utils.less';
 
 .coverCardList {
   margin-bottom: -24px;
 
   .card {
+    .video-preview {
+      position: relative;
+      width: 100%;
+      padding-top: 55%;
+      background-color: #000;
+
+      :global {
+        .anticon {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          font-size: 3.2em;
+          transform: translate3d(-50%, -50%, 0);
+        }
+      }
+    }
+
+    .card-title {
+      display: flex;
+      justify-content: space-between;
+
+      & > a {
+        flex: 1;
+        min-width: 0;
+        color: @heading-color;
+        .textOverflow;
+      }
+
+      :global {
+        .ant-tag {
+          margin: 0;
+        }
+      }
+    }
+
     :global {
       .ant-card-meta-title {
         margin-bottom: 4px;
-        & > a {
-          display: inline-block;
-          max-width: 100%;
-          color: @heading-color;
-        }
       }
-      .ant-card-meta-description {
-        height: 44px;
-        overflow: hidden;
-        line-height: 22px;
-      }
+      //.ant-card-meta-description {}
     }
 
     &:hover {
-      :global {
-        .ant-card-meta-title > a {
-          color: @primary-color;
-        }
+      .card-title > a {
+        color: @primary-color;
       }
-    }
-  }
-
-  .cardItemContent {
-    display: flex;
-    height: 20px;
-    margin-top: 16px;
-    margin-bottom: -4px;
-    line-height: 20px;
-    & > span {
-      flex: 1;
-      color: @text-color-secondary;
-      font-size: 12px;
     }
   }
 

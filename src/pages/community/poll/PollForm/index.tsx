@@ -1,72 +1,106 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card } from 'antd';
-import {
-  SchemaForm,
-  Field,
-  FormButtonGroup,
-  Submit,
-  Reset,
-  FormItemGrid,
-  FormCard,
-  FormPath,
-  FormBlock,
-  FormLayout,
-  createFormActions,
-} from '@uform/antd';
+import { Card, Col, Form, Input, Row, Select, DatePicker, Button, message } from 'antd';
+import { FormComponentProps } from 'antd/es/form';
+import PollFormCard, { PollFormCardProps } from './PollFormCard';
 
-interface PollFormProps {}
+let uuid = 1;
 
-const PollForm: FC<PollFormProps> = () => {
-  const [value, setValues] = useState({});
-  useEffect(() => {
-    setTimeout(() => {
-      setValues({
-        array: [{ array2: [{ aa: '123', bb: '321' }] }],
-      });
-    }, 1000);
-  }, []);
+interface PollFormProps extends FormComponentProps {}
+
+const PollForm: FC<PollFormProps> = props => {
+  const { form } = props;
+
+  const [questions, setQuestions] = useState<number[]>([uuid]);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    form.validateFields((err, fieldValue) => {
+      // if (err) return;
+      // console.log(fieldValue);
+    });
+  };
+
+  const handleQuestionAdd = () => {
+    uuid += 1;
+    setQuestions(questions.concat(uuid));
+  };
+  const handleQuestionDelete = (key: number) => {
+    if (questions.length === 1) {
+      message.error('必须留下一题');
+      return;
+    }
+    setQuestions(questions.filter(qs => qs !== key));
+  };
 
   return (
     <PageHeaderWrapper title="发起投票">
       <Card bordered={false}>
-        <SchemaForm initialValues={value} onSubmit={v => v}>
-          <Field title="数组" name="array" maxItems={3} type="array" x-props={{}}>
-            <Field type="object">
-              <FormBlock title="基础信息">
-                <FormLayout labelCol={{ span: 9 }} wrapperCol={{ span: 6 }}>
-                  <Field name="aa" type="string" title="字段1" />
-                  <Field name="bb" type="string" title="字段2" />
-                  <FormItemGrid title="字段3" gutter={10}>
-                    <Field name="cc" type="string" />
-                    <Field name="dd" type="string" />
-                  </FormItemGrid>
-                </FormLayout>
-              </FormBlock>
-              <FormBlock title="嵌套数组">
-                <Field name="array2" maxItems={3} type="array">
-                  <Field type="object">
-                    <FormLayout labelCol={{ span: 9 }} wrapperCol={{ span: 6 }}>
-                      <Field name="aa" type="string" title="字段1" />
-                      <Field name="bb" type="string" title="字段2" />
-                      <FormItemGrid title="字段3" gutter={10}>
-                        <Field name="cc" type="string" />
-                        <Field name="dd" type="string" />
-                      </FormItemGrid>
-                    </FormLayout>
-                  </Field>
-                </Field>
-              </FormBlock>
-            </Field>
-          </Field>
-          <FormButtonGroup>
-            <Submit>提交</Submit>
-            <Reset>重置</Reset>
-          </FormButtonGroup>
-        </SchemaForm>
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Col span={12}>
+              <Form.Item label="投票标题">
+                {form.getFieldDecorator('title', {
+                  rules: [{ required: true, message: '请输入投票标题！' }],
+                })(<Input placeholder="请输入" style={{ width: 300 }} />)}
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="发送对象">
+                {form.getFieldDecorator('houseId', {
+                  rules: [{ required: true, message: '请选择发送对象！' }],
+                })(
+                  <Select placeholder="请选择" style={{ width: 300 }} mode="multiple">
+                    <Select.Option value="1">利一家园</Select.Option>
+                    <Select.Option value="2">望京</Select.Option>
+                  </Select>,
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Form.Item label="起止时间">
+            {form.getFieldDecorator('createTime', {
+              rules: [{ required: true, message: '请选择起止时间！' }],
+            })(<DatePicker placeholder="请输入" style={{ width: 300 }} />)}
+          </Form.Item>
+
+          <Card bordered={false} bodyStyle={{ padding: 0 }}>
+            {questions.map((quuid, i) => {
+              const qId = i + 1;
+              const cardProps: PollFormCardProps = {
+                qId,
+                form,
+                uuid: quuid,
+                key: `question${uuid}`,
+                onDelete: handleQuestionDelete,
+              };
+
+              if (qId === questions.length) {
+                return <PollFormCard onAdd={handleQuestionAdd} {...cardProps} />;
+              }
+
+              return <PollFormCard {...cardProps} />;
+            })}
+          </Card>
+
+          <Form.Item style={{ textAlign: 'center' }}>
+            <Button
+              style={{ marginRight: 12 }}
+              onClick={() => {
+                form.resetFields();
+              }}
+            >
+              取消
+            </Button>
+            <Button type="primary" htmlType="submit">
+              发布
+            </Button>
+          </Form.Item>
+        </Form>
       </Card>
     </PageHeaderWrapper>
   );
 };
 
-export default PollForm;
+export default Form.create<PollFormProps>()(PollForm);
