@@ -1,5 +1,6 @@
-import { Form, Tabs } from 'antd';
 import React, { Component } from 'react';
+import { Form, Tabs } from 'antd';
+
 import { FormComponentProps } from 'antd/es/form';
 import classNames from 'classnames';
 import LoginContext, { LoginContextProps } from './LoginContext';
@@ -26,18 +27,6 @@ interface LoginState {
 }
 
 class Login extends Component<LoginProps, LoginState> {
-  public static Tab = LoginTab;
-
-  public static Submit = LoginSubmit;
-
-  public static UserName: React.FunctionComponent<LoginItemProps>;
-
-  public static Password: React.FunctionComponent<LoginItemProps>;
-
-  public static Mobile: React.FunctionComponent<LoginItemProps>;
-
-  public static Captcha: React.FunctionComponent<LoginItemProps>;
-
   static defaultProps = {
     className: '',
     defaultActiveKey: '',
@@ -112,6 +101,18 @@ class Login extends Component<LoginProps, LoginState> {
       });
     }
   };
+
+  public static Submit = LoginSubmit;
+
+  public static Tab = LoginTab;
+
+  public static UserName: React.FunctionComponent<LoginItemProps>;
+
+  public static Password: React.FunctionComponent<LoginItemProps>;
+
+  public static Mobile: React.FunctionComponent<LoginItemProps>;
+
+  public static Captcha: React.FunctionComponent<LoginItemProps>;
 
   render() {
     const { className, children } = this.props;

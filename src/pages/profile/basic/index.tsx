@@ -1,5 +1,5 @@
-import { Badge, Card, Descriptions, Divider, Table } from 'antd';
 import React, { Component } from 'react';
+import { Badge, Card, Descriptions, Divider, Table } from 'antd';
 
 import { Dispatch } from 'redux';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';

@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
-import moment from 'moment';
+import { Button, Card, Col, Form, Input, List, Select, Typography } from 'antd';
+
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import { Button, Card, Col, Form, Input, List, Select, Typography } from 'antd';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import moment from 'moment';
+import EasyCardList from '@/easy-components/EasyCardList';
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
+import EasySearchForm from '@/easy-components/EasySearchForm';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { queryVideos } from './service';
 import styles from '@/pages/safe/video/style.less';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import EasyCardList from '@/easy-components/EasyCardList';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
+import { usePagableFetch } from '@/hooks/usePagableFetch';
 
 const { Paragraph } = Typography;
 const { Option } = Select;

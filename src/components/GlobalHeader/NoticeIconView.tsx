@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Tag, message } from 'antd';
+
 import { connect } from 'dva';
 import groupBy from 'lodash/groupBy';
 import moment from 'moment';
-import { NoticeItem } from '@/models/global';
-import NoticeIcon from '../NoticeIcon';
 import { CurrentUser } from '@/models/user';
+import NoticeIcon from '../NoticeIcon';
+import { NoticeItem } from '@/models/global';
 import { ConnectProps, ConnectState } from '@/models/connect';
 import styles from './index.less';
 

@@ -1,9 +1,11 @@
-import { Form, Input, InputNumber, message, Modal, Radio } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Form, Input, InputNumber, Modal, Radio, message } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
-import React, { useEffect, useMemo, useState } from 'react';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
 import { IDCardReg, phoneReg } from '@/utils/validator';
+import { addIndustry, editIndustry } from '@/pages/community/industry/service';
+
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 const FormItem = Form.Item;
 
@@ -31,7 +33,9 @@ const IndustryForm: React.FC<IndustryFormProps> = props => {
       if (err) return;
       try {
         setConfirmLoading(true);
-        const result = { code: 500 }; // await saveOrUpdateUser({ id: formValue.id, houseId: hId, ...rest });
+        const result = isUpdate
+          ? await editIndustry({ id: formValue.id, ...fieldsValue })
+          : await addIndustry(fieldsValue);
         if (result.code !== 200) {
           throw new Error();
         }
@@ -51,31 +55,31 @@ const IndustryForm: React.FC<IndustryFormProps> = props => {
   };
 
   const renderFormContent = () => [
-    <FormItem key="houseId" label="小区名称" {...formLayout}>
-      {form.getFieldDecorator('houseId', {
-        initialValue: formValue.houseId,
+    <FormItem key="houseKey" label="小区名称" {...formLayout}>
+      {form.getFieldDecorator('houseKey', {
+        initialValue: formValue.houseKey,
         rules: [{ required: true, message: '请选择小区名称！' }],
-      })(<EasyHouseSelect mode="multiple" placeholder="请选择" style={{ width: '100%' }} />)}
+      })(<EasyHouseSelect placeholder="请选择" style={{ width: '100%' }} />)}
     </FormItem>,
-    <FormItem key="name" label="姓名" {...formLayout}>
-      {form.getFieldDecorator('name', {
-        initialValue: formValue.name,
+    <FormItem key="uesrName" label="姓名" {...formLayout}>
+      {form.getFieldDecorator('uesrName', {
+        initialValue: formValue.uesrName,
         rules: [{ required: true, message: '请输入姓名！' }],
       })(<Input placeholder="请输入" />)}
     </FormItem>,
     <Form.Item label="性别" {...formLayout}>
       {form.getFieldDecorator('sex', {
-        initialValue: 0,
+        initialValue: 'MAN',
       })(
         <Radio.Group>
-          <Radio value={0}>男</Radio>
-          <Radio value={1}>女</Radio>
+          <Radio value="MAN">男</Radio>
+          <Radio value="WOMAN">女</Radio>
         </Radio.Group>,
       )}
     </Form.Item>,
-    <FormItem key="userName" label="身份证" {...formLayout}>
-      {form.getFieldDecorator('userName', {
-        initialValue: formValue.IDCard,
+    <FormItem key="idcard" label="身份证" {...formLayout}>
+      {form.getFieldDecorator('idcard', {
+        initialValue: formValue.idcard,
         validateFirst: true,
         rules: [
           { required: true, message: '请输入身份证！' },
@@ -93,15 +97,15 @@ const IndustryForm: React.FC<IndustryFormProps> = props => {
         ],
       })(<Input placeholder="请输入" />)}
     </FormItem>,
-    <FormItem key="job" label="当选职务" {...formLayout}>
-      {form.getFieldDecorator('job', {
-        initialValue: formValue.job,
+    <FormItem key="duty" label="当选职务" {...formLayout}>
+      {form.getFieldDecorator('duty', {
+        initialValue: formValue.duty,
         rules: [{ required: true, message: '请输入当选职务！' }],
       })(<Input placeholder="请输入" />)}
     </FormItem>,
-    <FormItem key="pollNum" label="当选票数" {...formLayout}>
-      {form.getFieldDecorator('pollNum', {
-        initialValue: formValue.pollNum || 0,
+    <FormItem key="poll" label="当选票数" {...formLayout}>
+      {form.getFieldDecorator('poll', {
+        initialValue: formValue.poll || 0,
         rules: [{ required: true, message: '请输入当选票数！' }],
       })(<InputNumber min={0} style={{ width: 200 }} placeholder="请输入" />)}
     </FormItem>,

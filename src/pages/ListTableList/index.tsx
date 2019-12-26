@@ -1,13 +1,14 @@
-import { Badge, Button, Divider, Dropdown, Form, Icon, Menu, message } from 'antd';
 import React, { useState } from 'react';
+import { Badge, Button, Divider, Dropdown, Form, Icon, Menu, message } from 'antd';
+import ProTable, { ProColumns, UseFetchDataAction } from '@ant-design/pro-table';
 
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import ProTable, { ProColumns, UseFetchDataAction } from '@ant-design/pro-table';
-import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
+import { addRule, queryRule, removeRule, updateRule } from './service';
+
+import CreateForm from './components/CreateForm';
 import { TableListItem } from './data.d';
-import { queryRule, updateRule, addRule, removeRule } from './service';
 
 const status = ['关闭', '运行中', '已上线', '异常'];
 const statusMap = ['default', 'processing', 'success', 'error'];

@@ -1,13 +1,14 @@
-import { Avatar, Card, Col, Row, Skeleton, Statistic } from 'antd';
 import React, { FC } from 'react';
-import { RouterTypes } from 'umi';
+import { Card, Col, Row, Statistic } from 'antd';
 import { GridContent, PageHeaderWrapper } from '@ant-design/pro-layout';
+
+import { RouterTypes } from 'umi';
 import numeral from 'numeral';
-import Gauge from '@/easy-components/EasyChart/Gauge';
-import WaterWave from '@/easy-components/EasyChart/WaterWave';
-import PatrolTable from '@/pages/fire/patrol/components/PatrolTable';
-import PatrolEventList from '@/pages/fire/patrol/components/PatrolEventList';
 import { EasyHouseSelect } from '@/easy-components/EasySelect';
+import Gauge from '@/easy-components/EasyChart/Gauge';
+import PatrolEventList from '@/pages/fire/patrol/components/PatrolEventList';
+import PatrolTable from '@/pages/fire/patrol/components/PatrolTable';
+import WaterWave from '@/easy-components/EasyChart/WaterWave';
 
 interface PatrolProps extends RouterTypes<{ name: string }> {}
 
@@ -25,7 +26,7 @@ const Patrol: FC<PatrolProps> = props => {
   );
 
   return (
-    <PageHeaderWrapper className={} title={pageTitle}>
+    <PageHeaderWrapper title={pageTitle}>
       <GridContent>
         <React.Fragment>
           <Row gutter={24}>

@@ -1,6 +1,7 @@
+import React, { useEffect, useMemo, useState } from 'react';
 import { Form, Input, message, Modal, Tree } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
-import React, { useEffect, useMemo, useState } from 'react';
+
 import { moduleListAll } from '@/services/menu';
 import { checkRoleName, saveOrUpdateRole } from '@/pages/system/user/services/role.service';
 import { getNoParentChild } from '@/pages/system/user/utils';

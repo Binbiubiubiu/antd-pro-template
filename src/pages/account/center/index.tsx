@@ -1,5 +1,5 @@
-import { Avatar, Card, Col, Divider, Icon, Input, Row, Tag } from 'antd';
 import React, { PureComponent } from 'react';
+import { Avatar, Card, Col, Divider, Icon, Input, Row, Tag } from 'antd';
 
 import { Dispatch } from 'redux';
 import { GridContent } from '@ant-design/pro-layout';

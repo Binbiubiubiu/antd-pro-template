@@ -1,5 +1,5 @@
-import { Axis, Chart, Geom, Tooltip } from 'bizcharts';
 import React, { Component } from 'react';
+import { Axis, Chart, Geom, Tooltip } from 'bizcharts';
 
 import Debounce from 'lodash.debounce';
 import autoHeight from '../autoHeight';

@@ -1,5 +1,6 @@
 import React, { Suspense, useState } from 'react';
 import { PageHeaderWrapper, PageLoading } from '@ant-design/pro-layout';
+
 import { RouteComponentProps } from 'react-router';
 
 const PeopleTable = React.lazy(() => import('./people'));

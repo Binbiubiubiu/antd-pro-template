@@ -1,12 +1,14 @@
-// import { Icon, Tooltip } from 'antd';
 import React from 'react';
 import { connect } from 'dva';
 import { ConnectProps, ConnectState } from '@/models/connect';
+
 import Avatar from './AvatarDropdown';
+// import { Icon, Tooltip } from 'antd';
+import styles from './index.less';
+
 // import HeaderSearch from '../HeaderSearch';
 // import SelectLang from '../SelectLang';
 
-import styles from './index.less';
 // import NoticeIconView from './NoticeIconView';
 export type SiderTheme = 'light' | 'dark';
 export interface GlobalHeaderRightProps extends ConnectProps {

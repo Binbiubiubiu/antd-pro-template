@@ -38,3 +38,7 @@ export function getToken(): string | null {
 export function setToken(token: string): void {
   localStorage.setItem('wtx-token', token);
 }
+
+export function removeToken(): void {
+  localStorage.removeItem('wtx-token');
+}

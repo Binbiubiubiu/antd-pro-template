@@ -1,5 +1,5 @@
-import { Card, Steps } from 'antd';
 import React, { Component } from 'react';
+import { Card, Steps } from 'antd';
 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';

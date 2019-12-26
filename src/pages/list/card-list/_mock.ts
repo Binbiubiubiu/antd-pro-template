@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import { CardListItemDataType } from './data.d';
 
 const titles = [

@@ -1,10 +1,11 @@
-import { Form, Input, message, Modal, Transfer } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Form, Input, Modal, Transfer, message } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
-import React, { useEffect, useMemo, useState } from 'react';
 import { TransferItem } from 'antd/es/transfer';
-import { queryRole, getUserRoleList } from '@/pages/system/user/services/role.service';
 import { checkUserName, saveOrUpdateUser } from '@/pages/system/user/services/user.service';
+import { getUserRoleList, queryRole } from '@/pages/system/user/services/role.service';
+
 import { EasyHouseSelect } from '@/easy-components/EasySelect';
 import { phoneReg } from '@/utils/validator';
 

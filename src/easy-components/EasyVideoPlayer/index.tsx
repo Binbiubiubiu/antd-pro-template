@@ -1,10 +1,11 @@
-import React, { Component, CSSProperties } from 'react';
-import cls from 'classnames';
+import React, { CSSProperties, Component } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import defaultVideoPlayerConfig from './utils/default-config';
+
+import cls from 'classnames';
 import { analyzeTypeOfVideo, isVaildURL } from './utils';
 
+import defaultVideoPlayerConfig from './utils/default-config';
 import styles from './style.less';
 
 const defaultProps = {

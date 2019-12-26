@@ -1,5 +1,6 @@
-import { Avatar } from 'antd';
 import React from 'react';
+import { Avatar } from 'antd';
+
 import moment from 'moment';
 import styles from './index.less';
 

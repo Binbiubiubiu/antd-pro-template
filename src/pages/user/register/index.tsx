@@ -1,5 +1,6 @@
-import { Button, Col, Form, Input, Popover, Progress, Row, Select, message } from 'antd';
 import React, { Component } from 'react';
+import { Button, Col, Form, Input, Popover, Progress, Row, Select, message } from 'antd';
+
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 import Link from 'umi/link';

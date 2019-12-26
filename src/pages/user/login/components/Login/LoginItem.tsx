@@ -1,5 +1,5 @@
-import { Button, Col, Form, Input, Row } from 'antd';
 import React, { Component } from 'react';
+import { Button, Col, Form, Input, Row } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
 import omit from 'omit.js';
@@ -45,12 +45,12 @@ interface LoginItemState {
 const FormItem = Form.Item;
 
 class WrapFormItem extends Component<LoginItemProps, LoginItemState> {
+  interval: number | undefined = undefined;
+
   static defaultProps = {
     getCaptchaButtonText: 'captcha',
     getCaptchaSecondText: 'second',
   };
-
-  interval: number | undefined = undefined;
 
   constructor(props: LoginItemProps) {
     super(props);

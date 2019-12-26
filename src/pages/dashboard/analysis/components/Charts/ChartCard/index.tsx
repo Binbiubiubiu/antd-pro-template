@@ -1,6 +1,7 @@
+import React from 'react';
 import { Card } from 'antd';
 import { CardProps } from 'antd/es/card';
-import React from 'react';
+
 import classNames from 'classnames';
 import styles from './index.less';
 

@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import { Button, Col, Form, Input, Select } from 'antd';
+
 import { ColumnProps } from 'antd/es/table';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
-import { queryBasicDataPerson } from '@/pages/community/basic-data/people/service';
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
+import { queryBasicDataPerson } from '@/pages/community/basic-data/people/service';
+import { usePagableFetch } from '@/hooks/usePagableFetch';
 
 interface HouseTableProps {}
 

@@ -1,13 +1,10 @@
-import { Reducer } from 'redux';
 import { Effect } from 'dva';
-// import { stringify } from 'querystring';
+import { Reducer } from 'redux';
 import router from 'umi/router';
+import { login } from '@/services/login';
+// import { stringify } from 'querystring';
+import { removeToken, setAuthority } from '@/utils/authority';
 
-import {
-  login,
-  // getFakeCaptcha
-} from '@/services/login';
-import { setAuthority } from '@/utils/authority';
 // import { getPageQuery } from '@/utils/utils';
 
 export interface StateType {
@@ -73,6 +70,7 @@ const Model: LoginModelType = {
       // const { redirect } = getPageQuery();
       // Note: There may be security issues, please note
       // if (window.location.pathname !== '/user/index' && !redirect) {
+      removeToken();
       router.replace({
         pathname: '/user/login',
         // search: stringify({

@@ -1,7 +1,8 @@
 import React, { FC, FormEvent } from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Button, Card, Col, Form, Input, Row, Select } from 'antd';
+
 import { FormComponentProps } from 'antd/es/form';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import EasyRichText from '@/easy-components/EasyRichText';
 
 interface NoticeFormProps extends FormComponentProps<NoticeTableForm> {}

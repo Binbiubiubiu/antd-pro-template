@@ -1,17 +1,18 @@
-import { Button, Card, Col, DatePicker, Divider, Form, Input, Row } from 'antd';
 import React from 'react';
-import router from 'umi/router';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { WrappedFormUtils } from 'antd/es/form/Form';
+import { Button, Card, Col, DatePicker, Divider, Form, Input, Row } from 'antd';
+
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
-import EasyTable from '@/easy-components/EasyTable';
+import { WrappedFormUtils } from 'antd/es/form/Form';
+import router from 'umi/router';
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 import EasySearchForm from '@/easy-components/EasySearchForm';
+import EasyTable from '@/easy-components/EasyTable';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { queryNotice } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 interface NoticeTableProps extends FormComponentProps {}
 

@@ -44,9 +44,9 @@ export function usePagableFetch<T = any, S = any>(props: PagableFetchProps<T, S>
       });
   };
 
-  useEffect(() => {
-    refreshTable();
-  }, []);
+  // useEffect(() => {
+  //   refreshTable();
+  // }, []);
 
   useEffect(() => {
     refreshTable();

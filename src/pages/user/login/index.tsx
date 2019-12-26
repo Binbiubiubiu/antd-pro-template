@@ -1,15 +1,12 @@
-import {
-  Alert,
-  // Checkbox,
-  // Icon
-} from 'antd';
 import React, { Component } from 'react';
+
+import { Alert } from 'antd';
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
-// import Link from 'umi/link';
 import { connect } from 'dva';
-import { StateType } from '@/models/login';
 import LoginComponents from './components/Login';
+import { StateType } from '@/models/login';
+// import Link from 'umi/link';
 import styles from './style.less';
 
 const {

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import { BasicListItemDataType } from './data.d';
 
 const titles = [

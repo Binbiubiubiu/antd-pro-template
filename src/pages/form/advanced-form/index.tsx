@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import {
   Button,
   Card,
@@ -11,14 +12,13 @@ import {
   Select,
   TimePicker,
 } from 'antd';
-import React, { Component } from 'react';
+import { PageHeaderWrapper, RouteContext } from '@ant-design/pro-layout';
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
-import { PageHeaderWrapper, RouteContext } from '@ant-design/pro-layout';
 import { connect } from 'dva';
-import TableForm from './components/TableForm';
 import FooterToolbar from './components/FooterToolbar';
+import TableForm from './components/TableForm';
 import styles from './style.less';
 
 const { Option } = Select;

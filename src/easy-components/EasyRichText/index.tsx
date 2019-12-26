@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import E from 'wangeditor';
 import styles from './style.less';
 

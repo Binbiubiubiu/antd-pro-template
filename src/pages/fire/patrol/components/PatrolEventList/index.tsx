@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { Avatar, Card, List } from 'antd';
+
 import moment from 'moment';
-import styles from '../../style.less';
 import { getPatrolEvent } from '@/pages/fire/patrol/_mock';
+import styles from '../../style.less';
 
 interface PatrolEventListProps {}
 

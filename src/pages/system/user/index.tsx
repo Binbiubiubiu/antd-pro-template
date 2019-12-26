@@ -1,17 +1,19 @@
-import { Button, Form, message, Row, Col, Card, Modal, Input, Divider } from 'antd';
-import { ColumnProps } from 'antd/es/table';
 import React, { useState } from 'react';
+import { Button, Card, Col, Divider, Form, Input, Modal, Row, message } from 'antd';
+import { GridContent, PageHeaderWrapper } from '@ant-design/pro-layout';
+
+import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
-import { PageHeaderWrapper, GridContent } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import UserForm from './components/UserForm';
 import { queryUser, removeUser } from '@/pages/system/user/services/user.service';
-import RoleList from './components/RoleList';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
-import EasyTable from '@/easy-components/EasyTable';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+
 import { EasyHouseSelect } from '@/easy-components/EasySelect';
+import EasySearchForm from '@/easy-components/EasySearchForm';
+import EasyTable from '@/easy-components/EasyTable';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import RoleList from './components/RoleList';
+import UserForm from './components/UserForm';
+import { usePagableFetch } from '@/hooks/usePagableFetch';
 
 interface TableListProps extends FormComponentProps<UserTableItem> {}
 

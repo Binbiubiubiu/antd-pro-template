@@ -1,12 +1,13 @@
-import { Card, Col, Row, Statistic, Tooltip } from 'antd';
 import React, { Component } from 'react';
+import { Card, Col, Row, Statistic, Tooltip } from 'antd';
+
 import { Dispatch } from 'redux';
 import { GridContent } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import numeral from 'numeral';
 import { StateType } from './model';
-import { Pie, WaterWave, Gauge, TagCloud } from './components/Charts';
 import ActiveChart from './components/ActiveChart';
+import { Gauge, Pie, TagCloud, WaterWave } from './components/Charts';
 import styles from './style.less';
 
 const { Countdown } = Statistic;

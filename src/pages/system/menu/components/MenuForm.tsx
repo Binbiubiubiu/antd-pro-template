@@ -1,7 +1,7 @@
-import { Form, Input, message, Modal } from 'antd';
+import React, { useEffect, useMemo } from 'react';
+import { Form, Input, Modal, message } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
-import React, { useEffect, useMemo } from 'react';
 import { saveOrUpdateChildModule, saveOrUpdateParentModule } from '../service';
 
 const FormItem = Form.Item;

@@ -1,6 +1,7 @@
+import React from 'react';
 import { Button, Result } from 'antd';
 import Link from 'umi/link';
-import React from 'react';
+
 import { RouteChildrenProps } from 'react-router';
 import styles from './style.less';
 

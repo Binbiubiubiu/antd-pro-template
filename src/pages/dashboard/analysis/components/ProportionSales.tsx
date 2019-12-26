@@ -1,8 +1,10 @@
-import { Card, Radio } from 'antd';
-import { RadioChangeEvent } from 'antd/es/radio';
 import React from 'react';
-import { VisitDataType } from '../data.d';
+import { Card, Radio } from 'antd';
+
+import { RadioChangeEvent } from 'antd/es/radio';
+
 import { Pie } from './Charts';
+import { VisitDataType } from '../data.d';
 import Yuan from '../utils/Yuan';
 import styles from '../style.less';
 

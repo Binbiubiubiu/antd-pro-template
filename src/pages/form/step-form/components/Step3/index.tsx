@@ -1,6 +1,8 @@
-import { Button, Result, Descriptions, Statistic } from 'antd';
 import React from 'react';
+import { Button, Descriptions, Result, Statistic } from 'antd';
+
 import { Dispatch } from 'redux';
+
 import { connect } from 'dva';
 import { StateType } from '../../model';
 import styles from './index.less';

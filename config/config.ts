@@ -1,6 +1,6 @@
 import { IConfig, IPlugin } from 'umi-types';
-import defaultSettings from './defaultSettings'; // https://umijs.org/config/
 
+import defaultSettings from './defaultSettings'; // https://umijs.org/config/
 import slash from 'slash2'; // import themePluginConfig from './themePluginConfig';
 
 const { pwa, title } = defaultSettings; // preview.pro.ant.design only do not use in your production ;
@@ -478,8 +478,8 @@ export default {
   proxy: {
     '/csp': {
       // target: `http://192.168.1.142:8080`, // 高阔ip
-      target: `http://192.168.1.109:8080`,
-      // target: `http://120.26.92.123:21081/`,
+      // target: `http://192.168.1.109:8080`,
+      target: `http://192.168.1.128:8080`,
       changeOrigin: true, // pathRewrite: { '^/isc': '/isc' },
     },
   },

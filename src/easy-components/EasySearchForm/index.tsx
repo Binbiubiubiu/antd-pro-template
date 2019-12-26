@@ -1,6 +1,7 @@
 import React, { FormEvent } from 'react';
-import { FormComponentProps } from 'antd/es/form';
 import { Card, Form, Row } from 'antd';
+
+import { FormComponentProps } from 'antd/es/form';
 import { WrappedFormUtils } from 'antd/es/form/Form';
 import styles from './style.less';
 

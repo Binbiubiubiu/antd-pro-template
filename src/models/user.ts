@@ -1,11 +1,7 @@
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
-
 import { queryCurrent, query as queryUsers } from '@/services/user';
-import {
-  // setAuthority,
-  setToken,
-} from '@/utils/authority';
+import { setToken } from '@/utils/authority';
 
 export interface CurrentUser {
   avatar?: string;

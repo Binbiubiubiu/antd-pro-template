@@ -1,15 +1,16 @@
-import { Button, Col, Form, Input } from 'antd';
 import React from 'react';
-import { FormComponentProps } from 'antd/es/form';
-import { WrappedFormUtils } from 'antd/es/form/Form';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { ColumnProps } from 'antd/es/table';
+import { Button, Col, Form, Input } from 'antd';
 
-import { queryLog } from './service';
+import { ColumnProps } from 'antd/es/table';
+import { FormComponentProps } from 'antd/es/form';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+
+import { WrappedFormUtils } from 'antd/es/form/Form';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import EasyTable from '@/easy-components/EasyTable';
 import EasySearchForm from '@/easy-components/EasySearchForm';
+import { queryLog } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 
 interface LogTableListProps extends FormComponentProps {}
 

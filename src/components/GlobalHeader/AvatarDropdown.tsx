@@ -1,19 +1,14 @@
-import {
-  Avatar,
-  Icon,
-  Menu,
-  // Spin
-} from 'antd';
-import { ClickParam } from 'antd/es/menu';
 import React from 'react';
+import { Avatar, Icon, Menu } from 'antd';
+import { ClickParam } from 'antd/es/menu';
 import { connect } from 'dva';
 import router from 'umi/router';
 import { ConnectProps, ConnectState } from '@/models/connect';
+
+import AvatarLogo from '@/assets/avatar.png';
 import { CurrentUser } from '@/models/user';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
-
-import AvatarLogo from '@/assets/avatar.png';
 
 export interface GlobalHeaderRightProps extends ConnectProps {
   currentUser?: CurrentUser;

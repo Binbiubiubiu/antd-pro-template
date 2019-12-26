@@ -1,5 +1,6 @@
-import { Button, Form, Input, Select, Upload, message } from 'antd';
 import React, { Component, Fragment } from 'react';
+import { Button, Form, Input, Select, Upload, message } from 'antd';
+
 import { FormComponentProps } from 'antd/es/form';
 import { connect } from 'dva';
 import { CurrentUser } from '../data.d';

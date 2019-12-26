@@ -1,17 +1,18 @@
 import React, { FC, useState } from 'react';
-import moment from 'moment';
+import { Button, Card, Col, DatePicker, Form, Icon, Input, List, Tag } from 'antd';
+
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import { Button, Card, Col, Form, Input, List, DatePicker, Icon, Tag } from 'antd';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
-import { queryVideos } from '@/pages/safe/video/service';
-import styles from '@/pages/safe/video/style.less';
-import EasySearchForm from '@/easy-components/EasySearchForm';
+import moment from 'moment';
 import EasyCardList from '@/easy-components/EasyCardList';
 import EasyHouseSelect from '@/easy-components/EasySelect/EasyHouseSelect';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { EasySceneSelect } from '@/easy-components/EasySelect';
+import EasySearchForm from '@/easy-components/EasySearchForm';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import VideoPlayerModal from '@/pages/safe/video/components/VideoPlayerModal';
+import { queryVideos } from '@/pages/safe/video/service';
+import styles from '@/pages/safe/video/style.less';
+import { usePagableFetch } from '@/hooks/usePagableFetch';
 
 const { RangePicker } = DatePicker;
 
@@ -40,7 +41,7 @@ const VideoCardList: FC<VideoCardListProps> = () => {
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
-    <Col key="timeRange" {...{ md: 18, xl: 12, xxl: 12 }}>
+    <Col key="timeRange" {...{ md: 18, xl: 12, xxl: 9 }}>
       <Form.Item label="安装时间">
         {form.getFieldDecorator('timeRange', {
           rules: [],
@@ -50,6 +51,7 @@ const VideoCardList: FC<VideoCardListProps> = () => {
             showTime={{ format: 'HH:mm:ss' }}
             format="YYYY-MM-DD HH:mm:ss"
             style={{ width: '100%' }}
+            placeholder={['开始时间', '结束时间']}
           />,
         )}
       </Form.Item>

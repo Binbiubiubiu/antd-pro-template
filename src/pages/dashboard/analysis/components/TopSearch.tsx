@@ -1,7 +1,9 @@
-import { Card, Col, Icon, Row, Table, Tooltip } from 'antd';
 import React from 'react';
+import { Card, Col, Icon, Row, Table, Tooltip } from 'antd';
+
 import numeral from 'numeral';
 import { SearchDataType, VisitDataType } from '../data.d';
+
 import { MiniArea } from './Charts';
 import NumberInfo from './NumberInfo';
 import Trend from './Trend';

@@ -1,12 +1,12 @@
 interface IndustryModal {
   id: number;
-  houseId: string;
-  name: string;
+  houseKey: string;
+  uesrName: string;
   sex: number;
-  IDCard: string;
+  idcard: string;
   phone: string;
-  job: string;
-  pollNum: string;
+  duty: string;
+  poll: string;
 }
 
 interface IndustryTableItem extends IndustryModal {
@@ -16,9 +16,7 @@ interface IndustryTableItem extends IndustryModal {
 
 type IndustryTableForm = Partial<IndustryModal>;
 
-type IndustryTableSearch = Partial<{
-  houseName: string;
-  type: string;
-  createTime: string;
-  content: string;
-}>;
+interface IndustryTableSearch {
+  houseKey: string;
+  userinfo: string;
+}

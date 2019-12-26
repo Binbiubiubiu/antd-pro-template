@@ -1,5 +1,5 @@
-import { Icon, Tag } from 'antd';
 import React, { Component } from 'react';
+import { Icon, Tag } from 'antd';
 
 import classNames from 'classnames';
 import styles from './index.less';
@@ -58,8 +58,6 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
       selectAllText: '全部',
     },
   };
-
-  static Option: TagSelectOption = TagSelectOption;
 
   static getDerivedStateFromProps(nextProps: TagSelectProps) {
     if ('value' in nextProps) {
@@ -127,6 +125,8 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
     node &&
     node.type &&
     (node.type.isTagSelectOption || node.type.displayName === 'TagSelectOption');
+
+  static Option: TagSelectOption = TagSelectOption;
 
   render() {
     const { value, expand } = this.state;

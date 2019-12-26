@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import {
   Avatar,
   Button,
@@ -13,11 +14,10 @@ import {
   Modal,
   Progress,
   Radio,
+  Result,
   Row,
   Select,
-  Result,
 } from 'antd';
-import React, { Component } from 'react';
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';

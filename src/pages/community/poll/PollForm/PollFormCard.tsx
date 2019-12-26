@@ -1,6 +1,7 @@
-import { WrappedFormUtils } from 'antd/es/form/Form';
 import React, { FC, useState } from 'react';
 import { Button, Card, Form, Icon, Input, message } from 'antd';
+
+import { WrappedFormUtils } from 'antd/es/form/Form';
 import styles from './style.less';
 
 const OPS_KEY = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];

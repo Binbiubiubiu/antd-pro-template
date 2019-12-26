@@ -1,9 +1,9 @@
+import React, { FC, useEffect, useState } from 'react';
 import { Axis, Chart, Geom, Legend, Tooltip } from 'bizcharts';
 
-import React, { FC, useEffect, useState } from 'react';
 import autoHeight from '@/easy-components/EasyChart/autoHeight';
-import styles from './index.less';
 import { countAlarmByDay } from '@/pages/fire/alarm/service';
+import styles from './index.less';
 
 export interface AlarmLineChartProps {
   title?: string;

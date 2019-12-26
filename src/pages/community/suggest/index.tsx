@@ -1,12 +1,12 @@
-import { Button, Col, DatePicker, Form, Input, Select } from 'antd';
 import React, { useState } from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { WrappedFormUtils } from 'antd/es/form/Form';
+import { Button, Col, DatePicker, Form, Input, Select } from 'antd';
+
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
-
-import EasyTable from '@/easy-components/EasyTable';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { WrappedFormUtils } from 'antd/es/form/Form';
 import EasySearchForm from '@/easy-components/EasySearchForm';
+import EasyTable from '@/easy-components/EasyTable';
 import SuggestForm from './components/SuggestForm';
 import { querySuggestion } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';

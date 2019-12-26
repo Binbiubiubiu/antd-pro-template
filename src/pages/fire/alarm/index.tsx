@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
-
 import { GridContent, PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card } from 'antd';
-import TimelineChart from '@/pages/fire/alarm/components/AlarmLineChart';
 
+import { Card } from 'antd';
 import AlarmTable from '@/pages/fire/alarm/components/AlarmTable';
+import TimelineChart from '@/pages/fire/alarm/components/AlarmLineChart';
 
 interface AlarmAnalysisProps {}
 

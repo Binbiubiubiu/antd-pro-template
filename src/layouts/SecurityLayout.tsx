@@ -1,8 +1,9 @@
-import React from 'react';
-import { connect } from 'dva';
-import { Redirect } from 'umi';
 // import { stringify } from 'querystring';
-import { ConnectState, ConnectProps } from '@/models/connect';
+import React from 'react';
+import { Redirect } from 'umi';
+import { connect } from 'dva';
+import { ConnectProps, ConnectState } from '@/models/connect';
+
 import { CurrentUser } from '@/models/user';
 import PageLoading from '@/components/PageLoading';
 import { getToken } from '@/utils/authority';

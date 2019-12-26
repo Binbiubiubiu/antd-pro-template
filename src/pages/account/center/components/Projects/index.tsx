@@ -1,5 +1,5 @@
-import { Card, List } from 'antd';
 import React, { Component } from 'react';
+import { Card, List } from 'antd';
 
 import { connect } from 'dva';
 import moment from 'moment';

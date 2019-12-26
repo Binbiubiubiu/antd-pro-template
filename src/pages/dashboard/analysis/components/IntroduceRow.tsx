@@ -1,9 +1,10 @@
-import { Col, Icon, Row, Tooltip } from 'antd';
 import React from 'react';
+import { Col, Icon, Row, Tooltip } from 'antd';
 import numeral from 'numeral';
-import { ChartCard, MiniArea, MiniBar, MiniProgress, Field } from './Charts';
-import { VisitDataType } from '../data.d';
+import { ChartCard, Field, MiniArea, MiniBar, MiniProgress } from './Charts';
+
 import Trend from './Trend';
+import { VisitDataType } from '../data.d';
 import Yuan from '../utils/Yuan';
 import styles from '../style.less';
 

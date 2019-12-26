@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Button, Card, Col, Form, Input, Row, Divider } from 'antd';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { Button, Card, Col, Divider, Form, Input, Row } from 'antd';
+
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-
-import EasyTable from '@/easy-components/EasyTable';
+import moment from 'moment';
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 import EasySearchForm from '@/easy-components/EasySearchForm';
+import EasyTable from '@/easy-components/EasyTable';
+import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import IndustryForm from './components/IndustryForm';
 import { queryIndustry } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 interface IndustryTableProps extends FormComponentProps {}
 
@@ -33,15 +34,18 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
     },
     {
       title: '姓名',
-      dataIndex: 'name',
+      dataIndex: 'uesrName',
     },
     {
       title: '性别',
       dataIndex: 'sex',
+      render(text) {
+        return text === 'MAN' ? '男' : '女';
+      },
     },
     {
       title: '身份证号码',
-      dataIndex: 'code',
+      dataIndex: 'idcard',
     },
     {
       title: '联系电话',
@@ -49,15 +53,18 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
     },
     {
       title: '当选职务',
-      dataIndex: 'job',
+      dataIndex: 'duty',
     },
     {
       title: '当选票数',
-      dataIndex: 'job',
+      dataIndex: 'poll',
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
+      render(text) {
+        return moment(text).format('YYYY-MM-DD HH:mm:ss');
+      },
     },
     {
       title: '操作',
@@ -89,16 +96,16 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
   ];
 
   const renderSearchForm = (form: WrappedFormUtils<IndustryTableSearch>) => [
-    <Col key="houseId" {...GolobalSearchFormLayout}>
+    <Col key="houseKey" {...GolobalSearchFormLayout}>
       <Form.Item label="所属小区">
-        {form.getFieldDecorator('houseId', {
+        {form.getFieldDecorator('houseKey', {
           rules: [],
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="content" {...GolobalSearchFormLayout}>
+    <Col key="userinfo" {...GolobalSearchFormLayout}>
       <Form.Item label="人员信息">
-        {form.getFieldDecorator('content', {
+        {form.getFieldDecorator('userinfo', {
           rules: [],
         })(<Input placeholder="姓名/手机号" />)}
       </Form.Item>

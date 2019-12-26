@@ -1,13 +1,13 @@
-import { Button, Card, Col, Form, Icon, List, Row, Select, Tag } from 'antd';
 import React, { Component } from 'react';
+import { Button, Card, Col, Form, Icon, List, Row, Select, Tag } from 'antd';
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 import { connect } from 'dva';
 import ArticleListContent from './components/ArticleListContent';
-import { StateType } from './model';
 import { ListItemDataType } from './data.d';
 import StandardFormRow from './components/StandardFormRow';
+import { StateType } from './model';
 import TagSelect from './components/TagSelect';
 import styles from './style.less';
 

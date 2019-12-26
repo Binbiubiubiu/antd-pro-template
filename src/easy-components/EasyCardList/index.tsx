@@ -1,10 +1,11 @@
 import React from 'react';
 import { List, Pagination } from 'antd';
+
 import { GridContent } from '@ant-design/pro-layout';
 import { ListProps } from 'antd/es/list';
 import { PaginationProps } from 'antd/lib/pagination/Pagination';
-import { GolobalPaginationSetting } from '../GlobalSetting';
 
+import { GolobalPaginationSetting } from '../GlobalSetting';
 import styles from './style.less';
 
 interface EasyCardListProps<T> extends ListProps<T> {

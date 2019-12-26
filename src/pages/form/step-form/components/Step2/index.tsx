@@ -1,8 +1,9 @@
-import { Alert, Button, Descriptions, Divider, Statistic, Form, Input } from 'antd';
+import React from 'react';
+import { Alert, Button, Descriptions, Divider, Form, Input, Statistic } from 'antd';
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
-import React from 'react';
+
 import { connect } from 'dva';
 import { StateType } from '../../model';
 import styles from './index.less';

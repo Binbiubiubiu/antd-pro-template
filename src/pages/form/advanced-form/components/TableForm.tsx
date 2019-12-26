@@ -1,5 +1,5 @@
-import { Button, Divider, Input, Popconfirm, Table, message } from 'antd';
 import React, { Fragment, PureComponent } from 'react';
+import { Button, Divider, Input, Popconfirm, Table, message } from 'antd';
 
 import isEqual from 'lodash.isequal';
 import styles from '../style.less';

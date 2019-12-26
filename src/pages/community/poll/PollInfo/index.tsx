@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Card, Col, Row, Typography } from 'antd';
 
-import styles from './style.less';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import PollInfoTable from '@/pages/community/poll/components/PollInfoTable';
+import styles from './style.less';
 
 const { Title, Paragraph } = Typography;
 

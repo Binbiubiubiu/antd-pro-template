@@ -1,5 +1,5 @@
-import { Button, DatePicker, Form, Input, Modal, Radio, Select, Steps } from 'antd';
 import React, { Component } from 'react';
+import { Button, DatePicker, Form, Input, Modal, Radio, Select, Steps } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
 import { TableListItem } from '../data.d';
@@ -30,15 +30,15 @@ export interface UpdateFormState {
 }
 
 class UpdateForm extends Component<UpdateFormProps, UpdateFormState> {
+  formLayout = {
+    labelCol: { span: 7 },
+    wrapperCol: { span: 13 },
+  };
+
   static defaultProps = {
     handleUpdate: () => {},
     handleUpdateModalVisible: () => {},
     values: {},
-  };
-
-  formLayout = {
-    labelCol: { span: 7 },
-    wrapperCol: { span: 13 },
   };
 
   constructor(props: UpdateFormProps) {

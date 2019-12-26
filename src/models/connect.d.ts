@@ -3,8 +3,8 @@ import { MenuDataItem } from '@ant-design/pro-layout';
 import { RouterTypes } from 'umi';
 import { GlobalModelState } from './global';
 import { DefaultSettings as SettingModelState } from '../../config/defaultSettings';
-import { UserModelState } from './user';
 import { StateType } from './login';
+import { UserModelState } from './user';
 
 export { GlobalModelState, SettingModelState, UserModelState };
 

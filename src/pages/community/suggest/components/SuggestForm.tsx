@@ -1,5 +1,5 @@
-import { Col, Form, Input, Modal, Row, Typography } from 'antd';
 import React, { Component } from 'react';
+import { Col, Form, Input, Modal, Row, Typography } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
 

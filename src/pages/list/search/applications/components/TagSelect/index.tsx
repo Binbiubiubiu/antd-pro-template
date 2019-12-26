@@ -1,5 +1,5 @@
-import { Icon, Tag } from 'antd';
 import React, { Component } from 'react';
+import { Icon, Tag } from 'antd';
 
 import classNames from 'classnames';
 import styles from './index.less';
@@ -59,8 +59,6 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
     },
   };
 
-  static Option: TagSelectOption = TagSelectOption;
-
   static getDerivedStateFromProps(nextProps: TagSelectProps) {
     if ('value' in nextProps) {
       return { value: nextProps.value || [] };
@@ -75,6 +73,20 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
       value: props.value || props.defaultValue || [],
     };
   }
+
+  getAllTags() {
+    const { children } = this.props;
+    const childrenArray = React.Children.toArray(children) as React.ReactElement<TagSelectOption>[];
+    const checkedTags = childrenArray
+      .filter(child => this.isTagSelectOption(child))
+      .map(child => child.props.value);
+    return checkedTags || [];
+  }
+
+  isTagSelectOption = (node: React.ReactElement<TagSelectOption, TagSelectOption>) =>
+    node &&
+    node.type &&
+    (node.type.isTagSelectOption || node.type.displayName === 'TagSelectOption');
 
   onChange = (value: (string | number)[]) => {
     const { onChange } = this.props;
@@ -93,15 +105,6 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
     }
     this.onChange(checkedTags);
   };
-
-  getAllTags() {
-    const { children } = this.props;
-    const childrenArray = React.Children.toArray(children) as React.ReactElement<TagSelectOption>[];
-    const checkedTags = childrenArray
-      .filter(child => this.isTagSelectOption(child))
-      .map(child => child.props.value);
-    return checkedTags || [];
-  }
 
   handleTagChange = (value: string | number, checked: boolean) => {
     const { value: StateValue } = this.state;
@@ -123,10 +126,7 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
     });
   };
 
-  isTagSelectOption = (node: React.ReactElement<TagSelectOption, TagSelectOption>) =>
-    node &&
-    node.type &&
-    (node.type.isTagSelectOption || node.type.displayName === 'TagSelectOption');
+  static Option: TagSelectOption = TagSelectOption;
 
   render() {
     const { value, expand } = this.state;

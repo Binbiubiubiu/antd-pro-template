@@ -1,5 +1,5 @@
-import { Col, Dropdown, Icon, Menu, Row } from 'antd';
 import React, { Component, Suspense } from 'react';
+import { Col, Dropdown, Icon, Menu, Row } from 'antd';
 
 import { Dispatch } from 'redux';
 import { GridContent } from '@ant-design/pro-layout';
@@ -7,8 +7,8 @@ import { RadioChangeEvent } from 'antd/es/radio';
 import { RangePickerValue } from 'antd/es/date-picker/interface';
 import { connect } from 'dva';
 import PageLoading from './components/PageLoading';
-import { getTimeDistance } from './utils/utils';
 import { AnalysisData } from './data.d';
+import { getTimeDistance } from './utils/utils';
 import styles from './style.less';
 
 const IntroduceRow = React.lazy(() => import('./components/IntroduceRow'));

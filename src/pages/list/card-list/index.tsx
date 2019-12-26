@@ -1,5 +1,5 @@
-import { Button, Card, Icon, List, Typography } from 'antd';
 import React, { Component } from 'react';
+import { Button, Card, Icon, List, Typography } from 'antd';
 
 import { Dispatch } from 'redux';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';

@@ -1,5 +1,5 @@
-import { Icon, List, Tag } from 'antd';
 import React, { Component } from 'react';
+import { Icon, List, Tag } from 'antd';
 
 import { connect } from 'dva';
 import ArticleListContent from '../ArticleListContent';

@@ -1,6 +1,8 @@
-import { Card, Col, DatePicker, Row, Tabs } from 'antd';
-import { RangePickerValue } from 'antd/es/date-picker/interface';
 import React from 'react';
+import { Card, Col, DatePicker, Row, Tabs } from 'antd';
+
+import { RangePickerValue } from 'antd/es/date-picker/interface';
+
 import numeral from 'numeral';
 import { VisitDataType } from '../data.d';
 import { Bar } from './Charts';

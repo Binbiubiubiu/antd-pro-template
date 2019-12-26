@@ -1,9 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Card, Table } from 'antd';
-import { TableProps } from 'antd/es/table';
-import { GolobalPaginationSetting } from '../GlobalSetting';
 
+import { TableProps } from 'antd/es/table';
+import classNames from 'classnames';
+import { GolobalPaginationSetting } from '../GlobalSetting';
 import styles from './style.less';
 
 interface EasyTableProps<T> extends TableProps<T> {

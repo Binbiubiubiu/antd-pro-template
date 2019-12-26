@@ -1,5 +1,5 @@
-import { Chart, Coord, Geom, Tooltip } from 'bizcharts';
 import React, { Component } from 'react';
+import { Chart, Coord, Geom, Tooltip } from 'bizcharts';
 
 import { DataView } from '@antv/data-set';
 import Debounce from 'lodash.debounce';

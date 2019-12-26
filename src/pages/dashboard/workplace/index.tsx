@@ -1,5 +1,5 @@
-import { Avatar, Card, Col, List, Skeleton, Row, Statistic } from 'antd';
 import React, { Component } from 'react';
+import { Avatar, Card, Col, List, Row, Skeleton, Statistic } from 'antd';
 
 import { Dispatch } from 'redux';
 import Link from 'umi/link';
@@ -9,8 +9,8 @@ import moment from 'moment';
 import Radar from './components/Radar';
 import { ModalState } from './model';
 import EditableLinkGroup from './components/EditableLinkGroup';
-import styles from './style.less';
 import { ActivitiesType, CurrentUser, NoticeType, RadarDataType } from './data.d';
+import styles from './style.less';
 
 const links = [
   {

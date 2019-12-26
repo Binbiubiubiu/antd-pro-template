@@ -1,7 +1,9 @@
-import { Card, Col, Row, Tabs } from 'antd';
 import React from 'react';
+import { Card, Col, Row, Tabs } from 'antd';
+
 import { OfflineChartData, OfflineDataType } from '../data.d';
-import { TimelineChart, Pie } from './Charts';
+import { Pie, TimelineChart } from './Charts';
+
 import NumberInfo from './NumberInfo';
 import styles from '../style.less';
 

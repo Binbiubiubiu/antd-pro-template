@@ -1,5 +1,5 @@
-import { Avatar, Card, Dropdown, Icon, List, Menu, Tooltip } from 'antd';
 import React, { Component } from 'react';
+import { Avatar, Card, Dropdown, Icon, List, Menu, Tooltip } from 'antd';
 
 import { connect } from 'dva';
 import numeral from 'numeral';
