@@ -66,4 +66,4 @@ const NoticeForm: FC<NoticeFormProps> = props => {
   );
 };
 
-export default Form.create<NoticeFormProps>()(NoticeForm);
+export default Form.create<NoticeFormProps>({ name: 'notice_form' })(NoticeForm);

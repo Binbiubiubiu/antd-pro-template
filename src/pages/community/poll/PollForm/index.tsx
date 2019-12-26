@@ -103,4 +103,4 @@ const PollForm: FC<PollFormProps> = props => {
   );
 };
 
-export default Form.create<PollFormProps>()(PollForm);
+export default Form.create<PollFormProps>({ name: 'poll_form' })(PollForm);

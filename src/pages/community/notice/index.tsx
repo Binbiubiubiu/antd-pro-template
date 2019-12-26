@@ -1,4 +1,4 @@
-import { Button, Card, Col, DatePicker, Divider, Form, Input, Row, Select } from 'antd';
+import { Button, Card, Col, DatePicker, Divider, Form, Input, Row } from 'antd';
 import React from 'react';
 import router from 'umi/router';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -11,8 +11,7 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import { queryNotice } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-
-const { Option } = Select;
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 interface NoticeTableProps extends FormComponentProps {}
 
@@ -22,12 +21,7 @@ const NoticeTable: React.FC<NoticeTableProps> = () => {
       <Form.Item label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Option value="1">利一家园</Option>
-            <Option value="2">望京</Option>
-          </Select>,
-        )}
+        })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
     <Col key="content" {...GolobalSearchFormLayout}>

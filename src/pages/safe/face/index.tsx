@@ -9,6 +9,7 @@ import styles from '@/pages/safe/video/style.less';
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyCardList from '@/easy-components/EasyCardList';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 const { Paragraph } = Typography;
 const { Option } = Select;
@@ -21,12 +22,7 @@ const FaceCardList: FC<FaceCardListProps> = () => {
       <Form.Item key="houseId" label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Option value="1">利一家园</Option>
-            <Option value="2">望京</Option>
-          </Select>,
-        )}
+        })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
     <Col key="person" {...GolobalSearchFormLayout}>

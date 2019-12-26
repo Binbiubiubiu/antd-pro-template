@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Col, Form, Input, Row, Select, Divider } from 'antd';
+import { Button, Card, Col, Form, Input, Row, Divider } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
@@ -11,8 +11,7 @@ import IndustryForm from './components/IndustryForm';
 import { queryIndustry } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-
-const { Option } = Select;
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 interface IndustryTableProps extends FormComponentProps {}
 
@@ -94,12 +93,7 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
       <Form.Item label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Option value="1">利一家园</Option>
-            <Option value="2">望京</Option>
-          </Select>,
-        )}
+        })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
     <Col key="content" {...GolobalSearchFormLayout}>
@@ -126,9 +120,15 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
     </Col>,
   ];
 
-  const { tableData, current, pageSize, total, setCurrent, setSearchForm } = usePagableFetch<
-    IndustryTableItem
-  >({
+  const {
+    loading,
+    tableData,
+    current,
+    pageSize,
+    total,
+    setCurrent,
+    setSearchForm,
+  } = usePagableFetch<IndustryTableItem>({
     request: ({ searchForm, pageIndex, pageSize: size }) =>
       queryIndustry({ ...searchForm, pageIndex, pageSize: size }),
     onSuccess: ({ res, setTableData, setTotal }) => {
@@ -164,6 +164,7 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
           </Col>
         </Row>
         <EasyTable<IndustryTableItem>
+          loading={loading}
           rowKey="id"
           dataSource={tableData}
           pagination={{
@@ -187,7 +188,7 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
           setStepFormValues({});
         }}
         modalVisible={modalVisible}
-        formVals={stepFormValues}
+        formValue={stepFormValues}
       />
     </PageHeaderWrapper>
   );

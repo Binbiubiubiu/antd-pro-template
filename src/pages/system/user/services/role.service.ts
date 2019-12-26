@@ -42,3 +42,14 @@ export async function deleteRole(data: RoleListForm) {
     data,
   });
 }
+
+/**
+ * 检查角色名称是否重复
+ * @param data
+ */
+export async function checkRoleName(data: { name: string }) {
+  return request('/sys/role/checkRoleName', {
+    method: 'POST',
+    data,
+  });
+}

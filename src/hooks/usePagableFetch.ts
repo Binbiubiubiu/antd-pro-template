@@ -24,20 +24,23 @@ export function usePagableFetch<T = any, S = any>(props: PagableFetchProps<T, S>
   const [pageSize, setPageSize] = useState<number>(initPageSize);
   const [total, setTotal] = useState<number>(0);
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const refreshTable = () => {
+    setLoading(true);
     request({ searchForm, pageIndex: current, pageSize })
       .then(res => {
         if (onSuccess) {
           onSuccess({ res, setTableData, setTotal, setPageSize });
         }
-        setLoading(false);
       })
       .catch(err => {
         if (onError) {
           onError({ err, setTableData, setTotal, setPageSize });
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -46,7 +49,6 @@ export function usePagableFetch<T = any, S = any>(props: PagableFetchProps<T, S>
   }, []);
 
   useEffect(() => {
-    setLoading(true);
     refreshTable();
   }, [current, pageSize, JSON.stringify(searchForm)]);
 

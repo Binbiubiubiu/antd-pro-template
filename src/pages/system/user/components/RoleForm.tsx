@@ -2,7 +2,7 @@ import { Form, Input, message, Modal, Tree } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import React, { useEffect, useMemo, useState } from 'react';
 import { moduleListAll } from '@/services/menu';
-import { saveOrUpdateRole } from '@/pages/system/user/services/role.service';
+import { checkRoleName, saveOrUpdateRole } from '@/pages/system/user/services/role.service';
 import { getNoParentChild } from '@/pages/system/user/utils';
 
 const FormItem = Form.Item;
@@ -55,7 +55,10 @@ const RoleForm: React.FC<RoleFormProps> = props => {
         moduleList: [...halfCheckKeys, ...checkKeys].map(item => +item),
       };
       try {
-        await saveOrUpdateRole(submitData);
+        const result = await saveOrUpdateRole(submitData);
+        if (result.code !== 200) {
+          throw new Error();
+        }
         message.success('操作成功');
       } catch (e) {
         message.error('操作失败');
@@ -93,7 +96,26 @@ const RoleForm: React.FC<RoleFormProps> = props => {
     <FormItem key="name" label="角色名" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
       {form.getFieldDecorator('name', {
         initialValue: formValue.name,
-        rules: [{ required: true, message: '请输入角色名！' }],
+        validateTrigger: 'onBlur',
+        rules: [
+          { required: true, message: '请输入角色名！' },
+          {
+            validator: (rule, value, callback) => {
+              if (isUpdate && value === formValue.name) {
+                callback();
+                return;
+              }
+              checkRoleName({ name: value }).then(res => {
+                const { code, message: msg } = res;
+                if (code === 200 && msg === '1') {
+                  callback();
+                } else {
+                  callback('角色名重复，请重填');
+                }
+              });
+            },
+          },
+        ],
       })(<Input placeholder="请输入" />)}
     </FormItem>,
     <FormItem key="moduleList" label="权限分配" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>

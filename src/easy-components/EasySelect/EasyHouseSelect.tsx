@@ -14,11 +14,15 @@ const EasyHouseSelect: FC<EasyHouseSelectProps> = React.forwardRef<Select, EasyH
   (props, ref) => {
     const [options, setOptions] = useState<HouseSelectOption[]>([]);
 
-    useEffect(() => {
+    const fetchOptions = () => {
       getHouseListOfSelector().then(res => {
         const { data = [] } = res;
         setOptions(data);
       });
+    };
+
+    useEffect(() => {
+      fetchOptions();
     }, []);
 
     return (

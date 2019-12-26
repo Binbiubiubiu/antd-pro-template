@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Form, Input, Select } from 'antd';
+import { Button, Col, Form, Input } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
 import { ColumnProps } from 'antd/es/table';
@@ -10,8 +10,7 @@ import { queryVillage } from './service';
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-
-const { Option } = Select;
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 interface VillageTableProps extends FormComponentProps {}
 
@@ -59,12 +58,7 @@ const VillageTable: React.FC<VillageTableProps> = () => {
       <Form.Item key="houseId" label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Option value="1">利一家园</Option>
-            <Option value="2">望京</Option>
-          </Select>,
-        )}
+        })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
     <Col {...GolobalSearchFormLayout}>

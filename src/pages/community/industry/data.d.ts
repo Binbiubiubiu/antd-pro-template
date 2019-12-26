@@ -1,22 +1,24 @@
 interface IndustryModal {
   id: number;
+  houseId: string;
+  name: string;
+  sex: number;
+  IDCard: string;
+  phone: string;
+  job: string;
+  pollNum: string;
+}
+
+interface IndustryTableItem extends IndustryModal {
   houseName: string;
-  content: string;
-  type: string;
-  state: string;
-  createMan: string;
   createTime: string;
 }
 
-interface IndustryTableItem extends IndustryModal {}
+type IndustryTableForm = Partial<IndustryModal>;
 
-interface IndustryTableForm extends IndustryModal {
-  desc: string;
-}
-
-interface IndustryTableSearch {
+type IndustryTableSearch = Partial<{
   houseName: string;
   type: string;
   createTime: string;
   content: string;
-}
+}>;

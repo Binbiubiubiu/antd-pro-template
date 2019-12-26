@@ -14,9 +14,15 @@ import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 interface LogTableListProps extends FormComponentProps {}
 
 const LogTableList: React.FC<LogTableListProps> = () => {
-  const { tableData, current, pageSize, total, setCurrent, setSearchForm } = usePagableFetch<
-    LogTableItem
-  >({
+  const {
+    loading,
+    tableData,
+    current,
+    pageSize,
+    total,
+    setCurrent,
+    setSearchForm,
+  } = usePagableFetch<LogTableItem>({
     request: ({ searchForm, pageIndex, pageSize: size }) =>
       queryLog({ ...searchForm, pageIndex, pageSize: size }),
     onSuccess: ({ res, setTableData, setTotal }) => {
@@ -92,6 +98,7 @@ const LogTableList: React.FC<LogTableListProps> = () => {
         wrappedWithCard
       />
       <EasyTable<LogTableItem>
+        loading={loading}
         rowKey="id"
         columns={columns}
         dataSource={tableData}

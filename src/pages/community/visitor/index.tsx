@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Select } from 'antd';
+import { Button, Col, Form, Input } from 'antd';
 import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
@@ -10,8 +10,7 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import { queryVisitor } from './service';
 import { usePagableFetch } from '@/hooks/usePagableFetch';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-
-const { Option } = Select;
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 interface VisitorTableProps extends FormComponentProps {}
 
@@ -63,12 +62,7 @@ const VisitorTable: React.FC<VisitorTableProps> = () => {
       <Form.Item label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Option value="1">利一家园</Option>
-            <Option value="2">望京</Option>
-          </Select>,
-        )}
+        })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
     <Col key="content" {...GolobalSearchFormLayout}>

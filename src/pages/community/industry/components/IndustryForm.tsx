@@ -1,104 +1,125 @@
-import { Col, Form, Input, Modal, Row, Typography } from 'antd';
-import React, { Component } from 'react';
+import { Form, Input, InputNumber, message, Modal, Radio } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
+import React, { useEffect, useMemo, useState } from 'react';
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
+import { IDCardReg, phoneReg } from '@/utils/validator';
 
 const FormItem = Form.Item;
-const { Paragraph, Text } = Typography;
-const { TextArea } = Input;
 
-export interface FormValueType extends Partial<PollTableForm> {}
-
-export interface IndustryFormProps extends FormComponentProps {
-  onCancel: () => void;
-  onSubmit: (formVals: FormValueType) => void;
+interface IndustryFormProps extends FormComponentProps<IndustryTableForm> {
   modalVisible: boolean;
-  formVals: FormValueType;
+  formValue: IndustryTableForm;
+  onSubmit: (fieldsValue: IndustryTableForm) => void;
+  onCancel: () => void;
 }
 
-export interface IndustryFormState {}
+const IndustryForm: React.FC<IndustryFormProps> = props => {
+  const { modalVisible, form, formValue, onSubmit, onCancel } = props;
 
-class IndustryForm extends Component<IndustryFormProps, IndustryFormState> {
-  static defaultProps = {
-    onSubmit: () => {},
-    formVals: {},
-  };
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const isUpdate = useMemo<boolean>(() => !!formValue.id, [formValue]);
 
-  renderContent = (formVals: FormValueType) => {
-    const { form } = this.props;
-    return [
-      <Typography key="suggestForm">
-        <Paragraph>
-          <Text strong>牛依·15990285367（美哉美城15幢1单元502)</Text>{' '}
-          <Text type="secondary" style={{ float: 'right' }}>
-            2019-11-01 18:50:08
-          </Text>
-        </Paragraph>
-        <Paragraph>
-          2幢1单元的电梯坏了，麻烦叫师父来处理下2幢1单元的电梯坏了，麻烦叫师父来处理下2幢1单元的电梯坏了，麻烦叫师父来处理下2幢1单元的电梯坏了，麻烦叫师父来处理下2幢1单元的电梯坏了，麻烦叫师父来处理下
-        </Paragraph>
-        <Paragraph>
-          <Row gutter={[16, 16]}>
-            <Col span={8}>
-              <img
-                style={{ width: '100%', height: '100%' }}
-                src="https://img-blog.csdnimg.cn/20191216172544126.png"
-                alt=""
-              ></img>
-            </Col>
-            <Col span={8}>
-              <img
-                style={{ width: '100%', height: '100%' }}
-                src="https://img-blog.csdnimg.cn/20191216172544126.png"
-                alt=""
-              ></img>
-            </Col>
-            <Col span={8}>
-              <img
-                style={{ width: '100%', height: '100%' }}
-                src="https://img-blog.csdnimg.cn/20191216172544126.png"
-                alt=""
-              ></img>
-            </Col>
-          </Row>
-        </Paragraph>
-        <Paragraph>类型：投诉</Paragraph>
-      </Typography>,
-      <FormItem key="desc">
-        {form.getFieldDecorator('desc', {
-          rules: [{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }],
-          initialValue: formVals.desc,
-        })(<TextArea rows={4} placeholder="添加回复" />)}
-      </FormItem>,
-    ];
-  };
+  useEffect(() => {
+    if (modalVisible) {
+      form.resetFields();
+    }
+  }, [modalVisible]);
 
-  handleSubmit = () => {
-    const { form, onSubmit } = this.props;
-    form.validateFields((err, fieldsValue) => {
+  const okHandle = () => {
+    form.validateFields(async (err, fieldsValue) => {
       if (err) return;
+      try {
+        setConfirmLoading(true);
+        const result = { code: 500 }; // await saveOrUpdateUser({ id: formValue.id, houseId: hId, ...rest });
+        if (result.code !== 200) {
+          throw new Error();
+        }
+        message.success('操作成功');
+      } catch (e) {
+        message.error('操作失败');
+      } finally {
+        setConfirmLoading(false);
+      }
       onSubmit(fieldsValue);
     });
   };
 
-  render() {
-    const { formVals, modalVisible, onCancel } = this.props;
+  const formLayout = {
+    labelCol: { span: 5 },
+    wrapperCol: { span: 15 },
+  };
 
-    return (
-      <Modal
-        width={640}
-        bodyStyle={{ padding: '32px 40px 48px' }}
-        destroyOnClose
-        title="投诉反馈"
-        visible={modalVisible}
-        onCancel={() => onCancel()}
-        onOk={() => this.handleSubmit()}
-        okText="回复"
-      >
-        {this.renderContent(formVals)}
-      </Modal>
-    );
-  }
-}
+  const renderFormContent = () => [
+    <FormItem key="houseId" label="小区名称" {...formLayout}>
+      {form.getFieldDecorator('houseId', {
+        initialValue: formValue.houseId,
+        rules: [{ required: true, message: '请选择小区名称！' }],
+      })(<EasyHouseSelect mode="multiple" placeholder="请选择" style={{ width: '100%' }} />)}
+    </FormItem>,
+    <FormItem key="name" label="姓名" {...formLayout}>
+      {form.getFieldDecorator('name', {
+        initialValue: formValue.name,
+        rules: [{ required: true, message: '请输入姓名！' }],
+      })(<Input placeholder="请输入" />)}
+    </FormItem>,
+    <Form.Item label="性别" {...formLayout}>
+      {form.getFieldDecorator('sex', {
+        initialValue: 0,
+      })(
+        <Radio.Group>
+          <Radio value={0}>男</Radio>
+          <Radio value={1}>女</Radio>
+        </Radio.Group>,
+      )}
+    </Form.Item>,
+    <FormItem key="userName" label="身份证" {...formLayout}>
+      {form.getFieldDecorator('userName', {
+        initialValue: formValue.IDCard,
+        validateFirst: true,
+        rules: [
+          { required: true, message: '请输入身份证！' },
+          { pattern: IDCardReg, message: '身份证有误，请重填!' },
+        ],
+      })(<Input placeholder="请输入" />)}
+    </FormItem>,
+    <FormItem key="phone" label="联系电话" {...formLayout}>
+      {form.getFieldDecorator('phone', {
+        initialValue: formValue.phone,
+        validateFirst: true,
+        rules: [
+          { required: true, message: '请输入联系电话！' },
+          { pattern: phoneReg, message: '联系电话有误，请重填!' },
+        ],
+      })(<Input placeholder="请输入" />)}
+    </FormItem>,
+    <FormItem key="job" label="当选职务" {...formLayout}>
+      {form.getFieldDecorator('job', {
+        initialValue: formValue.job,
+        rules: [{ required: true, message: '请输入当选职务！' }],
+      })(<Input placeholder="请输入" />)}
+    </FormItem>,
+    <FormItem key="pollNum" label="当选票数" {...formLayout}>
+      {form.getFieldDecorator('pollNum', {
+        initialValue: formValue.pollNum || 0,
+        rules: [{ required: true, message: '请输入当选票数！' }],
+      })(<InputNumber min={0} style={{ width: 200 }} placeholder="请输入" />)}
+    </FormItem>,
+  ];
 
-export default Form.create<IndustryFormProps>()(IndustryForm);
+  return (
+    <Modal
+      width={700}
+      destroyOnClose
+      title={`${isUpdate ? '修改' : '新建'}业委会成员`}
+      visible={modalVisible}
+      onOk={okHandle}
+      onCancel={() => onCancel()}
+      confirmLoading={confirmLoading}
+    >
+      {renderFormContent()}
+    </Modal>
+  );
+};
+
+export default Form.create<IndustryFormProps>({ name: 'industry_form' })(IndustryForm);

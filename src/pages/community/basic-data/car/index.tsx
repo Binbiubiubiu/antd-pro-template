@@ -7,6 +7,7 @@ import { queryBasicDataPerson } from '@/pages/community/basic-data/people/servic
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import { EasyHouseSelect } from '@/easy-components/EasySelect';
 
 interface CarTableProps {}
 
@@ -50,12 +51,7 @@ const CarTable: FC<CarTableProps> = () => {
       <Form.Item label="所属小区">
         {form.getFieldDecorator('houseId', {
           rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Select.Option value="1">利一家园</Select.Option>
-            <Select.Option value="2">望京</Select.Option>
-          </Select>,
-        )}
+        })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
     <Col key="person" {...GolobalSearchFormLayout}>

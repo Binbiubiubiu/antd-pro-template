@@ -8,7 +8,9 @@ import { queryAlarm } from '@/pages/fire/alarm/service';
 interface AlarmTableProps {}
 
 const AlarmTable: FC<AlarmTableProps> = () => {
-  const { tableData, current, pageSize, total, setCurrent } = usePagableFetch<AlarmTableItem>({
+  const { loading, tableData, current, pageSize, total, setCurrent } = usePagableFetch<
+    AlarmTableItem
+  >({
     initPageSize: 5,
     request: ({ pageIndex, pageSize: size }) => queryAlarm({ pageIndex, pageSize: size }),
     onSuccess: ({ res, setTableData, setTotal }) => {
@@ -50,26 +52,26 @@ const AlarmTable: FC<AlarmTableProps> = () => {
     {
       title: '设备地址',
       dataIndex: 'position',
-      ellipsis: true,
     },
     {
       title: '最近报警时间',
       dataIndex: 'productTime',
       render(text) {
-        return text ? moment(text).format('YYYY-MM-DD HH:mm') : '';
+        return text ? moment(text).format('YYYY-MM-DD HH:mm:ss') : '';
       },
     },
     {
       title: '处理时间',
       dataIndex: 'confirmTime',
       render(text) {
-        return text ? moment(text).format('YYYY-MM-DD HH:mm') : '';
+        return text ? moment(text).format('YYYY-MM-DD HH:mm:ss') : '';
       },
     },
   ];
 
   return (
     <EasyTable<AlarmTableItem>
+      loading={loading}
       rowKey="id"
       columns={columns}
       dataSource={tableData}

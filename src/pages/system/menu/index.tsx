@@ -37,15 +37,21 @@ const handleRemove = (selectedRows: MenuTableItem, cb?: () => void) => {
 };
 
 const MenuTableList: React.FC<MenuTableListProps> = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [menuData, setMenuData] = useState<MenuTableItem[]>([]);
   const [modalVisible, handleModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
 
   const refreshMenuTable = () => {
-    moduleListAll().then(res => {
-      const { data } = res;
-      setMenuData(data);
-    });
+    setLoading(true);
+    moduleListAll()
+      .then(res => {
+        const { data } = res;
+        setMenuData(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -122,7 +128,13 @@ const MenuTableList: React.FC<MenuTableListProps> = () => {
           新增
         </Button>
 
-        <Table rowKey="id" columns={columns} dataSource={menuData} pagination={false} />
+        <Table
+          loading={loading}
+          rowKey="id"
+          columns={columns}
+          dataSource={menuData}
+          pagination={false}
+        />
       </Card>
       <MenuForm
         onSubmit={() => {

@@ -46,6 +46,7 @@ const UserTable: React.FC<TableListProps> = () => {
   const [stepFormValues, setStepFormValues] = useState<UserTableForm>({} as UserTableForm);
 
   const {
+    loading,
     tableData,
     current,
     pageSize,
@@ -188,6 +189,7 @@ const UserTable: React.FC<TableListProps> = () => {
                 </Col>
               </Row>
               <EasyTable<UserTableItem>
+                loading={loading}
                 rowKey="id"
                 columns={columns}
                 dataSource={tableData}
@@ -217,4 +219,4 @@ const UserTable: React.FC<TableListProps> = () => {
   );
 };
 
-export default Form.create<TableListProps>({ name: 'user_search_from' })(UserTable);
+export default Form.create<TableListProps>()(UserTable);

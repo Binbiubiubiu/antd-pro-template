@@ -22,13 +22,17 @@ const EasySceneSelect: FC<EasySceneSelectProps> = React.forwardRef<Select, EasyS
 
     const [options, setOptions] = useState<HouseSceneOption[]>([]);
 
-    useEffect(() => {
+    const fetchOptions = () => {
       getSysCodeList({
         code: type!,
       }).then(res => {
         const { data = [] } = res;
         setOptions(data);
       });
+    };
+
+    useEffect(() => {
+      fetchOptions();
     }, []);
 
     return (

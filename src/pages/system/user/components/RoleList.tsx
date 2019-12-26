@@ -32,15 +32,21 @@ const handleRemove = (selectedRows: RoleListForm, cb?: () => void) => {
 interface RoleListProps {}
 
 const RoleList: FC<RoleListProps> = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [roleData, setRoleData] = useState<RoleListItem[]>([]);
   const [stepFormValues, setStepFormValues] = useState({});
 
   const refreshRoleList = () => {
-    queryRole().then(res => {
-      const { data = [] } = res;
-      setRoleData(data);
-    });
+    setLoading(true);
+    queryRole()
+      .then(res => {
+        const { data = [] } = res;
+        setRoleData(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -67,6 +73,7 @@ const RoleList: FC<RoleListProps> = () => {
         style={{ marginBottom: 24 }}
       >
         <List
+          loading={loading}
           dataSource={roleData}
           renderItem={item => (
             <List.Item

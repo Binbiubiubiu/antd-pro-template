@@ -3,7 +3,7 @@ interface UserModal {
   name: string;
   userName: string;
   phone: string;
-  houseId: string;
+  houseId: string | string[];
 }
 
 interface UserTableItem extends UserModal {
@@ -13,13 +13,15 @@ interface UserTableItem extends UserModal {
   newCreateTime: string;
 }
 
-interface UserTableForm extends UserModal {
-  passWord?: string;
-  confirmPassWord?: string;
-  roleList?: string;
-}
+type UserTableForm = Partial<
+  UserModal & {
+    passWord: string;
+    confirmPassWord: string;
+    roleList: string;
+  }
+>;
 
-interface UserTableParams {
-  param?: string;
-  houseId?: string;
-}
+type UserTableParams = Partial<{
+  param: string;
+  houseId: string;
+}>;
