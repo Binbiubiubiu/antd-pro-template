@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { Button, Card, Col, Divider, Form, Input, message, Modal, Row } from 'antd';
+import moment from 'moment';
 
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import moment from 'moment';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import EasyTable from '@/easy-components/EasyTable';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+
+import {
+  EasyHouseSelect,
+  EasySearchForm,
+  EasyTable,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
 import IndustryForm from './components/IndustryForm';
 import { deleteIndustry, queryIndustry } from './service';
 import { usePagableFetch } from '@/hooks';
+import { IndustryTableForm, IndustryTableItem, IndustryTableSearch } from './data.d';
 
 const handleRemove = (selectedRows: IndustryTableItem, cb?: () => void) => {
   Modal.confirm({

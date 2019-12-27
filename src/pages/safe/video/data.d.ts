@@ -1,4 +1,4 @@
-interface VideoModal {
+export interface VideoModal {
   id: number;
   houseKey: string;
   houseName: string;
@@ -13,9 +13,9 @@ interface VideoModal {
   codeChildName: string;
 }
 
-interface VideoCardListItem extends VideoModal {}
+export interface VideoCardListItem extends VideoModal {}
 
-interface VideoCardListParams {
+export interface VideoCardListParams {
   houseKey: string;
   start: string;
   end: string;

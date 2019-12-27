@@ -1,4 +1,4 @@
-interface PatrolPerson {
+export interface PatrolPerson {
   id: number;
   name: string;
   phone: string;
@@ -6,7 +6,7 @@ interface PatrolPerson {
   houseName: string;
 }
 
-interface PatrolEvent {
+export interface PatrolEvent {
   id: number;
   name: string;
   eventName: string;

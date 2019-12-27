@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Col, Form, Input, Modal, Row, Typography } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
+import { SuggestTableForm } from '../data.d';
 
 const FormItem = Form.Item;
 const { Paragraph, Text } = Typography;

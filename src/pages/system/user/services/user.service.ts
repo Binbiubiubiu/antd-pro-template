@@ -1,10 +1,11 @@
 import request from '@/utils/request';
+import { UserTableForm, UserTableSearch } from './user.d';
 
 /**
  * 查找用户列表
  * @param data
  */
-export async function queryUser(data: Pageable<UserTableParams>) {
+export async function queryUser(data: Pageable<UserTableSearch>) {
   return request('/sys/user/list', {
     method: 'POST',
     data,

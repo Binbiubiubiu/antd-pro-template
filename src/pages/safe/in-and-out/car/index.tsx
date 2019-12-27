@@ -4,16 +4,21 @@ import moment from 'moment';
 import { connect } from 'dva';
 
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import EasyCardList from '@/easy-components/EasyCardList';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import EasyImage from '@/easy-components/EasyImage';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import {
+  EasyCardList,
+  EasyHouseSelect,
+  EasyImage,
+  EasySearchForm,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
 import { getCarInOutListPage } from './service';
-import styles from '../style.less';
+
 import { usePagableFetch } from '@/hooks';
 import { ConnectProps } from '@/models/connect';
 import { openImagePreview } from '@/models/image-preview';
+import { CarAccessListItem, CarAccessListSearch } from './data.d';
+
+import styles from '../style.less';
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;

@@ -1,18 +1,18 @@
 import React, { FC, useState } from 'react';
 import { Button, Card, Col, DatePicker, Form, Icon, Input, List, Tag } from 'antd';
+import moment from 'moment';
 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import moment from 'moment';
-import EasyCardList from '@/easy-components/EasyCardList';
-import EasyHouseSelect from '@/easy-components/EasySelect/EasyHouseSelect';
-import { EasySceneSelect } from '@/easy-components/EasySelect';
-import EasySearchForm from '@/easy-components/EasySearchForm';
+
+import { EasyCardList, EasyHouseSelect, EasySceneSelect, EasySearchForm } from '@/easy-components';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import VideoPlayerModal from '@/pages/safe/video/components/VideoPlayerModal';
-import { queryVideos } from '@/pages/safe/video/service';
-import styles from '@/pages/safe/video/style.less';
+import VideoPlayerModal from './components/VideoPlayerModal';
+import { queryVideos } from './service';
 import { usePagableFetch } from '@/hooks';
+import { VideoCardListItem, VideoCardListParams } from './data.d';
+
+import styles from './style.less';
 
 const { RangePicker } = DatePicker;
 

@@ -1,4 +1,4 @@
-interface SuggestModal {
+export interface SuggestModal {
   id: number;
   houseName: string;
   content: string;
@@ -8,13 +8,13 @@ interface SuggestModal {
   createTime: string;
 }
 
-interface SuggestTableItem extends SuggestionModal {}
+export interface SuggestTableItem extends SuggestionModal {}
 
-interface SuggestTableForm extends SuggestionModal {
+export interface SuggestTableForm extends SuggestionModal {
   desc: string;
 }
 
-interface SuggestTableParams {
+export interface SuggestTableSearch {
   houseName: string;
   type: string;
   createTime: string;

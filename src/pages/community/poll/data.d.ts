@@ -1,4 +1,4 @@
-interface PollModal {
+export interface PollModal {
   id: number;
   houseName: string;
   content: string;
@@ -8,20 +8,20 @@ interface PollModal {
   createTime: string;
 }
 
-interface PollTableItem extends PollModal {}
+export interface PollTableItem extends PollModal {}
 
-interface PollTableForm extends PollModal {
+export interface PollTableForm extends PollModal {
   desc: string;
 }
 
-interface PollTableSearch {
+export interface PollTableSearch {
   houseName: string;
   type: string;
   createTime: string;
   content: string;
 }
 
-interface PollInfoTableItem {
+export interface PollInfoTableItem {
   option: string;
   num: number;
   rate: number;

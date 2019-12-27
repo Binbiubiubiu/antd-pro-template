@@ -1,3 +1,5 @@
+import { MenuTableItem } from '@/pages/system/menu/data';
+
 export const getNoParentChild = (source: MenuTableItem[], target: string[]) => {
   if (!source || source.length === 0) {
     return target;

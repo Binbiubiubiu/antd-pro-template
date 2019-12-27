@@ -1,4 +1,4 @@
-interface CarAccessModal {
+export interface CarAccessModal {
   carCode: string;
   pic: string;
   houseName: string;
@@ -10,9 +10,9 @@ interface CarAccessModal {
   remarkDeviceName: string;
 }
 
-interface CarAccessListItem extends CarAccessModal {}
+export interface CarAccessListItem extends CarAccessModal {}
 
-interface CarAccessListSearch {
+export interface CarAccessListSearch {
   houseName: string;
   person: string;
 }

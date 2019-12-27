@@ -3,11 +3,13 @@ import { Form, Input, Modal, Transfer, message } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
 import { TransferItem } from 'antd/es/transfer';
-import { checkUserName, saveOrUpdateUser } from '@/pages/system/user/services/user.service';
-import { getUserRoleList, queryRole } from '@/pages/system/user/services/role.service';
+import { checkUserName, saveOrUpdateUser } from '../services/user.service';
+import { getUserRoleList, queryRole } from '../services/role.service';
 
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
+import { EasyHouseSelect } from '@/easy-components';
 import { phoneReg } from '@/utils/validator';
+import { UserTableForm } from '../services/user.d';
+import { RoleListItem } from '../services/role.d';
 
 const FormItem = Form.Item;
 

@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import { RoleListForm } from './role.d';
 
 /**
  * 查询角色列表接口

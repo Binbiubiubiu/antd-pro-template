@@ -1,19 +1,23 @@
 import React, { FC } from 'react';
 import { Button, Card, Col, DatePicker, Form, Input, List, Select } from 'antd';
 import { connect } from 'dva';
+import moment from 'moment';
 
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import moment from 'moment';
-import EasyCardList from '@/easy-components/EasyCardList';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import EasyImage from '@/easy-components/EasyImage';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+
+import {
+  EasyCardList,
+  EasyHouseSelect,
+  EasyImage,
+  EasySearchForm,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
 import { getPersonInOutListPage } from './service';
-import styles from '../style.less';
 import { usePagableFetch } from '@/hooks';
 import { ConnectProps } from '@/models/connect';
 import { openImagePreview } from '@/models/image-preview';
+import styles from '../style.less';
+import { PersonAccessListItem, PersonAccessListSearch } from './data.d';
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;

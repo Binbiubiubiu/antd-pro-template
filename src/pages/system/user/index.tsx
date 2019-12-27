@@ -5,15 +5,18 @@ import { GridContent, PageHeaderWrapper } from '@ant-design/pro-layout';
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import { queryUser, removeUser } from '@/pages/system/user/services/user.service';
+import { queryUser, removeUser } from './services/user.service';
 
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import EasyTable from '@/easy-components/EasyTable';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import {
+  EasyHouseSelect,
+  EasySearchForm,
+  EasyTable,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
 import RoleList from './components/RoleList';
 import UserForm from './components/UserForm';
 import { usePagableFetch } from '@/hooks';
+import { UserTableForm, UserTableItem, UserTableSearch } from './services/user.d';
 
 interface TableListProps extends FormComponentProps<UserTableItem> {}
 
@@ -66,7 +69,7 @@ const UserTable: React.FC<TableListProps> = () => {
     onError: () => {},
   });
 
-  const renderSearchForm = (form: WrappedFormUtils<UserTableParams>) => [
+  const renderSearchForm = (form: WrappedFormUtils<UserTableSearch>) => [
     <Col key="param" {...GolobalSearchFormLayout}>
       <Form.Item label="角色/姓名">
         {form.getFieldDecorator('param', {

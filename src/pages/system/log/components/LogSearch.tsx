@@ -2,7 +2,7 @@ import React, { FC, FormEvent } from 'react';
 import { Button, Form, Input } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
-import { LogTableParams } from '@/pages/system/log/data';
+import { LogTableParams } from '../data.d';
 
 const FormItem = Form.Item;
 

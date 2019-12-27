@@ -1,4 +1,4 @@
-interface PeopleFaceModal {
+export interface PeopleFaceModal {
   carCode: string;
   pic: string;
   houseName: string;
@@ -10,9 +10,9 @@ interface PeopleFaceModal {
   remarkDeviceName: string;
 }
 
-interface PeopleFaceListItem extends PeopleFaceModal {}
+export interface PeopleFaceListItem extends PeopleFaceModal {}
 
-interface PeopleFaceListSearch {
+export interface PeopleFaceListSearch {
   houseName: string;
   person: string;
 }

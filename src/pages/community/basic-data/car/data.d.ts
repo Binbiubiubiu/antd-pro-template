@@ -1,4 +1,4 @@
-interface CarModal {
+export interface CarModal {
   id: number;
   houseName: string;
   content: string;
@@ -8,9 +8,9 @@ interface CarModal {
   createTime: string;
 }
 
-interface CarTableItem extends CarModal {}
+export interface CarTableItem extends CarModal {}
 
-interface CarTableSearch {
+export interface CarTableSearch {
   houseKey: string;
   carCode: string;
   ownerName: string;

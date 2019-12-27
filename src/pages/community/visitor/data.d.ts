@@ -1,4 +1,4 @@
-interface VisitorModal {
+export interface VisitorModal {
   id: number;
   houseKey: string;
   userName: string;
@@ -9,11 +9,11 @@ interface VisitorModal {
   visitNote: string;
 }
 
-interface VisitorTableItem extends VisitorModal {
+export interface VisitorTableItem extends VisitorModal {
   createTimeString: string;
 }
 
-interface VisitorTableSearch {
+export interface VisitorTableSearch {
   houseName: string;
   userinfo: string;
 }

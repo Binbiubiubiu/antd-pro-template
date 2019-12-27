@@ -1,4 +1,4 @@
-interface PersonAccessModal {
+export interface PersonAccessModal {
   name: string;
   pic: string;
   houseName: string;
@@ -10,9 +10,9 @@ interface PersonAccessModal {
   remarkDeviceName: string;
 }
 
-interface PersonAccessListItem extends PersonAccessModal {}
+export interface PersonAccessListItem extends PersonAccessModal {}
 
-interface PersonAccessListSearch {
+export interface PersonAccessListSearch {
   houseName: string;
   person: string;
 }

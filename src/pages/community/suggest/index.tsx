@@ -5,11 +5,11 @@ import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import EasyTable from '@/easy-components/EasyTable';
+import { EasySearchForm, EasyTable } from '@/easy-components';
 import SuggestForm from './components/SuggestForm';
 import { querySuggestion } from './service';
 import { usePagableFetch } from '@/hooks';
+import { SuggestTableForm, SuggestTableItem, SuggestTableSearch } from './data.d';
 
 const { Option } = Select;
 
@@ -75,7 +75,7 @@ const SuggestTable: React.FC<SuggestTableProps> = () => {
     xxl: 6,
   };
 
-  const renderSearchForm = (form: WrappedFormUtils<SuggestTableParams>) => [
+  const renderSearchForm = (form: WrappedFormUtils<SuggestTableSearch>) => [
     <Col key="houseId" {...searchFormItemLayout}>
       <Form.Item label="所属小区">
         {form.getFieldDecorator('houseId', {

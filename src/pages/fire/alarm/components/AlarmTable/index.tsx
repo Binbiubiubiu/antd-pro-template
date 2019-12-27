@@ -5,6 +5,7 @@ import moment from 'moment';
 import EasyTable from '@/easy-components/EasyTable';
 import { queryAlarm } from '@/pages/fire/alarm/service';
 import { usePagableFetch } from '@/hooks';
+import { AlarmTableItem } from '../../alarm.d';
 
 interface AlarmTableProps {}
 

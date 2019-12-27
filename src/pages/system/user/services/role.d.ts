@@ -1,12 +1,12 @@
-interface RoleModal {
+export interface RoleModal {
   id: number;
   name: string;
   moduleId: number;
   moduleList: string;
 }
 
-interface RoleListItem extends RoleModal {
+export interface RoleListItem extends RoleModal {
   count: number;
 }
 
-interface RoleListForm extends Partial<RoleModal> {}
+export interface RoleListForm extends Partial<RoleModal> {}

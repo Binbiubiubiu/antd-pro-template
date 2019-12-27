@@ -6,11 +6,10 @@ import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import EasyTable from '@/easy-components/EasyTable';
-import EasySearchForm from '@/easy-components/EasySearchForm';
+import { EasyTable, EasySearchForm, GolobalSearchFormLayout } from '@/easy-components';
 import { queryLog } from './service';
 import { usePagableFetch } from '@/hooks';
+import { LogTableItem } from './data.d';
 
 interface LogTableListProps extends FormComponentProps {}
 

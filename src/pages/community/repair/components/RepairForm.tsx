@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Modal, Row, Typography } from 'antd';
+import { RepairTableForm } from '../data.d';
 
 const { Paragraph, Text } = Typography;
 

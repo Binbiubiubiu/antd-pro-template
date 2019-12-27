@@ -6,7 +6,8 @@ import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import MenuForm from './components/MenuForm';
 import { moduleListAll } from '@/services/menu';
-import { removeMenu } from '@/pages/system/menu/service';
+import { removeMenu } from './service';
+import { MenuTableItem } from '@/pages/system/menu/data';
 
 interface MenuTableListProps extends FormComponentProps {}
 

@@ -9,11 +9,14 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
 import router from 'umi/router';
 import { queryPoll } from './service';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import EasyTable from '@/easy-components/EasyTable';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
+import {
+  EasyHouseSelect,
+  EasySearchForm,
+  EasyTable,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
 import { usePagableFetch } from '@/hooks';
+import { PollTableItem, PollTableSearch } from './data.d';
 
 interface PollTableProps extends FormComponentProps {}
 

@@ -1,5 +1,6 @@
 // import request from '@/utils/request';
 import { getFakeList } from './_mock';
+import { PollTableSearch } from './data.d';
 
 export async function queryPoll(data: Pageable<PollTableSearch>) {
   return Promise.resolve(getFakeList());

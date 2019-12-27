@@ -1,4 +1,4 @@
-interface VillageModal {
+export interface VillageModal {
   id: number;
   houseKey: string;
   address: string;
@@ -7,13 +7,13 @@ interface VillageModal {
   firePhone: string;
 }
 
-interface VillageTableItem extends VillageModal {
+export interface VillageTableItem extends VillageModal {
   houseName: string;
   createName: string;
   createTime: string;
 }
 
-interface VillageTableSearch {
+export interface VillageTableSearch {
   houseKey: string;
   userinfo: string;
 }

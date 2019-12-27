@@ -6,13 +6,17 @@ import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import EasyTable from '@/easy-components/EasyTable';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import {
+  EasyHouseSelect,
+  EasySearchForm,
+  EasyTable,
+  EasyImage,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
+
 import { queryVisitor } from './service';
 import { usePagableFetch } from '@/hooks';
-import EasyImage from '@/easy-components/EasyImage';
+import { VisitorTableItem, VisitorTableSearch } from './data.d';
 
 interface VisitorTableProps extends FormComponentProps {}
 

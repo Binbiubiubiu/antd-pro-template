@@ -3,16 +3,19 @@ import { Button, Col, Form, Input } from 'antd';
 import moment from 'moment';
 
 import { ColumnProps } from 'antd/es/table';
+import { WrappedFormUtils } from 'antd/es/form/Form';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
-import { WrappedFormUtils } from 'antd/es/form/Form';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import EasyTable from '@/easy-components/EasyTable';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import {
+  EasyHouseSelect,
+  EasySearchForm,
+  EasyTable,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
 import { queryVillage } from './service';
 import { usePagableFetch } from '@/hooks';
+import { VillageTableItem, VillageTableSearch } from './data.d';
 
 interface VillageTableProps extends FormComponentProps {}
 

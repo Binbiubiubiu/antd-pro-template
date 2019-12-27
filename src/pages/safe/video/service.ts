@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import { VideoCardListParams } from './data.d';
 
 export async function queryVideos(data: Pageable<VideoCardListParams>) {
   return request.post('/busi/device/details/list', {

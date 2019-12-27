@@ -7,12 +7,15 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
 import { WrappedFormUtils } from 'antd/es/form/Form';
 import router from 'umi/router';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import EasyTable from '@/easy-components/EasyTable';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
+import {
+  EasyHouseSelect,
+  EasySearchForm,
+  EasyTable,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
 import { queryNotice } from './service';
 import { usePagableFetch } from '@/hooks';
+import { NoticeTableItem, NoticeTableSearch } from './data.d';
 
 interface NoticeTableProps extends FormComponentProps {}
 

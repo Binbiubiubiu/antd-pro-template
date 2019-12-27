@@ -1,4 +1,4 @@
-interface IndustryModal {
+export interface IndustryModal {
   id: number;
   houseKey: string;
   uesrName: string;
@@ -9,14 +9,14 @@ interface IndustryModal {
   poll: string;
 }
 
-interface IndustryTableItem extends IndustryModal {
+export interface IndustryTableItem extends IndustryModal {
   houseName: string;
   createTime: string;
 }
 
-type IndustryTableForm = Partial<IndustryModal>;
+export type IndustryTableForm = Partial<IndustryModal>;
 
-interface IndustryTableSearch {
+export interface IndustryTableSearch {
   houseKey: string;
   userinfo: string;
 }

@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import { HouseListParams } from './house.d';
 
 /**
  * 获取楼房接口

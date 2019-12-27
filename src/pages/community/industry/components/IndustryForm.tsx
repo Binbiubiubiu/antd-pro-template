@@ -3,9 +3,10 @@ import { Form, Input, InputNumber, Modal, Radio, message } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
 import { IDCardReg, phoneReg } from '@/utils/validator';
-import { addIndustry, editIndustry } from '@/pages/community/industry/service';
+import { addIndustry, editIndustry } from '../service';
 
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
+import { EasyHouseSelect } from '@/easy-components';
+import { IndustryTableForm } from '../data.d';
 
 const FormItem = Form.Item;
 

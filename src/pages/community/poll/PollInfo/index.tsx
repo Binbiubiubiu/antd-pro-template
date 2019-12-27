@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Card, Col, Row, Typography } from 'antd';
 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import PollInfoTable from '@/pages/community/poll/components/PollInfoTable';
+import PollInfoTable from '../components/PollInfoTable';
 import styles from './style.less';
 
 const { Title, Paragraph } = Typography;

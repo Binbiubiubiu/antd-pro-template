@@ -1,9 +1,9 @@
-interface HouseModal {
+export interface HouseModal {
   houseId: number;
   houseName: string;
 }
 
-interface HouseListParams {
+export interface HouseListParams {
   pageIndex?: number;
   pageSize?: number;
 }

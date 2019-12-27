@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 
 import { ColumnProps } from 'antd/es/table';
-import EasyTable from '@/easy-components/EasyTable';
-import { queryPatrolPerson } from '@/pages/fire/patrol/service';
+import { EasyTable } from '@/easy-components';
+import { queryPatrolPerson } from '../../service';
 import { usePagableFetch } from '@/hooks';
+import { PatrolPerson } from '../../data.d';
 
 interface PatrolTableProps {}
 

@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { Modal } from 'antd';
-import EasyVideoPlayer from '@/easy-components/EasyVideoPlayer';
-import { queryVideosByCode } from '@/pages/safe/video/service';
+import { EasyVideoPlayer } from '@/easy-components';
+import { queryVideosByCode } from '../service';
+import { VideoCardListItem } from '../data.d';
 
 interface VideoPlayerModalProps {
   modalVisible: boolean;

@@ -1,4 +1,4 @@
-interface MenuItem {
+export interface MenuItem {
   id: number;
   parentId: number;
   moduleName: string;
@@ -8,10 +8,10 @@ interface MenuItem {
   sort: number;
 }
 
-interface MenuTableItem extends MenuItem {
+export interface MenuTableItem extends MenuItem {
   children: MenuTableItem[];
 }
 
-interface MenuTableForm extends Partial<MenuItem> {
+export interface MenuTableForm extends Partial<MenuItem> {
   newParentId?: number;
 }

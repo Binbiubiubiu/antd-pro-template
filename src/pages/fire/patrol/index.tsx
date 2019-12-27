@@ -4,11 +4,9 @@ import { GridContent, PageHeaderWrapper } from '@ant-design/pro-layout';
 
 import { RouterTypes } from 'umi';
 import numeral from 'numeral';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import Gauge from '@/easy-components/EasyChart/Gauge';
+import { EasyHouseSelect, Gauge, WaterWave } from '@/easy-components';
 import PatrolEventList from './components/PatrolEventList';
 import PatrolTable from './components/PatrolTable';
-import WaterWave from '@/easy-components/EasyChart/WaterWave';
 import styles from './style.less';
 
 export const PatrolPageContext = React.createContext<string>('');

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button, Card, List, message, Modal } from 'antd';
-import { queryRole, deleteRole } from '@/pages/system/user/services/role.service';
-import RoleForm from '@/pages/system/user/components/RoleForm';
+import { queryRole, deleteRole } from '../services/role.service';
+import RoleForm from './RoleForm';
 
 /**
  *  删除角色

@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import { IndustryTableForm, IndustryTableSearch } from './data.d';
 
 export async function queryIndustry(data: Pageable<IndustryTableSearch>) {
   return request('/busi/csp/busi/ownerCommittee/list', {

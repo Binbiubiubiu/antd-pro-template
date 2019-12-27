@@ -5,16 +5,21 @@ import moment from 'moment';
 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import EasyCardList from '@/easy-components/EasyCardList';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import { queryVideos } from './service';
-import styles from '@/pages/safe/video/style.less';
-import { usePagableFetch } from '@/hooks';
-import EasyImage from '@/easy-components/EasyImage';
-import { openImagePreview } from '@/models/image-preview';
 import { ConnectProps } from '@/models/connect';
+import {
+  EasyCardList,
+  EasyHouseSelect,
+  EasyImage,
+  EasySearchForm,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
+import { queryVideos } from './service';
+
+import { usePagableFetch } from '@/hooks';
+import { openImagePreview } from '@/models/image-preview';
+import { PeopleFaceListItem, PeopleFaceListSearch } from './data.d';
+
+import styles from './style.less';
 
 const { RangePicker } = DatePicker;
 

@@ -3,7 +3,8 @@ import { Button, Card, Col, Form, Input, Row, Select } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import EasyRichText from '@/easy-components/EasyRichText';
+import { EasyRichText } from '@/easy-components';
+import { NoticeTableForm } from '../data.d';
 
 interface NoticeFormProps extends FormComponentProps<NoticeTableForm> {}
 

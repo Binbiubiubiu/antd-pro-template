@@ -3,8 +3,9 @@ import { Form, Input, message, Modal, Tree } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 
 import { moduleListAll } from '@/services/menu';
-import { checkRoleName, saveOrUpdateRole } from '@/pages/system/user/services/role.service';
-import { getNoParentChild } from '@/pages/system/user/utils';
+import { checkRoleName, saveOrUpdateRole } from '../services/role.service';
+import { getNoParentChild } from '../utils';
+import { MenuTableItem } from '@/pages/system/menu/data';
 
 const FormItem = Form.Item;
 

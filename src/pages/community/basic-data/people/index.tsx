@@ -4,14 +4,18 @@ import { connect } from 'dva';
 
 import { ColumnProps } from 'antd/es/table';
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import { EasyHouseSelect } from '@/easy-components/EasySelect';
-import EasySearchForm from '@/easy-components/EasySearchForm';
-import EasyTable from '@/easy-components/EasyTable';
-import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import { queryBasicDataPerson } from '@/pages/community/basic-data/people/service';
-import { usePagableFetch } from '@/hooks';
+
 import { ConnectProps } from '@/models/connect';
+import {
+  EasyHouseSelect,
+  EasySearchForm,
+  EasyTable,
+  GolobalSearchFormLayout,
+} from '@/easy-components';
+import { queryBasicDataPerson } from './service';
+import { usePagableFetch } from '@/hooks';
 import { openImagePreview } from '@/models/image-preview';
+import { PeopleTableItem, PeopleTableSearch } from './data.d';
 
 interface PeopleTableProps extends ConnectProps {}
 

@@ -3,6 +3,7 @@ import { Form, Input, Modal, message } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
 import { saveOrUpdateChildModule, saveOrUpdateParentModule } from '../service';
+import { MenuTableForm } from '../data.d';
 
 const FormItem = Form.Item;
 

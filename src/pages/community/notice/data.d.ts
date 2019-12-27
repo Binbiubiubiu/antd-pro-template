@@ -1,4 +1,4 @@
-interface NoticeModal {
+export interface NoticeModal {
   id: number;
   houseName: string;
   content: string;
@@ -8,13 +8,13 @@ interface NoticeModal {
   createTime: string;
 }
 
-interface NoticeTableItem extends VisitorModal {}
+export interface NoticeTableItem extends VisitorModal {}
 
-interface NoticeTableForm extends VisitorModal {
+export interface NoticeTableForm extends VisitorModal {
   desc: string;
 }
 
-interface NoticeTableSearch {
+export interface NoticeTableSearch {
   houseName: string;
   type: string;
   createTime: string;

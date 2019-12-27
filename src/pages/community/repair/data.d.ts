@@ -1,4 +1,4 @@
-interface RepairModal {
+export interface RepairModal {
   id: number;
   houseName: string;
   name: string;
@@ -8,11 +8,11 @@ interface RepairModal {
   createTime: string;
 }
 
-interface RepairTableItem extends RepairModal {}
+export interface RepairTableItem extends RepairModal {}
 
-interface RepairTableForm extends RepairModal {}
+export interface RepairTableForm extends RepairModal {}
 
-interface RepairTableSearch {
+export interface RepairTableSearch {
   houseName: string;
   type: string;
   createTime: string;

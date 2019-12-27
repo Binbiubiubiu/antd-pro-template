@@ -1,4 +1,4 @@
-interface PeopleModal {
+export interface PeopleModal {
   id: number;
   houseKey: string;
   name: string;
@@ -10,13 +10,13 @@ interface PeopleModal {
   photo: string;
 }
 
-interface PeopleTableItem extends PeopleModal {
+export interface PeopleTableItem extends PeopleModal {
   houseName: string;
   createTime: string;
   createTimeString: string;
 }
 
-interface PeopleTableSearch {
+export interface PeopleTableSearch {
   houseKey: string;
   userinfo: string;
   householdType: string;

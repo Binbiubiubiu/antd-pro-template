@@ -73,7 +73,7 @@ const PollForm: FC<PollFormProps> = props => {
                 qId,
                 form,
                 uuid: quuid,
-                key: `question${uuid}`,
+                key: `question${quuid}`,
                 onDelete: handleQuestionDelete,
               };
 

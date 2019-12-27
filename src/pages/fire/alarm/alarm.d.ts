@@ -1,4 +1,4 @@
-interface AlarmModal {
+export interface AlarmModal {
   id: number;
   houseName: string;
   confirmStatus: string;
@@ -9,4 +9,4 @@ interface AlarmModal {
   confirmTime: string;
 }
 
-interface AlarmTableItem extends AlarmModal {}
+export interface AlarmTableItem extends AlarmModal {}

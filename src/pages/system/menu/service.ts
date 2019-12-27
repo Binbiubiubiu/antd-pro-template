@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import { MenuTableForm } from './data.d';
 
 export async function saveOrUpdateParentModule(data: MenuTableForm) {
   return request('/sys/module/saveOrUpdateParentModule', {

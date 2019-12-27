@@ -1,4 +1,4 @@
-interface UserModal {
+export interface UserModal {
   id: number;
   name: string;
   userName: string;
@@ -6,14 +6,14 @@ interface UserModal {
   houseId: string | string[];
 }
 
-interface UserTableItem extends UserModal {
+export interface UserTableItem extends UserModal {
   createName: string;
   roleName: string;
   houseName: string;
   newCreateTime: string;
 }
 
-type UserTableForm = Partial<
+export type UserTableForm = Partial<
   UserModal & {
     passWord: string;
     confirmPassWord: string;
@@ -21,7 +21,7 @@ type UserTableForm = Partial<
   }
 >;
 
-type UserTableParams = Partial<{
+export type UserTableSearch = Partial<{
   param: string;
   houseId: string;
 }>;

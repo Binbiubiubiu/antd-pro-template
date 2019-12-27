@@ -1,4 +1,4 @@
-interface LogModal {
+export interface LogModal {
   id: number;
   name: string;
   operIp: string;
@@ -7,8 +7,8 @@ interface LogModal {
   newCreateTime: string;
 }
 
-interface LogTableItem extends LogModal {}
+export interface LogTableItem extends LogModal {}
 
-interface LogTableParams {
+export interface LogTableParams {
   param: string;
 }

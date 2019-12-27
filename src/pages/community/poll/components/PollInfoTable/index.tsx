@@ -1,11 +1,12 @@
 import React, { FC, useMemo, useState } from 'react';
-
+import _ from 'lodash';
+import { Table } from 'antd';
 import { PaginationConfig } from 'antd/lib/pagination';
 import { SorterResult } from 'antd/lib/table/interface';
-import { Table } from 'antd';
-import _ from 'lodash';
-import EasyProgress from '@/easy-components/EasyProgress';
+
+import { EasyProgress } from '@/easy-components';
 import styles from './style.less';
+import { PollInfoTableItem } from '../../data.d';
 
 interface PollInfoTableProps {
   title: string;
