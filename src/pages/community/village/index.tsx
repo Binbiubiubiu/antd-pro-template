@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Col, Form, Input } from 'antd';
+import moment from 'moment';
 
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
@@ -11,7 +12,7 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { queryVillage } from './service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
 
 interface VillageTableProps extends FormComponentProps {}
 
@@ -34,39 +35,42 @@ const VillageTable: React.FC<VillageTableProps> = () => {
     },
     {
       title: '物业电话',
-      dataIndex: 'housePhone',
+      dataIndex: 'propertyPhone',
     },
     {
       title: '负责人',
-      dataIndex: 'manager',
+      dataIndex: 'fireName',
     },
     {
       title: '联系方式',
-      dataIndex: 'phone',
+      dataIndex: 'firePhone',
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
+      render(text) {
+        return moment(text).format('YYYY-MM-DD HH:mm:ss');
+      },
     },
     {
       title: '创建人',
-      dataIndex: 'creator',
+      dataIndex: 'createName',
     },
   ];
 
   const renderSearchForm = (form: WrappedFormUtils<VillageTableSearch>) => [
     <Col {...GolobalSearchFormLayout}>
-      <Form.Item key="houseId" label="所属小区">
-        {form.getFieldDecorator('houseId', {
+      <Form.Item key="houseKey" label="所属小区">
+        {form.getFieldDecorator('houseKey', {
           rules: [],
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
     <Col {...GolobalSearchFormLayout}>
-      <Form.Item key="person" label="人员信息">
-        {form.getFieldDecorator('person', {
+      <Form.Item key="userinfo" label="人员信息">
+        {form.getFieldDecorator('userinfo', {
           rules: [],
-        })(<Input placeholder="请输入" />)}
+        })(<Input placeholder="负责人/联系方式" />)}
       </Form.Item>
     </Col>,
     <Col {...GolobalSearchFormLayout}>

@@ -1,17 +1,19 @@
 interface VillageModal {
   id: number;
-  houseName: string;
-  housePhone: string;
+  houseKey: string;
   address: string;
-  phone: string;
-  manager: string;
-  creator: string;
+  propertyPhone: string;
+  fireName: string;
+  firePhone: string;
+}
+
+interface VillageTableItem extends VillageModal {
+  houseName: string;
+  createName: string;
   createTime: string;
 }
 
-interface VillageTableItem extends VillageModal {}
-
 interface VillageTableSearch {
-  houseName: string;
-  person: string;
+  houseKey: string;
+  userinfo: string;
 }

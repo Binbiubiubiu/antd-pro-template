@@ -12,7 +12,7 @@ interface CarAccessModal {
 
 interface CarAccessListItem extends CarAccessModal {}
 
-interface CarAccessListParams {
+interface CarAccessListSearch {
   houseName: string;
   person: string;
 }

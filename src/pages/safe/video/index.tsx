@@ -12,7 +12,7 @@ import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import VideoPlayerModal from '@/pages/safe/video/components/VideoPlayerModal';
 import { queryVideos } from '@/pages/safe/video/service';
 import styles from '@/pages/safe/video/style.less';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
 
 const { RangePicker } = DatePicker;
 

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Button, Col, Form, Input, Select } from 'antd';
+import { connect } from 'dva';
 
 import { ColumnProps } from 'antd/es/table';
 import { WrappedFormUtils } from 'antd/es/form/Form';
@@ -8,11 +9,15 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { queryBasicDataPerson } from '@/pages/community/basic-data/people/service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
+import { ConnectProps } from '@/models/connect';
+import { openImagePreview } from '@/models/image-preview';
 
-interface PeopleTableProps {}
+interface PeopleTableProps extends ConnectProps {}
 
-const PeopleTable: FC<PeopleTableProps> = () => {
+const PeopleTable: FC<PeopleTableProps> = props => {
+  const { dispatch } = props;
+
   const columns: ColumnProps<PeopleTableItem>[] = [
     {
       title: '序号',
@@ -27,23 +32,26 @@ const PeopleTable: FC<PeopleTableProps> = () => {
     },
     {
       title: '姓名',
-      dataIndex: 'content1',
+      dataIndex: 'name',
     },
     {
       title: '性别',
-      dataIndex: 'content',
+      dataIndex: 'sex',
+      render(text) {
+        return text === 'MAN' ? '男' : '女';
+      },
     },
     {
       title: '学历',
-      dataIndex: 'type',
+      dataIndex: 'education',
     },
     {
       title: '身份证',
-      dataIndex: 'state',
+      dataIndex: 'idcard',
     },
     {
       title: '手机号',
-      dataIndex: 'createMan',
+      dataIndex: 'phone',
     },
     {
       title: '住址',
@@ -51,41 +59,59 @@ const PeopleTable: FC<PeopleTableProps> = () => {
     },
     {
       title: '类型',
-      dataIndex: 'type2',
+      dataIndex: 'householdType',
+      render(text) {
+        return text === 'owner' ? '业主' : '租户';
+      },
     },
     {
       title: '照片',
-      dataIndex: 'type3',
+      dataIndex: 'photo',
+      width: 80,
+      render(text) {
+        return (
+          <a
+            onClick={() => {
+              if (!text) {
+                return;
+              }
+              openImagePreview(dispatch, text);
+            }}
+          >
+            查看
+          </a>
+        );
+      },
     },
     {
       title: '创建时间',
-      dataIndex: 'createTime',
+      dataIndex: 'createTimeString',
     },
   ];
 
   const renderSearchForm = (form: WrappedFormUtils<PeopleTableSearch>) => [
-    <Col key="houseId" {...GolobalSearchFormLayout}>
+    <Col key="houseKey" {...GolobalSearchFormLayout}>
       <Form.Item label="所属小区">
-        {form.getFieldDecorator('houseId', {
+        {form.getFieldDecorator('houseKey', {
           rules: [],
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="person" {...GolobalSearchFormLayout}>
+    <Col key="userinfo" {...GolobalSearchFormLayout}>
       <Form.Item label="人口信息">
-        {form.getFieldDecorator('person', {
+        {form.getFieldDecorator('userinfo', {
           rules: [],
-        })(<Input placeholder="请输入" />)}
+        })(<Input placeholder="姓名/手机号" />)}
       </Form.Item>
     </Col>,
     <Col key="type" {...GolobalSearchFormLayout}>
       <Form.Item label="类型">
-        {form.getFieldDecorator('type', {
+        {form.getFieldDecorator('householdType', {
           rules: [],
         })(
           <Select placeholder="请选择">
-            <Select.Option value="1">利一家园</Select.Option>
-            <Select.Option value="2">望京</Select.Option>
+            <Select.Option value="owner">业主</Select.Option>
+            <Select.Option value="lessee">租户</Select.Option>
           </Select>,
         )}
       </Form.Item>
@@ -149,4 +175,4 @@ const PeopleTable: FC<PeopleTableProps> = () => {
   );
 };
 
-export default PeopleTable;
+export default connect()(PeopleTable);

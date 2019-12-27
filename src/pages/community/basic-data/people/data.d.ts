@@ -1,16 +1,23 @@
 interface PeopleModal {
   id: number;
-  houseName: string;
-  content: string;
-  type: string;
-  state: string;
-  createMan: string;
-  createTime: string;
+  houseKey: string;
+  name: string;
+  sex: string;
+  education: string;
+  idcard: string;
+  phone: string;
+  householdType: string;
+  photo: string;
 }
 
-interface PeopleTableItem extends PeopleModal {}
+interface PeopleTableItem extends PeopleModal {
+  houseName: string;
+  createTime: string;
+  createTimeString: string;
+}
 
 interface PeopleTableSearch {
-  houseName: string;
-  person: string;
+  houseKey: string;
+  userinfo: string;
+  householdType: string;
 }

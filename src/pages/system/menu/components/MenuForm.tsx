@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Form, Input, Modal, message } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
@@ -16,6 +16,7 @@ interface MenuFormProps extends FormComponentProps {
 const MenuForm: React.FC<MenuFormProps> = props => {
   const { modalVisible, form, formValue, onSubmit, onCancel } = props;
 
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const isUpdate = useMemo<boolean>(() => !!formValue.id, [formValue]);
 
   useEffect(() => {
@@ -27,6 +28,7 @@ const MenuForm: React.FC<MenuFormProps> = props => {
   const okHandle = () => {
     form.validateFields(async (err, fieldsValue) => {
       if (err) return;
+      setConfirmLoading(true);
       const submitData = { ...formValue, ...fieldsValue };
       try {
         if (formValue.newParentId || formValue.parentId) {
@@ -37,6 +39,8 @@ const MenuForm: React.FC<MenuFormProps> = props => {
         message.success('操作成功');
       } catch (e) {
         message.error('操作失败');
+      } finally {
+        setConfirmLoading(false);
       }
       onSubmit(submitData);
     });
@@ -89,6 +93,7 @@ const MenuForm: React.FC<MenuFormProps> = props => {
       visible={modalVisible}
       onOk={okHandle}
       onCancel={() => onCancel()}
+      confirmLoading={confirmLoading}
     >
       {renderFormContent()}
     </Modal>

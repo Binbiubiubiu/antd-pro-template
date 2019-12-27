@@ -44,7 +44,8 @@ type FormValidateCallBack = (
 ) => any;
 
 declare module 'wangeditor' {
-  class E {
+  interface E {
+    new (html: HTMLElement);
     customConfig: {
       uploadFileName: string;
       uploadImgServer: string;
@@ -67,7 +68,9 @@ declare module 'wangeditor' {
     };
   }
 
-  export default E;
+  const editor: E;
+
+  export default editor;
 }
 
 declare module 'video.js';

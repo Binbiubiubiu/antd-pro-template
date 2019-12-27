@@ -3,7 +3,10 @@ import request from '@/utils/request';
 export async function getHouseListOfSelector() {
   return request('/busi/csp/busi/house/list', {
     method: 'POST',
-    data: {},
+    data: {
+      pageIndex: 1,
+      pageSize: 99999999,
+    },
   });
 }
 

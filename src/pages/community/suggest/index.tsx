@@ -9,7 +9,7 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import SuggestForm from './components/SuggestForm';
 import { querySuggestion } from './service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
 
 const { Option } = Select;
 

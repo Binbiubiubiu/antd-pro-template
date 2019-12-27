@@ -7,8 +7,8 @@ import { EasyHouseSelect } from '@/easy-components/EasySelect';
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
-import { queryBasicDataPerson } from '@/pages/community/basic-data/people/service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { queryBasicDataPerson } from './service';
+import { usePagableFetch } from '@/hooks';
 
 interface CarTableProps {}
 
@@ -22,24 +22,16 @@ const CarTable: FC<CarTableProps> = () => {
       },
     },
     {
-      title: '小区名称',
+      title: '小区',
       dataIndex: 'houseName',
     },
     {
-      title: '车牌',
-      dataIndex: 'content1',
+      title: '车主姓名',
+      dataIndex: 'ownerName',
     },
     {
-      title: '住址',
-      dataIndex: 'address',
-    },
-    {
-      title: '类型',
-      dataIndex: 'type2',
-    },
-    {
-      title: '照片',
-      dataIndex: 'type3',
+      title: '车牌号',
+      dataIndex: 'carCode',
     },
     {
       title: '创建时间',
@@ -48,30 +40,25 @@ const CarTable: FC<CarTableProps> = () => {
   ];
 
   const renderSearchForm = (form: WrappedFormUtils<CarTableSearch>) => [
-    <Col key="houseId" {...GolobalSearchFormLayout}>
+    <Col key="houseKey" {...GolobalSearchFormLayout}>
       <Form.Item label="所属小区">
-        {form.getFieldDecorator('houseId', {
+        {form.getFieldDecorator('houseKey', {
           rules: [],
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="person" {...GolobalSearchFormLayout}>
-      <Form.Item label="人口信息">
-        {form.getFieldDecorator('person', {
+    <Col key="carCode" {...GolobalSearchFormLayout}>
+      <Form.Item label="车牌号码">
+        {form.getFieldDecorator('carCode', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
-    <Col key="type" {...GolobalSearchFormLayout}>
-      <Form.Item label="类型">
-        {form.getFieldDecorator('type', {
+    <Col key="ownerName" {...GolobalSearchFormLayout}>
+      <Form.Item label="车主姓名">
+        {form.getFieldDecorator('ownerName', {
           rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Select.Option value="1">利一家园</Select.Option>
-            <Select.Option value="2">望京</Select.Option>
-          </Select>,
-        )}
+        })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
     <Col key="options" {...GolobalSearchFormLayout}>

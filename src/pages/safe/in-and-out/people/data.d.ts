@@ -12,7 +12,7 @@ interface PersonAccessModal {
 
 interface PersonAccessListItem extends PersonAccessModal {}
 
-interface PersonAccessListParams {
+interface PersonAccessListSearch {
   houseName: string;
   person: string;
 }

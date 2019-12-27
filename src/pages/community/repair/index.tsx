@@ -11,7 +11,7 @@ import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import RepairForm from './components/RepairForm';
 import { queryRepair } from './service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
 
 const { Option } = Select;
 

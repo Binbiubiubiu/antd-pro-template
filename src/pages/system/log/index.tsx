@@ -10,7 +10,7 @@ import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import EasyTable from '@/easy-components/EasyTable';
 import EasySearchForm from '@/easy-components/EasySearchForm';
 import { queryLog } from './service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
 
 interface LogTableListProps extends FormComponentProps {}
 

@@ -21,7 +21,7 @@ export async function editIndustry(data: IndustryTableForm) {
   });
 }
 
-export async function deleteIndustry(data: IndustryTableForm) {
+export async function deleteIndustry(data: { id: number }) {
   return request('/busi/csp/busi/ownerCommittee/delete', {
     method: 'POST',
     data,

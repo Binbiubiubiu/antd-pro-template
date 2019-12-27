@@ -13,12 +13,12 @@ import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import RoleList from './components/RoleList';
 import UserForm from './components/UserForm';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
 
 interface TableListProps extends FormComponentProps<UserTableItem> {}
 
 /**
- *  删除角色
+ *  删除用户
  * @param selectedRows
  * @param cb
  */

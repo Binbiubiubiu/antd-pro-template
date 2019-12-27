@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Button, Card, Col, DatePicker, Form, Input, List, Select } from 'antd';
+import { connect } from 'dva';
 
 import { WrappedFormUtils } from 'antd/es/form/Form';
 import moment from 'moment';
@@ -10,15 +11,19 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { getPersonInOutListPage } from './service';
 import styles from '../style.less';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
+import { ConnectProps } from '@/models/connect';
+import { openImagePreview } from '@/models/image-preview';
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
-interface PeopleAccessListProps {}
+interface PeopleAccessListProps extends ConnectProps {}
 
-const PeopleAccessList: FC<PeopleAccessListProps> = () => {
-  const renderSearchForm = (form: WrappedFormUtils<PersonAccessListParams>) => [
+const PeopleAccessList: FC<PeopleAccessListProps> = props => {
+  const { dispatch } = props;
+
+  const renderSearchForm = (form: WrappedFormUtils<PersonAccessListSearch>) => [
     <Col key="houseKey" {...GolobalSearchFormLayout}>
       <Form.Item label="所属小区">
         {form.getFieldDecorator('houseKey', {
@@ -101,12 +106,14 @@ const PeopleAccessList: FC<PeopleAccessListProps> = () => {
   });
 
   const renderCardItem = (item: PersonAccessListItem) => (
-    <List.Item key={`${item.name}_${item.happenTime}`}>
-      <Card
-        className={styles.card}
-        hoverable
-        cover={<EasyImage style={{ paddingTop: '60%' }} src={item.pic} />}
-      >
+    <List.Item
+      onClick={() => {
+        if (item.pic) {
+          openImagePreview(dispatch, item.pic);
+        }
+      }}
+    >
+      <Card className={styles.card} hoverable cover={<EasyImage rate={0.6} src={item.pic} />}>
         <Card.Meta
           title={<a>{item.name}</a>}
           description={
@@ -157,4 +164,4 @@ const PeopleAccessList: FC<PeopleAccessListProps> = () => {
   );
 };
 
-export default PeopleAccessList;
+export default connect()(PeopleAccessList);

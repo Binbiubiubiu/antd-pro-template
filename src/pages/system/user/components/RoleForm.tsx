@@ -20,6 +20,7 @@ interface RoleFormProps extends FormComponentProps {
 const RoleForm: React.FC<RoleFormProps> = props => {
   const { modalVisible, form, formValue, onSubmit, onCancel } = props;
 
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [checkKeys, setCheckKeys] = useState<string[]>([]);
   const [halfCheckKeys, setHalfCheckKeys] = useState<string[]>([]);
   const [menuData, setMenuData] = useState<MenuTableItem[]>([]);
@@ -50,6 +51,7 @@ const RoleForm: React.FC<RoleFormProps> = props => {
   const okHandle = () => {
     form.validateFields(async (err, fieldsValue) => {
       if (err) return;
+      setConfirmLoading(true);
       const submitData = {
         ...formValue,
         ...fieldsValue,
@@ -63,6 +65,8 @@ const RoleForm: React.FC<RoleFormProps> = props => {
         message.success('操作成功');
       } catch (e) {
         message.error('操作失败');
+      } finally {
+        setConfirmLoading(false);
       }
       onSubmit(submitData);
     });
@@ -135,6 +139,7 @@ const RoleForm: React.FC<RoleFormProps> = props => {
       visible={modalVisible}
       onOk={okHandle}
       onCancel={() => onCancel()}
+      confirmLoading={confirmLoading}
     >
       {renderFormContent()}
     </Modal>

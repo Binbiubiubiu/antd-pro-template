@@ -31,14 +31,16 @@ export function setAuthority(authority: string | string[]): void {
   reloadAuthorized();
 }
 
+const AUTH_TOKEN = 'wtx-csp-token';
+
 export function getToken(): string | null {
-  return localStorage.getItem('wtx-token');
+  return localStorage.getItem(AUTH_TOKEN);
 }
 
 export function setToken(token: string): void {
-  localStorage.setItem('wtx-token', token);
+  localStorage.setItem(AUTH_TOKEN, token);
 }
 
 export function removeToken(): void {
-  localStorage.removeItem('wtx-token');
+  localStorage.removeItem(AUTH_TOKEN);
 }

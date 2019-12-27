@@ -1,11 +1,8 @@
-// import request from '@/utils/request';
-import { getFakeList } from './_mock';
+import request from '@/utils/request';
 
 export async function queryBasicDataPerson(data: Pageable<PeopleTableSearch>) {
-  return Promise.resolve(getFakeList());
-
-  // return request('/api/rule', {
-  // method: 'POST',
-  // data,
-  // });
+  return request('/busi/csp/busi/house/userinfo/list', {
+    method: 'POST',
+    data,
+  });
 }

@@ -1,34 +1,18 @@
-interface VideoModal {
-  avatar: string;
-  name: string;
-  id: string;
+interface PeopleFaceModal {
+  carCode: string;
+  pic: string;
+  houseName: string;
+  ownerName: string;
+  doorName: string;
+  inOut: number;
+  happenTime: string;
+  deviceName: string;
+  remarkDeviceName: string;
 }
 
-interface VideoCardListItem extends VideoModal {
-  id: string;
-  owner: string;
-  title: string;
-  avatar: string;
-  cover: string;
-  status: 'normal' | 'exception' | 'active' | 'success';
-  percent: number;
-  logo: string;
-  href: string;
-  body?: any;
-  updatedAt: number;
-  createdAt: number;
-  subDescription: string;
-  description: string;
-  activeUser: number;
-  newUser: number;
-  star: number;
-  like: number;
-  message: number;
-  content: string;
-  members: VideoModal[];
-}
+interface PeopleFaceListItem extends PeopleFaceModal {}
 
-interface VideoCardListParams {
+interface PeopleFaceListSearch {
   houseName: string;
   person: string;
 }

@@ -1,18 +1,19 @@
 interface VisitorModal {
   id: number;
-  houseName: string;
-  content: string;
-  type: string;
-  state: string;
-  createMan: string;
-  createTime: string;
+  houseKey: string;
+  userName: string;
+  idcard: string;
+  phone: string;
+  interviewee: string;
+  address: string;
+  visitNote: string;
 }
 
-interface VisitorTableItem extends VisitorModal {}
+interface VisitorTableItem extends VisitorModal {
+  createTimeString: string;
+}
 
 interface VisitorTableSearch {
   houseName: string;
-  type: string;
-  createTime: string;
-  content: string;
+  userinfo: string;
 }

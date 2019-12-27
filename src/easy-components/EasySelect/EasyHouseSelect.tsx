@@ -17,8 +17,8 @@ const EasyHouseSelect: FC<EasyHouseSelectProps> = React.forwardRef<Select, EasyH
 
     const fetchOptions = () => {
       getHouseListOfSelector().then(res => {
-        const { data = [] } = res;
-        setOptions(data);
+        const { data } = res;
+        setOptions(data.records || []);
       });
     };
 

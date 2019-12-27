@@ -67,7 +67,7 @@ const IndustryForm: React.FC<IndustryFormProps> = props => {
         rules: [{ required: true, message: '请输入姓名！' }],
       })(<Input placeholder="请输入" />)}
     </FormItem>,
-    <Form.Item label="性别" {...formLayout}>
+    <Form.Item key="sex" label="性别" {...formLayout}>
       {form.getFieldDecorator('sex', {
         initialValue: 'MAN',
       })(

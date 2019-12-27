@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { Button, Card, Col, DatePicker, Form, Input, List, Select } from 'antd';
+import moment from 'moment';
+import { connect } from 'dva';
 
 import { WrappedFormUtils } from 'antd/es/form/Form';
-import moment from 'moment';
 import EasyCardList from '@/easy-components/EasyCardList';
 import { EasyHouseSelect } from '@/easy-components/EasySelect';
 import EasyImage from '@/easy-components/EasyImage';
@@ -10,15 +11,19 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { getCarInOutListPage } from './service';
 import styles from '../style.less';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
+import { ConnectProps } from '@/models/connect';
+import { openImagePreview } from '@/models/image-preview';
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
-interface CarAccessListProps {}
+interface CarAccessListProps extends ConnectProps {}
 
-const CarAccessList: FC<CarAccessListProps> = () => {
-  const renderSearchForm = (form: WrappedFormUtils<CarAccessListParams>) => [
+const CarAccessList: FC<CarAccessListProps> = props => {
+  const { dispatch } = props;
+
+  const renderSearchForm = (form: WrappedFormUtils<CarAccessListSearch>) => [
     <Col key="houseKey" {...GolobalSearchFormLayout}>
       <Form.Item label="所属小区">
         {form.getFieldDecorator('houseKey', {
@@ -26,9 +31,9 @@ const CarAccessList: FC<CarAccessListProps> = () => {
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="name" {...GolobalSearchFormLayout}>
+    <Col key="nameOrCarCode" {...GolobalSearchFormLayout}>
       <Form.Item label="车辆信息">
-        {form.getFieldDecorator('name', {
+        {form.getFieldDecorator('nameOrCarCode', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
@@ -101,12 +106,14 @@ const CarAccessList: FC<CarAccessListProps> = () => {
   });
 
   const renderCardItem = (item: CarAccessListItem) => (
-    <List.Item key={`${item.carCode}_${item.happenTime}`}>
-      <Card
-        className={styles.card}
-        hoverable
-        cover={<EasyImage style={{ paddingTop: '60%' }} src={item.pic} />}
-      >
+    <List.Item
+      onClick={() => {
+        if (item.pic) {
+          openImagePreview(dispatch, item.pic);
+        }
+      }}
+    >
+      <Card className={styles.card} hoverable cover={<EasyImage rate={0.6} src={item.pic} />}>
         <Card.Meta
           title={<a>{item.carCode}</a>}
           description={
@@ -155,4 +162,4 @@ const CarAccessList: FC<CarAccessListProps> = () => {
   );
 };
 
-export default CarAccessList;
+export default connect()(CarAccessList);

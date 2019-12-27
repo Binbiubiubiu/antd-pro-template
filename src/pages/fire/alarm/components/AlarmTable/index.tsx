@@ -4,7 +4,7 @@ import { ColumnProps } from 'antd/es/table';
 import moment from 'moment';
 import EasyTable from '@/easy-components/EasyTable';
 import { queryAlarm } from '@/pages/fire/alarm/service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
 
 interface AlarmTableProps {}
 

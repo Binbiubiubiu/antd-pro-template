@@ -21,6 +21,7 @@ import { ConnectState } from '@/models/connect';
 import { getSysUserAuthList } from '@/services/menu';
 // import {getAuthorityFromRouter} from '@/utils/utils';
 import logo from '../assets/logo.svg';
+import EasyImagePreview from '@/easy-components/EasyImagePreview';
 
 // const noMatch = (
 // <Result
@@ -158,6 +159,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       {/* }) */}
       {/* } */}
       {/* /> */}
+      <EasyImagePreview />
     </>
   );
 };

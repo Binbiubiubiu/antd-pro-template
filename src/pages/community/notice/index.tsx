@@ -12,7 +12,7 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { queryNotice } from './service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
 
 interface NoticeTableProps extends FormComponentProps {}
 

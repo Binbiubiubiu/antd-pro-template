@@ -1,0 +1,35 @@
+.easy-image-preview {
+  position: relative;
+
+  &-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: #fff url('./close-icon.png') no-repeat center/60%;
+    border: 3px solid #1296db;
+    border-radius: 50%;
+    transform: translate3d(50%, -50%, 0);
+    cursor: pointer;
+  }
+
+  img {
+    max-width: 500px;
+    max-height: 450px;
+    object-fit: contain;
+  }
+}

@@ -15,7 +15,7 @@ export interface PagableFetchProps<T, S> {
   initSearchForm?: S;
 }
 
-export function usePagableFetch<T = any, S = any>(props: PagableFetchProps<T, S>) {
+export default function usePagableFetch<T = any, S = any>(props: PagableFetchProps<T, S>) {
   const { request, onSuccess, onError, initCurrent = 1, initPageSize = 10 } = props;
 
   const [searchForm, setSearchForm] = useState<S>({} as S);

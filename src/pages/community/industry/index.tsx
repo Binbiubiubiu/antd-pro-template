@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Col, Divider, Form, Input, Row } from 'antd';
+import { Button, Card, Col, Divider, Form, Input, message, Modal, Row } from 'antd';
 
 import { ColumnProps } from 'antd/es/table';
 import { FormComponentProps } from 'antd/es/form';
@@ -11,14 +11,54 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import IndustryForm from './components/IndustryForm';
-import { queryIndustry } from './service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { deleteIndustry, queryIndustry } from './service';
+import { usePagableFetch } from '@/hooks';
+
+const handleRemove = (selectedRows: IndustryTableItem, cb?: () => void) => {
+  Modal.confirm({
+    title: '提示',
+    content: `是否确认删除该业委会成员：${selectedRows.uesrName}`,
+    okText: '确认',
+    cancelText: '取消',
+    onOk: async () => {
+      try {
+        await deleteIndustry({ id: selectedRows.id });
+        if (cb) {
+          cb.call(null);
+        }
+        message.success('删除成功');
+      } catch (error) {
+        message.error('删除失败');
+      }
+    },
+    onCancel() {},
+  });
+};
 
 interface IndustryTableProps extends FormComponentProps {}
 
 const IndustryTable: React.FC<IndustryTableProps> = () => {
   const [modalVisible, handleModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState<Partial<IndustryTableForm>>({});
+
+  const {
+    loading,
+    tableData,
+    current,
+    pageSize,
+    total,
+    setCurrent,
+    setSearchForm,
+    refreshTable,
+  } = usePagableFetch<IndustryTableItem>({
+    request: ({ searchForm, pageIndex, pageSize: size }) =>
+      queryIndustry({ ...searchForm, pageIndex, pageSize: size }),
+    onSuccess: ({ res, setTableData, setTotal }) => {
+      setTableData(res.data.records);
+      setTotal(res.data.total);
+    },
+    onError: () => {},
+  });
 
   const columns: ColumnProps<IndustryTableItem>[] = [
     {
@@ -75,8 +115,7 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
         <>
           <a
             onClick={() => {
-              handleModalVisible(true);
-              setStepFormValues(record);
+              handleRemove(record, () => refreshTable());
             }}
           >
             删除
@@ -127,24 +166,6 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
     </Col>,
   ];
 
-  const {
-    loading,
-    tableData,
-    current,
-    pageSize,
-    total,
-    setCurrent,
-    setSearchForm,
-  } = usePagableFetch<IndustryTableItem>({
-    request: ({ searchForm, pageIndex, pageSize: size }) =>
-      queryIndustry({ ...searchForm, pageIndex, pageSize: size }),
-    onSuccess: ({ res, setTableData, setTotal }) => {
-      setTableData(res.data.records);
-      setTotal(res.data.total);
-    },
-    onError: () => {},
-  });
-
   return (
     <PageHeaderWrapper>
       <EasySearchForm
@@ -188,11 +209,10 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
       <IndustryForm
         onSubmit={async () => {
           handleModalVisible(false);
-          setStepFormValues({});
+          refreshTable();
         }}
         onCancel={() => {
           handleModalVisible(false);
-          setStepFormValues({});
         }}
         modalVisible={modalVisible}
         formValue={stepFormValues}

@@ -7,27 +7,22 @@
   .card {
     :global {
       .ant-card-meta-title {
-        margin-bottom: 4px;
+        margin-bottom: 12px;
         & > a {
           display: inline-block;
           max-width: 100%;
           color: @heading-color;
         }
       }
-      .ant-card-meta-description {
-        height: 44px;
-        overflow: hidden;
-        line-height: 22px;
-      }
-    }
-
-    &:hover {
-      :global {
+      .ant-card-body:hover {
         .ant-card-meta-title > a {
           color: @primary-color;
         }
       }
     }
+  }
+  .item {
+    height: 64px;
   }
 
   :global {

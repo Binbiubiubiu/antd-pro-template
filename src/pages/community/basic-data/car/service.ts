@@ -1,11 +1,8 @@
-// import request from '@/utils/request';
-import { getFakeList } from './_mock';
+import request from '@/utils/request';
 
 export async function queryBasicDataPerson(data: Pageable<CarTableSearch>) {
-  return Promise.resolve(getFakeList());
-
-  // return request('/api/rule', {
-  // method: 'POST',
-  // data,
-  // });
+  return request('/car/getCarInfoListPage', {
+    method: 'POST',
+    data,
+  });
 }

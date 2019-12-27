@@ -8,7 +8,7 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { queryBasicDataPerson } from '@/pages/community/basic-data/people/service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
 
 interface HouseTableProps {}
 
@@ -22,24 +22,20 @@ const HouseTable: FC<HouseTableProps> = () => {
       },
     },
     {
-      title: '小区名称',
+      title: '楼幢名称',
       dataIndex: 'houseName',
     },
     {
-      title: '姓名',
+      title: '单元名称',
       dataIndex: 'content1',
     },
     {
-      title: '住址',
+      title: '房屋名称',
       dataIndex: 'address',
     },
     {
-      title: '类型',
+      title: '房屋编号',
       dataIndex: 'type2',
-    },
-    {
-      title: '照片',
-      dataIndex: 'type3',
     },
     {
       title: '创建时间',
@@ -48,30 +44,18 @@ const HouseTable: FC<HouseTableProps> = () => {
   ];
 
   const renderSearchForm = (form: WrappedFormUtils<HouseTableSearch>) => [
-    <Col key="houseId" {...GolobalSearchFormLayout}>
+    <Col key="houseKey" {...GolobalSearchFormLayout}>
       <Form.Item label="所属小区">
-        {form.getFieldDecorator('houseId', {
+        {form.getFieldDecorator('houseKey', {
           rules: [],
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="person" {...GolobalSearchFormLayout}>
-      <Form.Item label="人口信息">
-        {form.getFieldDecorator('person', {
+    <Col key="houseinfo" {...GolobalSearchFormLayout}>
+      <Form.Item label="房屋信息">
+        {form.getFieldDecorator('houseinfo', {
           rules: [],
-        })(<Input placeholder="请输入" />)}
-      </Form.Item>
-    </Col>,
-    <Col key="type" {...GolobalSearchFormLayout}>
-      <Form.Item label="类型">
-        {form.getFieldDecorator('type', {
-          rules: [],
-        })(
-          <Select placeholder="请选择">
-            <Select.Option value="1">利一家园</Select.Option>
-            <Select.Option value="2">望京</Select.Option>
-          </Select>,
-        )}
+        })(<Input placeholder="房屋名称" />)}
       </Form.Item>
     </Col>,
     <Col key="options" {...GolobalSearchFormLayout}>

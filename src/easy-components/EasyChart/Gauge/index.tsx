@@ -31,6 +31,20 @@ const defaultFormatter = (val: string): string => {
   }
 };
 
+const getLevel = (val: number): string => {
+  let levelTxt = '';
+  if (val < 40) {
+    levelTxt = '差';
+  } else if (val >= 40 && val < 60) {
+    levelTxt = '中';
+  } else if (val >= 60 && val < 80) {
+    levelTxt = '良';
+  } else if (val >= 80) {
+    levelTxt = '优';
+  }
+  return levelTxt;
+};
+
 if (Shape.registerShape) {
   Shape.registerShape('point', 'pointer', {
     drawShape(cfg: any, group: any) {
@@ -90,7 +104,7 @@ const Gauge: React.FC<GaugeProps> = props => {
   <div style="width: 300px;text-align: center;font-size: 12px!important;">
     <div style="font-size: 14px; color: rgba(0,0,0,0.43);margin: 0;">${title}</div>
     <div style="font-size: 24px;color: rgba(0,0,0,0.85);margin: 0;">
-      ${(data[0].value * 10).toFixed(2)}%
+      ${getLevel(percent)}
     </div>
   </div>`;
 

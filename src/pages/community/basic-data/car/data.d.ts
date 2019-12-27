@@ -11,6 +11,7 @@ interface CarModal {
 interface CarTableItem extends CarModal {}
 
 interface CarTableSearch {
-  houseName: string;
-  person: string;
+  houseKey: string;
+  carCode: string;
+  ownerName: string;
 }

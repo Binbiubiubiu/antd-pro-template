@@ -11,7 +11,8 @@ import EasySearchForm from '@/easy-components/EasySearchForm';
 import EasyTable from '@/easy-components/EasyTable';
 import { GolobalSearchFormLayout } from '@/easy-components/GlobalSetting';
 import { queryVisitor } from './service';
-import { usePagableFetch } from '@/hooks/usePagableFetch';
+import { usePagableFetch } from '@/hooks';
+import EasyImage from '@/easy-components/EasyImage';
 
 interface VisitorTableProps extends FormComponentProps {}
 
@@ -30,45 +31,51 @@ const VisitorTable: React.FC<VisitorTableProps> = () => {
     },
     {
       title: '访客姓名',
-      dataIndex: 'content',
+      dataIndex: 'userName',
     },
     {
       title: '身份证',
-      dataIndex: 'type',
+      dataIndex: 'idcard',
     },
     {
       title: '手机号',
-      dataIndex: 'state',
+      dataIndex: 'phone',
     },
     {
       title: '被访者',
-      dataIndex: 'createMan',
+      dataIndex: 'interviewee',
     },
     {
       title: '访问地址',
-      dataIndex: 'createTime2',
+      dataIndex: 'address',
     },
     {
       title: '来访事由',
-      dataIndex: 'createTime',
+      dataIndex: 'visitNote',
     },
     {
       title: '抓拍',
-      dataIndex: 'createTime3',
+      dataIndex: 'photo',
+      width: 150,
+      render: text => <EasyImage src={text} />,
+    },
+    {
+      title: '访问时间',
+      dataIndex: 'createTimeString',
     },
   ];
 
   const renderSearchForm = (form: WrappedFormUtils<VisitorTableSearch>) => [
-    <Col key="houseId" {...GolobalSearchFormLayout}>
+    <Col key="houseKey" {...GolobalSearchFormLayout}>
       <Form.Item label="所属小区">
-        {form.getFieldDecorator('houseId', {
+        {form.getFieldDecorator('houseKey', {
           rules: [],
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="content" {...GolobalSearchFormLayout}>
+    <Col key="userinfo" {...GolobalSearchFormLayout}>
       <Form.Item label="访客信息">
-        {form.getFieldDecorator('content', {
+        {form.getFieldDecorator('userinfo', {
           rules: [],
         })(<Input placeholder="姓名/手机号" />)}
       </Form.Item>

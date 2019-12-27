@@ -1,16 +1,16 @@
 interface HouseModal {
   id: number;
+  houseCode: string;
+}
+
+interface HouseTableItem extends HouseModal {
+  buildName: string;
+  unitName: string;
   houseName: string;
-  content: string;
-  type: string;
-  state: string;
-  createMan: string;
   createTime: string;
 }
 
-interface HouseTableItem extends HouseModal {}
-
 interface HouseTableSearch {
-  houseName: string;
-  person: string;
+  houseKey: string;
+  houseinfo: string;
 }

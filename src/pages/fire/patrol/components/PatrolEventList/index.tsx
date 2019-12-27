@@ -1,13 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Avatar, Card, List } from 'antd';
 
 import moment from 'moment';
 import { getPatrolEvent } from '@/pages/fire/patrol/_mock';
-import styles from '../../style.less';
+import styles from './style.less';
+import { PatrolPageContext } from '../..';
 
 interface PatrolEventListProps {}
 
 const PatrolEventList: FC<PatrolEventListProps> = () => {
+  const housekey = useContext<string>(PatrolPageContext);
+
   const renderActivities = (item: any) => (
     // const events = item.template.split(/@\{([^{}]*)\}/gi).map((key: React.ReactText) => {
     //   if (item[key]) {
@@ -51,4 +54,4 @@ const PatrolEventList: FC<PatrolEventListProps> = () => {
   );
 };
 
-export default PatrolEventList;
+export default React.memo(PatrolEventList);
