@@ -42,12 +42,30 @@ const PeopleTable: FC<PeopleTableProps> = props => {
       title: '性别',
       dataIndex: 'sex',
       render(text) {
-        return text === 'MAN' ? '男' : '女';
+        return (
+          {
+            MAN: '男',
+            WOMAN: '女',
+          }[text] || ''
+        );
       },
     },
     {
       title: '学历',
       dataIndex: 'education',
+      render(text) {
+        return (
+          {
+            juniorHigh: '初中及以下',
+            secondary: '中专/中技',
+            seniorHigh: '高中',
+            juniorCollege: '大专',
+            undergraduate: '本科',
+            master: '硕士',
+            doctor: '博士',
+          }[text] || ''
+        );
+      },
     },
     {
       title: '身份证',
@@ -65,7 +83,10 @@ const PeopleTable: FC<PeopleTableProps> = props => {
       title: '类型',
       dataIndex: 'householdType',
       render(text) {
-        return text === 'owner' ? '业主' : '租户';
+        return {
+          owner: '业主',
+          lessee: '租户',
+        }[text];
       },
     },
     {

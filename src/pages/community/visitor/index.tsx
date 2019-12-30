@@ -10,7 +10,6 @@ import {
   EasyHouseSelect,
   EasySearchForm,
   EasyTable,
-  EasyImage,
   GolobalSearchFormLayout,
 } from '@/easy-components';
 
@@ -56,12 +55,6 @@ const VisitorTable: React.FC<VisitorTableProps> = () => {
     {
       title: '来访事由',
       dataIndex: 'visitNote',
-    },
-    {
-      title: '抓拍',
-      dataIndex: 'photo',
-      width: 150,
-      render: text => <EasyImage src={text} />,
     },
     {
       title: '访问时间',

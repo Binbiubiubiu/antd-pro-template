@@ -84,7 +84,12 @@ const IndustryTable: React.FC<IndustryTableProps> = () => {
       title: '性别',
       dataIndex: 'sex',
       render(text) {
-        return text === 'MAN' ? '男' : '女';
+        return (
+          {
+            MAN: '男',
+            WOMAN: '女',
+          }[text] || ''
+        );
       },
     },
     {

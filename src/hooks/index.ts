@@ -1,2 +1,2 @@
-export { default as useFetchImageUrl } from './useFetchImageUrl';
+export * from './useFetchImage';
 export { default as usePagableFetch } from './usePagableFetch';

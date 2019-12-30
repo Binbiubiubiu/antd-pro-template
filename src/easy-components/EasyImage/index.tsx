@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import cls from 'classnames';
 import styles from './style.less';
-import { useFetchImageUrl } from '@/hooks';
+// import Image404 from '@/assets/img_404.jpg';
+import Image500 from '@/assets/img_500.jpg';
 
 interface EasyImageProps {
   src: string;
@@ -18,11 +19,32 @@ interface EasyImageProps {
 const EasyImage: FC<EasyImageProps> = props => {
   const { src, rate, className, style, ...rest } = props;
 
-  const [httpSrc] = useFetchImageUrl({ uri: src });
+  const [err, setErr] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!src) return;
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      setErr(false);
+    };
+    img.onerror = () => {
+      setErr(true);
+    };
+  }, [src]);
+
+  // 初次渲染不显示暂无图片
+  // if( !src){
+  //   return <img alt="暂无图片" src={Image404}/>;
+  // }
+
+  if (err) {
+    return <img alt="加载失败" src={Image500} />;
+  }
 
   if (rate) {
     const computedStyle = Object.assign(
-      { backgroundImage: `url(${httpSrc})`, paddingTop: `${rate! * 100}%` },
+      { backgroundImage: `url(${src})`, paddingTop: `${rate! * 100}%` },
       style,
     );
 
@@ -35,7 +57,7 @@ const EasyImage: FC<EasyImageProps> = props => {
     );
   }
 
-  return <img alt={src} src={httpSrc} />;
+  return <img alt={src} src={src} />;
 };
 
-export default EasyImage;
+export default React.memo(EasyImage);

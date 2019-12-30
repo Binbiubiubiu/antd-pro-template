@@ -13,12 +13,12 @@ import {
 } from '@/easy-components';
 import { getCarInOutListPage } from './service';
 
-import { usePagableFetch } from '@/hooks';
 import { ConnectProps } from '@/models/connect';
 import { openImagePreview } from '@/models/image-preview';
 import { CarAccessListItem, CarAccessListSearch } from './data.d';
 
 import styles from '../style.less';
+import { useFetchImageList, usePagableFetch } from '@/hooks';
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -86,6 +86,8 @@ const CarAccessList: FC<CarAccessListProps> = props => {
     </Col>,
   ];
 
+  const [imgUrls, fetchImageUrl] = useFetchImageList([]);
+
   const {
     loading,
     tableData,
@@ -104,13 +106,15 @@ const CarAccessList: FC<CarAccessListProps> = props => {
       return getCarInOutListPage({ startTime, endTime, pageIndex, pageSize: size, ...rest });
     },
     onSuccess: ({ res, setTableData, setTotal }) => {
-      setTableData(res.data.records);
+      const arr: CarAccessListItem[] = res.data.records;
+      setTableData(arr);
+      fetchImageUrl(arr.map(item => item.pic));
       setTotal(res.data.total);
     },
     onError: () => {},
   });
 
-  const renderCardItem = (item: CarAccessListItem) => (
+  const renderCardItem = (item: CarAccessListItem, i: number) => (
     <List.Item
       onClick={() => {
         if (item.pic) {
@@ -118,7 +122,7 @@ const CarAccessList: FC<CarAccessListProps> = props => {
         }
       }}
     >
-      <Card className={styles.card} hoverable cover={<EasyImage rate={0.6} src={item.pic} />}>
+      <Card className={styles.card} hoverable cover={<EasyImage rate={0.6} src={imgUrls[i]} />}>
         <Card.Meta
           title={<a>{item.carCode}</a>}
           description={

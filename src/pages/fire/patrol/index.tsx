@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react';
-import { Card, Col, Row, Statistic } from 'antd';
+import { Card, Col, Row } from 'antd';
 import { GridContent, PageHeaderWrapper } from '@ant-design/pro-layout';
 
 import { RouterTypes } from 'umi';
-import numeral from 'numeral';
 import { EasyHouseSelect, Gauge, WaterWave } from '@/easy-components';
 import PatrolEventList from './components/PatrolEventList';
 import PatrolTable from './components/PatrolTable';
@@ -23,11 +22,13 @@ const Patrol: FC<PatrolProps> = props => {
       <div className={styles['house-select']}>
         <span>所属小区：</span>
         <EasyHouseSelect
+          value=""
           onChange={val => {
             setHouseKey(val as string);
           }}
           style={{ width: 180 }}
           placeholder="请选择"
+          hasAll
         />
       </div>
     </Row>
@@ -49,30 +50,6 @@ const Patrol: FC<PatrolProps> = props => {
                   marginBottom: 24,
                 }}
               >
-                <Card bordered={false} style={{ marginBottom: 24 }}>
-                  <Row>
-                    <Col md={6} sm={12} xs={24}>
-                      <Statistic
-                        title="今日交易总额"
-                        suffix="元"
-                        value={numeral(124543233).format('0,0')}
-                      />
-                    </Col>
-                    <Col md={6} sm={12} xs={24}>
-                      <Statistic title="销售目标完成率" value="92%" />
-                    </Col>
-                    <Col md={6} sm={12} xs={24}>
-                      <Statistic title="销售目标完成率" value="92%" />
-                    </Col>
-                    <Col md={6} sm={12} xs={24}>
-                      <Statistic
-                        title="每秒交易总额"
-                        suffix="元"
-                        value={numeral(234).format('0,0')}
-                      />
-                    </Col>
-                  </Row>
-                </Card>
                 <PatrolTable />
                 <PatrolEventList />
               </Col>

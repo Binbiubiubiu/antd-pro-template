@@ -2,7 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { Select } from 'antd';
 import { SelectProps } from 'antd/es/select';
-import { getSysCodeList } from '@/easy-components/EasySelect/service';
+import { getSysCodeList } from './service';
+import { EasySelectDefaultProps, EasySelectProps } from '.';
 
 interface HouseSceneOption {
   code: string;
@@ -13,13 +14,13 @@ enum EasySceneSelectType {
   VIDEO = 4,
 }
 
-interface EasySceneSelectProps extends SelectProps {
+interface EasySceneSelectProps extends SelectProps, EasySelectProps {
   type?: EasySceneSelectType;
 }
 
 const EasySceneSelect: FC<EasySceneSelectProps> = React.forwardRef<Select, EasySceneSelectProps>(
   (props, ref) => {
-    const { type } = props;
+    const { type, hasAll, ...rest } = props;
 
     const [options, setOptions] = useState<HouseSceneOption[]>([]);
 
@@ -37,7 +38,8 @@ const EasySceneSelect: FC<EasySceneSelectProps> = React.forwardRef<Select, EasyS
     }, []);
 
     return (
-      <Select {...props} ref={ref}>
+      <Select {...rest} ref={ref}>
+        {hasAll && <Select.Option value="">全部</Select.Option>}
         {options.map(({ code, name }) => (
           <Select.Option value={code} key={`${name}:${code}`}>
             {name}
@@ -49,6 +51,7 @@ const EasySceneSelect: FC<EasySceneSelectProps> = React.forwardRef<Select, EasyS
 );
 
 EasySceneSelect.defaultProps = {
+  ...EasySelectDefaultProps,
   type: EasySceneSelectType.VIDEO,
 };
 

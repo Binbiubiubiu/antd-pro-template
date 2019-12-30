@@ -62,22 +62,22 @@ const VillageTable: React.FC<VillageTableProps> = () => {
   ];
 
   const renderSearchForm = (form: WrappedFormUtils<VillageTableSearch>) => [
-    <Col {...GolobalSearchFormLayout}>
-      <Form.Item key="houseKey" label="所属小区">
+    <Col {...GolobalSearchFormLayout} key="houseKey">
+      <Form.Item label="所属小区">
         {form.getFieldDecorator('houseKey', {
           rules: [],
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col {...GolobalSearchFormLayout}>
-      <Form.Item key="userinfo" label="人员信息">
+    <Col {...GolobalSearchFormLayout} key="userinfo">
+      <Form.Item label="人员信息">
         {form.getFieldDecorator('userinfo', {
           rules: [],
         })(<Input placeholder="负责人/联系方式" />)}
       </Form.Item>
     </Col>,
-    <Col {...GolobalSearchFormLayout}>
-      <Form.Item key="options">
+    <Col {...GolobalSearchFormLayout} key="options">
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           查询
         </Button>

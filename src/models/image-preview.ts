@@ -3,6 +3,7 @@ import { Dispatch } from 'dva';
 
 export interface ImagePreviewModelState {
   url: string;
+  isLocal: boolean;
 }
 
 export interface ImagePreviewModalType {
@@ -21,21 +22,27 @@ const ImagePreviewModel: ImagePreviewModalType = {
 
   state: {
     url: '',
+    isLocal: false, // 是否是本地图片
   },
 
   effects: {},
 
   reducers: {
-    open(state: ImagePreviewModelState = { url: '' }, { payload }: any): ImagePreviewModelState {
+    open(
+      state: ImagePreviewModelState = { url: '', isLocal: true },
+      { payload }: any,
+    ): ImagePreviewModelState {
       return {
         ...state,
         url: payload.url,
+        isLocal: !!payload.isLocal,
       };
     },
-    hide(state: ImagePreviewModelState = { url: '' }, { payload }: any): ImagePreviewModelState {
+    hide(state: ImagePreviewModelState = { url: '', isLocal: true }): ImagePreviewModelState {
       return {
         ...state,
         url: '',
+        isLocal: false,
       };
     },
   },
@@ -45,6 +52,10 @@ const ImagePreviewModel: ImagePreviewModalType = {
 
 export const openImagePreview = (dispatch: Dispatch<AnyAction>, url: string) => {
   dispatch({ type: 'imagePreview/open', payload: { url } });
+};
+
+export const openLocaleImagePreview = (dispatch: Dispatch<AnyAction>, url: string) => {
+  dispatch({ type: 'imagePreview/open', payload: { url, isLocal: true } });
 };
 export const hideImagePreview = (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: 'imagePreview/hide' });

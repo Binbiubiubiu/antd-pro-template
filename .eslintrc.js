@@ -7,5 +7,6 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unused-vars': 0,
     'jsx-a11y/media-has-caption': 0,
+    'global-require': 0,
   },
 };

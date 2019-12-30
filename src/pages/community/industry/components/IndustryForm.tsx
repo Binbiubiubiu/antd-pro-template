@@ -59,8 +59,8 @@ const IndustryForm: React.FC<IndustryFormProps> = props => {
     <FormItem key="houseKey" label="小区名称" {...formLayout}>
       {form.getFieldDecorator('houseKey', {
         initialValue: formValue.houseKey,
-        rules: [{ required: true, message: '请选择小区名称！' }],
-      })(<EasyHouseSelect placeholder="请选择" style={{ width: '100%' }} />)}
+        rules: [{ required: !isUpdate, message: '请选择小区名称！' }],
+      })(<EasyHouseSelect disabled={isUpdate} placeholder="请选择" style={{ width: '100%' }} />)}
     </FormItem>,
     <FormItem key="uesrName" label="姓名" {...formLayout}>
       {form.getFieldDecorator('uesrName', {
@@ -70,7 +70,7 @@ const IndustryForm: React.FC<IndustryFormProps> = props => {
     </FormItem>,
     <Form.Item key="sex" label="性别" {...formLayout}>
       {form.getFieldDecorator('sex', {
-        initialValue: 'MAN',
+        initialValue: formValue.sex || 'MAN',
       })(
         <Radio.Group>
           <Radio value="MAN">男</Radio>

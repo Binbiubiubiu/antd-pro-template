@@ -16,7 +16,7 @@ import {
 import { queryVideos } from './service';
 
 import { usePagableFetch } from '@/hooks';
-import { openImagePreview } from '@/models/image-preview';
+import { openLocaleImagePreview } from '@/models/image-preview';
 import { PeopleFaceListItem, PeopleFaceListSearch } from './data.d';
 
 import styles from './style.less';
@@ -37,34 +37,28 @@ const FaceCardList: FC<FaceCardListProps> = props => {
       </Form.Item>
     </Col>,
     <Col key="scene" {...GolobalSearchFormLayout}>
-      <Form.Item key="scene" label="场景选择">
+      <Form.Item key="scene" label="抓拍点位">
         {form.getFieldDecorator('scene', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
     </Col>,
     <Col key="timeRange" {...{ md: 18, xl: 12, xxl: 9 }}>
-      <Form.Item label="日期范围">
+      <Form.Item label="抓拍时间">
         {form.getFieldDecorator('timeRange', {
           rules: [],
         })(
           <RangePicker
             allowClear={false}
-            showTime={false}
-            format="YYYY-MM-DD"
+            showTime={{ format: 'HH:mm:ss' }}
+            format="YYYY-MM-DD HH:mm:ss"
             style={{ width: '100%' }}
+            placeholder={['开始时间', '结束时间']}
           />,
         )}
       </Form.Item>
     </Col>,
-    <Col key="type" {...GolobalSearchFormLayout}>
-      <Form.Item key="type" label="设备信息">
-        {form.getFieldDecorator('type', {
-          rules: [],
-        })(<Input placeholder="请输入" />)}
-      </Form.Item>
-    </Col>,
-    <Col key="options" {...GolobalSearchFormLayout}>
+    <Col key="options" {...GolobalSearchFormLayout} xxl={3}>
       <Form.Item key="options">
         <Button type="primary" htmlType="submit">
           搜索
@@ -98,7 +92,7 @@ const FaceCardList: FC<FaceCardListProps> = props => {
     <List.Item
       onClick={() => {
         if (item.pic) {
-          openImagePreview(dispatch, item.pic);
+          openLocaleImagePreview(dispatch, item.pic);
         }
       }}
     >
@@ -108,12 +102,6 @@ const FaceCardList: FC<FaceCardListProps> = props => {
           description={
             <>
               所属小区：{item.houseName}
-              <br />
-              车主：{item.ownerName}
-              <br />
-              抓拍地点：{item.doorName}
-              <br />
-              通行情况：{item.inOut ? '出' : '进'}
               <br />
               抓拍时间：{moment(item.happenTime).format('YYYY-MM-DD HH:mm:ss')}
             </>

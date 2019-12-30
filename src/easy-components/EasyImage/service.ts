@@ -6,3 +6,10 @@ export async function getUrlByUri(data: { uri: string }) {
     data,
   });
 }
+
+export async function getUrlByUriBatch(data: string[]) {
+  return request('/sys/iscSysCommon/getUrlByUriBatch', {
+    method: 'POST',
+    data,
+  });
+}

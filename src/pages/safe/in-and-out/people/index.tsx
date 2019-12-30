@@ -13,7 +13,7 @@ import {
   GolobalSearchFormLayout,
 } from '@/easy-components';
 import { getPersonInOutListPage } from './service';
-import { usePagableFetch } from '@/hooks';
+import { useFetchImageList, usePagableFetch } from '@/hooks';
 import { ConnectProps } from '@/models/connect';
 import { openImagePreview } from '@/models/image-preview';
 import styles from '../style.less';
@@ -85,6 +85,8 @@ const PeopleAccessList: FC<PeopleAccessListProps> = props => {
     </Col>,
   ];
 
+  const [imgUrls, fetchImageUrl] = useFetchImageList([]);
+
   const {
     loading,
     tableData,
@@ -103,13 +105,15 @@ const PeopleAccessList: FC<PeopleAccessListProps> = props => {
       return getPersonInOutListPage({ startTime, endTime, pageIndex, pageSize: size, ...rest });
     },
     onSuccess: ({ res, setTableData, setTotal }) => {
-      setTableData(res.data.records);
+      const arr: PersonAccessListItem[] = res.data.records;
+      setTableData(arr);
+      fetchImageUrl(arr.map(item => item.pic));
       setTotal(res.data.total);
     },
     onError: () => {},
   });
 
-  const renderCardItem = (item: PersonAccessListItem) => (
+  const renderCardItem = (item: PersonAccessListItem, i: number) => (
     <List.Item
       onClick={() => {
         if (item.pic) {
@@ -117,7 +121,7 @@ const PeopleAccessList: FC<PeopleAccessListProps> = props => {
         }
       }}
     >
-      <Card className={styles.card} hoverable cover={<EasyImage rate={0.6} src={item.pic} />}>
+      <Card className={styles.card} hoverable cover={<EasyImage rate={0.6} src={imgUrls[i]} />}>
         <Card.Meta
           title={<a>{item.name}</a>}
           description={
