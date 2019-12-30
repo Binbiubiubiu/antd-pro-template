@@ -1,18 +1,18 @@
 export interface PeopleFaceModal {
-  carCode: string;
-  pic: string;
-  houseName: string;
-  ownerName: string;
-  doorName: string;
-  inOut: number;
-  happenTime: string;
-  deviceName: string;
-  remarkDeviceName: string;
+  id: number;
+  houseKey: string;
+  place: string;
+  photo: string;
+  faceTime: string;
 }
 
-export interface PeopleFaceListItem extends PeopleFaceModal {}
+export interface PeopleFaceListItem extends PeopleFaceModal {
+  houseName: string;
+}
 
 export interface PeopleFaceListSearch {
-  houseName: string;
-  person: string;
+  houseKey: string;
+  place: string;
+  start: string;
+  end: string;
 }

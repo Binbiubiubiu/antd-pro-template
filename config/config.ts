@@ -478,8 +478,8 @@ export default {
   proxy: {
     '/csp': {
       // target: `http://192.168.1.142:8080`, // 高阔ip
-      // target: `http://192.168.1.109:8080`,
-      target: `http://192.168.1.128:8080`,
+      target: `http://192.168.1.109:8080`,
+      // target: `http://192.168.1.128:8080`,
       changeOrigin: true, // pathRewrite: { '^/isc': '/isc' },
     },
   },

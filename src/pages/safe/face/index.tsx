@@ -13,10 +13,10 @@ import {
   EasySearchForm,
   GolobalSearchFormLayout,
 } from '@/easy-components';
-import { queryVideos } from './service';
+import { queryFaceLog } from './service';
 
-import { usePagableFetch } from '@/hooks';
-import { openLocaleImagePreview } from '@/models/image-preview';
+import { useFetchImageList, usePagableFetch } from '@/hooks';
+import { openImagePreview } from '@/models/image-preview';
 import { PeopleFaceListItem, PeopleFaceListSearch } from './data.d';
 
 import styles from './style.less';
@@ -29,16 +29,16 @@ const FaceCardList: FC<FaceCardListProps> = props => {
   const { dispatch } = props;
 
   const renderSearchForm = (form: WrappedFormUtils<PeopleFaceListSearch>) => [
-    <Col key="houseId" {...GolobalSearchFormLayout}>
-      <Form.Item key="houseId" label="所属小区">
-        {form.getFieldDecorator('houseId', {
+    <Col key="houseKey" {...GolobalSearchFormLayout}>
+      <Form.Item label="所属小区">
+        {form.getFieldDecorator('houseKey', {
           rules: [],
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="scene" {...GolobalSearchFormLayout}>
-      <Form.Item key="scene" label="抓拍点位">
-        {form.getFieldDecorator('scene', {
+    <Col key="place" {...GolobalSearchFormLayout}>
+      <Form.Item label="抓拍点位">
+        {form.getFieldDecorator('place', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
@@ -75,35 +75,44 @@ const FaceCardList: FC<FaceCardListProps> = props => {
     </Col>,
   ];
 
+  const [imgUrls, fetchImageUrl] = useFetchImageList([]);
+
   const { tableData, current, pageSize, total, setCurrent, setSearchForm } = usePagableFetch<
     PeopleFaceListItem
   >({
     initPageSize: 8,
-    request: ({ searchForm, pageIndex, pageSize: size }) =>
-      queryVideos({ ...searchForm, pageIndex, pageSize: size }),
+    request: ({ searchForm, pageIndex, pageSize: size }) => {
+      const { timeRange, ...rest } = searchForm;
+
+      const start = timeRange ? moment(timeRange[0]).format('YYYY-MM-DD HH:mm:ss') : undefined;
+      const end = timeRange ? moment(timeRange[1]).format('YYYY-MM-DD HH:mm:ss') : undefined;
+      return queryFaceLog({ pageIndex, pageSize: size, start, end, ...rest });
+    },
     onSuccess: ({ res, setTableData, setTotal }) => {
-      setTableData(res);
-      setTotal(res.length);
+      const arr: PeopleFaceListItem[] = res.data.records;
+      setTableData(arr);
+      fetchImageUrl(arr.map(item => item.photo));
+      setTotal(res.data.total);
     },
     onError: () => {},
   });
 
-  const renderCardItem = (item: PeopleFaceListItem) => (
+  const renderCardItem = (item: PeopleFaceListItem, i: number) => (
     <List.Item
       onClick={() => {
-        if (item.pic) {
-          openLocaleImagePreview(dispatch, item.pic);
+        if (item.photo) {
+          openImagePreview(dispatch, item.photo);
         }
       }}
     >
-      <Card className={styles.card} hoverable cover={<EasyImage rate={0.6} src={item.pic} />}>
+      <Card className={styles.card} hoverable cover={<EasyImage rate={0.6} src={imgUrls[i]} />}>
         <Card.Meta
-          title={<a>{item.carCode}</a>}
+          title={<a>{item.place}</a>}
           description={
             <>
               所属小区：{item.houseName}
               <br />
-              抓拍时间：{moment(item.happenTime).format('YYYY-MM-DD HH:mm:ss')}
+              抓拍时间：{moment(item.faceTime).format('YYYY-MM-DD HH:mm:ss')}
             </>
           }
         />
