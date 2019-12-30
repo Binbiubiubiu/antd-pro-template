@@ -4,7 +4,6 @@ import { ConnectProps, ConnectState } from '@/models/connect';
 import styles from './style.less';
 import { hideImagePreview } from '@/models/image-preview';
 import { useFetchImage } from '@/hooks';
-import Image500 from '@/assets/img_500.png';
 
 interface EasyImagePreviewProps extends ConnectProps {
   src: string;
@@ -22,7 +21,7 @@ const EasyImagePreview: FC<EasyImagePreviewProps> = props => {
 
   const notFind: ReactEventHandler<HTMLImageElement> = e => {
     const img = e.target as HTMLImageElement;
-    img.src = Image500;
+    img.src = require('@/assets/img_500.jpg');
     img.width = 285;
     img.height = 178;
     img.onerror = null;
