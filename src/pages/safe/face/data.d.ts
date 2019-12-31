@@ -1,9 +1,10 @@
 export interface PeopleFaceModal {
   id: number;
   houseKey: string;
-  place: string;
-  photo: string;
-  faceTime: string;
+  devicePosition: string;
+  pic: string;
+  happenTime: string;
+  remarkDeviceName: string;
 }
 
 export interface PeopleFaceListItem extends PeopleFaceModal {

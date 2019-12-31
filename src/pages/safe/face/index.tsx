@@ -36,9 +36,9 @@ const FaceCardList: FC<FaceCardListProps> = props => {
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="place" {...GolobalSearchFormLayout}>
+    <Col key="devicePosition" {...GolobalSearchFormLayout}>
       <Form.Item label="抓拍点位">
-        {form.getFieldDecorator('place', {
+        {form.getFieldDecorator('devicePosition', {
           rules: [],
         })(<Input placeholder="请输入" />)}
       </Form.Item>
@@ -84,14 +84,14 @@ const FaceCardList: FC<FaceCardListProps> = props => {
     request: ({ searchForm, pageIndex, pageSize: size }) => {
       const { timeRange, ...rest } = searchForm;
 
-      const start = timeRange ? moment(timeRange[0]).format('YYYY-MM-DD HH:mm:ss') : undefined;
-      const end = timeRange ? moment(timeRange[1]).format('YYYY-MM-DD HH:mm:ss') : undefined;
-      return queryFaceLog({ pageIndex, pageSize: size, start, end, ...rest });
+      const startTime = timeRange ? moment(timeRange[0]).format('YYYY-MM-DD HH:mm:ss') : undefined;
+      const endTime = timeRange ? moment(timeRange[1]).format('YYYY-MM-DD HH:mm:ss') : undefined;
+      return queryFaceLog({ pageIndex, pageSize: size, startTime, endTime, ...rest });
     },
     onSuccess: ({ res, setTableData, setTotal }) => {
       const arr: PeopleFaceListItem[] = res.data.records;
       setTableData(arr);
-      fetchImageUrl(arr.map(item => item.photo));
+      fetchImageUrl(arr.map(item => item.pic));
       setTotal(res.data.total);
     },
     onError: () => {},
@@ -100,19 +100,19 @@ const FaceCardList: FC<FaceCardListProps> = props => {
   const renderCardItem = (item: PeopleFaceListItem, i: number) => (
     <List.Item
       onClick={() => {
-        if (item.photo) {
-          openImagePreview(dispatch, item.photo);
+        if (item.pic) {
+          openImagePreview(dispatch, item.pic);
         }
       }}
     >
       <Card className={styles.card} hoverable cover={<EasyImage rate={0.6} src={imgUrls[i]} />}>
         <Card.Meta
-          title={<a>{item.place}</a>}
+          title={<a>{item.devicePosition}</a>}
           description={
             <>
               所属小区：{item.houseName}
               <br />
-              抓拍时间：{moment(item.faceTime).format('YYYY-MM-DD HH:mm:ss')}
+              抓拍时间：{moment(item.happenTime).format('YYYY-MM-DD HH:mm:ss')}
             </>
           }
         />
