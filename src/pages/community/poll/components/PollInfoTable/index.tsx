@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useState } from 'react';
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
 import { Table } from 'antd';
 import { PaginationConfig } from 'antd/lib/pagination';
 import { SorterResult } from 'antd/lib/table/interface';
@@ -53,7 +53,7 @@ const PollInfoTable: FC<PollInfoTableProps> = props => {
       case 'descend':
       case 'ascend':
         setTableData(
-          _.orderBy<PollInfoTableItem[]>(
+          orderBy<PollInfoTableItem[]>(
             dataSource,
             [fieldName],
             [sorter.order.replace('end', '') as 'asc' | 'desc'],
@@ -87,7 +87,7 @@ const PollInfoTable: FC<PollInfoTableProps> = props => {
           </tbody>
         </table>
       )}
-      onChange={handleTableChange}
+      onChange={handleTableChange as any}
     />
   );
 };

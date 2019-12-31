@@ -12,6 +12,7 @@ import {
 import { queryBasicDataPerson } from './service';
 import { usePagableFetch } from '@/hooks';
 import { HouseTableItem, HouseTableSearch } from './data.d';
+import moment from 'moment';
 
 interface HouseTableProps {}
 
@@ -30,19 +31,22 @@ const HouseTable: FC<HouseTableProps> = () => {
     },
     {
       title: '单元名称',
-      dataIndex: 'content1',
+      dataIndex: 'unitName',
     },
     {
       title: '房屋名称',
-      dataIndex: 'address',
+      dataIndex: 'roomName',
     },
     {
       title: '房屋编号',
-      dataIndex: 'type2',
+      dataIndex: 'roomNumber',
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
+      render(text) {
+        return moment(text).format('YYYY-MM-DD HH:mm:ss');
+      },
     },
   ];
 
@@ -54,9 +58,9 @@ const HouseTable: FC<HouseTableProps> = () => {
         })(<EasyHouseSelect placeholder="请选择" />)}
       </Form.Item>
     </Col>,
-    <Col key="houseinfo" {...GolobalSearchFormLayout}>
+    <Col key="roomName" {...GolobalSearchFormLayout}>
       <Form.Item label="房屋信息">
-        {form.getFieldDecorator('houseinfo', {
+        {form.getFieldDecorator('roomName', {
           rules: [],
         })(<Input placeholder="房屋名称" />)}
       </Form.Item>
