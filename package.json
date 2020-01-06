@@ -114,7 +114,6 @@
     "jest-puppeteer": "^4.2.0",
     "jsdom-global": "^3.0.2",
     "lint-staged": "^9.0.0",
-    "mockjs": "^1.0.1-beta3",
     "node-fetch": "^2.6.0",
     "prettier": "^1.19.1",
     "pro-download": "1.0.1",
